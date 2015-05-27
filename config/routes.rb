@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created has highest priority.
-  # See how all your routes lay out with 'rake routes'. Read more: http://guides.rubyonrails.org/routing.html
+  # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
+
+  mount_devise_token_auth_for "User", at: "api/auth"
 
   namespace :api do
+    match "auth/:provider/callback" => "sessions#create", via: :all
+
     resources :availabilities, except: [:new, :edit]
     resources :bookings, except: [:new, :edit] do
-      post 'confirm', to: 'bookings#confirm', as: 'confirm'
+      post "confirm", to: "bookings#confirm", as: "confirm"
     end
     resources :bookings, except: [:new, :edit]
     resources :coaches, only: [:index] do
-      get 'schedule', to: "coaches#schedule", as: "coach_schedule"
+      get "schedule", to: "coaches#schedule", as: "coach_schedule"
     end
     resources :exercise_plans, except: [:new, :edit]
     resources :exercise_plan_logs, except: [:new, :edit]
@@ -35,8 +39,6 @@ Rails.application.routes.draw do
     post "users/:id/location", to: "locations#create", as: "create_user_location"
     put "users/:id/location", to: "locations#update", as: "update_user_location"
   end
-
-  mount_devise_token_auth_for "User", at: "api/auth"
 
   root to: "welcome#index"
 end
