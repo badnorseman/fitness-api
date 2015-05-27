@@ -19,6 +19,8 @@ gem "dalli"
 # Authorize the user sign up and the user log in
 gem "devise", "3.4"
 gem "devise_token_auth"
+# Authenticate user with Email
+gem "omniauth-identity"
 # Authenticate user with Facebook
 gem "omniauth-facebook"
 # Authorize what ressources a given user is allowed to access within your application
