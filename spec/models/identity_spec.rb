@@ -1,5 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Identity, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Identity, type: :model do
+  it "has a valid factory" do
+    identity = build(:identity)
+    expect(identity).to be_valid
+  end
 end

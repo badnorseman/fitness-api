@@ -1,6 +1,5 @@
 module Api
   class CoachesController < ApplicationController
-    before_action :authenticate_user!
     before_action :set_coach, only: :schedule
     after_action :verify_authorized, except: [:index]
 

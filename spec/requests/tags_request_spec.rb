@@ -3,7 +3,7 @@ require "rails_helper"
 describe Tag, type: :request do
   before do
     admin = create(:administrator)
-    @tokens = admin.create_new_auth_token("test")
+    @tokens = admin.generate_token("test")
     @tag = create_list(:tag,
                        2,
                        user: admin).first

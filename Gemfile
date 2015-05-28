@@ -16,9 +16,6 @@ gem "pg"
 gem "active_model_serializers"
 # Memcached store cashe on server
 gem "dalli"
-# Authorize the user sign up and the user log in
-gem "devise", "3.4"
-gem "devise_token_auth"
 # Authenticate user with Email
 gem "omniauth-identity"
 # Authenticate user with Facebook

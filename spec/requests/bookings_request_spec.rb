@@ -4,7 +4,7 @@ describe Booking, type: :request do
   before do
     @coach = create(:coach)
     user = create(:user)
-    @tokens = user.create_new_auth_token("test")
+    @tokens = user.generate_token("test")
     create(:availability,
            coach: @coach,
            duration: 60)

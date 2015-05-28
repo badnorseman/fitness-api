@@ -3,7 +3,7 @@ require "rails_helper"
 describe Role, type: :request do
   before do
     admin = create(:administrator)
-    @tokens = admin.create_new_auth_token("test")
+    @tokens = admin.generate_token("test")
     @role = create_list(:role, 2).first
   end
 

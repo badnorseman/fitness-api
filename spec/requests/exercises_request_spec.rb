@@ -3,7 +3,7 @@ require "rails_helper"
 describe Exercise, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.create_new_auth_token("test")
+    @tokens = coach.generate_token("test")
     exercise_plan = create(:exercise_plan,
                             user: coach)
     exercise_session = create(:exercise_session,

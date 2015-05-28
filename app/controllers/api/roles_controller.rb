@@ -1,6 +1,5 @@
 module Api
   class RolesController < ApplicationController
-    before_action :authenticate_user!
     before_action :set_role, only: [:show, :update, :destroy]
     after_action :verify_authorized, except: :index
 

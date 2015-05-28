@@ -3,7 +3,7 @@ require "rails_helper"
 describe Availability, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.create_new_auth_token("test")
+    @tokens = coach.generate_token("test")
     @availability = create_list(:availability,
                                 2,
                                 coach: coach).first

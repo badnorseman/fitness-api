@@ -6,7 +6,7 @@ describe HabitLog, type: :request do
     @habit_description = create(:habit_description,
                                 user: coach)
     user = create(:user)
-    @tokens = user.create_new_auth_token("test")
+    @tokens = user.generate_token("test")
     @habit_log = create_list(:habit_log,
                              2,
                              user: user).first
