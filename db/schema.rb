@@ -337,7 +337,7 @@ ActiveRecord::Schema.define(version: 20150528123707) do
   create_table "users", force: :cascade do |t|
     t.string   "uid"
     t.string   "provider"
-    t.string   "token"
+    t.string   "token",                             null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "gender",     limit: 1
@@ -348,5 +348,7 @@ ActiveRecord::Schema.define(version: 20150528123707) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
+
+  add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
 end

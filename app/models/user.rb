@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :tags
 
+  before_validation :generate_token, on: :create
+
   # Validate attributes
   validates :uid,
             :provider,
@@ -49,6 +51,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def generate_token(token)
+  def generate_token
+    begin
+      self.token = SecureRandom.hex
+    end while self.class.exists?(token: token)
   end
 end

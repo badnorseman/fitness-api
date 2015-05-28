@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
   namespace :api do
-    get "/auth/:provider/callback", to: "sessions#create", as: "sign_in"
+    get "/auth/:provider/callback", to: "sessions#create", as: "login"
+    get "/auth/logout", to: "sessions#destroy", as: "logout"
 
     resources :availabilities, except: [:new, :edit]
     resources :bookings, except: [:new, :edit] do

@@ -1,7 +1,6 @@
 module Api
   class SessionsController < ApplicationController
-    # skip_before_action :authenticate_user_from_token!
-    # skip_after_action :verify_authorized, only: :index
+    skip_before_action :authenticate_user_from_token!
 
     def create
       user = User.from_omniauth(auth_params)
@@ -21,7 +20,7 @@ module Api
     private
 
     def auth_params
-      env.fetch("omniauth.auth")
+      request.env.fetch("omniauth.auth")
     end
   end
 end
