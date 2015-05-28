@@ -2,14 +2,6 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails"
-# Add JQuery to the JavaScript library
-gem "jquery-rails"
-# Add CoffeeScript to the JavaScript library
-gem "coffee-rails"
-# Use Sass for stylesheets
-gem "sass-rails"
-# Use FontAwesome for icons
-gem "font-awesome-sass"
 # Use PostgreSQL as database
 gem "pg"
 # Encapsulate the JSON serialization of objects. Read more: https://github.com/rails-api/active_model_serializers
@@ -62,21 +54,3 @@ group :production do
   # Enable Heroku features
   gem "rails_12factor"
 end
-
-# Fetch Bower components
-source "http://rails-assets.org" do
-  gem "rails-assets-angular"
-  gem "rails-assets-angular-cookie"
-  gem "rails-assets-angular-messages"
-  gem "rails-assets-angular-material"
-  gem "rails-assets-angular-resource"
-  gem "rails-assets-angular-ui-router"
-  gem "rails-assets-angular-ui-utils"
-  gem "rails-assets-ng-token-auth"
-end
-
-# Required for any Windows computer
-# gem "tzinfo-data", platforms: [:mingw, :mswin, :ruby_19]
-
-# Use ActiveModel has_secure_password
-# gem "bcrypt", "~> 3.1.7"
