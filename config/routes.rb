@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created has highest priority.
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
-  get "/auth/:provider/callback", to: "sessions#create", as: "sign_in"
-
   namespace :api do
+    get "/auth/:provider/callback", to: "sessions#create", as: "sign_in"
+
     resources :availabilities, except: [:new, :edit]
     resources :bookings, except: [:new, :edit] do
       post "confirm", to: "bookings#confirm", as: "confirm"
