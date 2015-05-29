@@ -1,6 +1,5 @@
 module Api
   class ExerciseSessionsController < ApplicationController
-    before_action :authenticate_user!
     before_action :set_exercise_session, only: [:show, :update, :destroy]
     after_action :verify_authorized
 

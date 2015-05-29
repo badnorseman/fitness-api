@@ -3,7 +3,7 @@ require "rails_helper"
 describe ExerciseDescription, type: :request do
   before do
     @coach = create(:coach)
-    @tokens = @coach.create_new_auth_token("test")
+    @tokens = @coach.generate_token("test")
     @exercise_description = create_list(:exercise_description,
                                         2,
                                         user: @coach).first

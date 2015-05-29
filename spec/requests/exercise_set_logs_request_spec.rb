@@ -30,7 +30,7 @@ describe ExerciseSetLog, type: :request do
 
   describe "GET #show" do
     before do
-      tokens = @user.create_new_auth_token("test")
+      tokens = @user.generate_token("test")
 
       get(
         "/api/exercise_set_logs/#{@exercise_set_log.id}.json",
@@ -50,7 +50,7 @@ describe ExerciseSetLog, type: :request do
   describe "POST #create" do
     context "with valid attributes" do
       before do
-        tokens = @coach.create_new_auth_token("test")
+        tokens = @coach.generate_token("test")
         @exercise_set_log_attributes =
           attributes_for(:exercise_set_log,
                          duration: rand(45..120),
@@ -79,7 +79,7 @@ describe ExerciseSetLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @coach.create_new_auth_token("test")
+        tokens = @coach.generate_token("test")
         exercise_set_log_attributes =
           attributes_for(:exercise_set_log,
                          user_id: @user.id,
@@ -103,7 +103,7 @@ describe ExerciseSetLog, type: :request do
   describe "PATCH #update" do
     context "with valid attributes" do
       before do
-        tokens = @user.create_new_auth_token("test")
+        tokens = @user.generate_token("test")
         @duration = rand(45..120)
 
         patch(
@@ -123,7 +123,7 @@ describe ExerciseSetLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @user.create_new_auth_token("test")
+        tokens = @user.generate_token("test")
 
         patch(
           "/api/exercise_set_logs/#{@exercise_set_log.id}.json",
@@ -143,7 +143,7 @@ describe ExerciseSetLog, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      tokens = @coach.create_new_auth_token("test")
+      tokens = @coach.generate_token("test")
 
       delete(
         "/api/exercise_set_logs/#{@exercise_set_log.id}.json",

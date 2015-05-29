@@ -1,6 +1,5 @@
 module Api
   class HabitsController < ApplicationController
-    before_action :authenticate_user!
     before_action :set_habit, only: [:show, :update, :destroy]
     after_action :verify_authorized, except: :index
 

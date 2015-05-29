@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  include DeviseTokenAuth::Concerns::User
-
   scope :data_for_listing, -> { select(:id, :uid, :name, :email, :roles) }
 
   has_one  :location, dependent: :destroy
@@ -17,16 +15,14 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :tags
 
-  # Validate attributes
-  # validates :first_name, presence: true, length: {maximum: 100}
-  # validates :last_name,  presence: true, length: {maximum: 100}
-  # validates :gender, presence: true, length: {maximum: 1}
-  # validates :birth_date, presence: true
-  # validates :height, presence: true
-  # validates :weight, presence: true
-  # validates :roles, presence: true
+  before_validation :generate_token, on: :create
 
-  before_create :skip_confirmation!
+  # Validate attributes
+  validates :uid,
+            :provider,
+            :first_name,
+            :last_name,
+            :roles, presence: true
 
   def as_json(options={})
     UserSerializer.new(self).as_json(options)
@@ -42,5 +38,22 @@ class User < ActiveRecord::Base
 
   def user?
     self.roles.include?("user")
+  end
+
+  def self.from_omniauth(auth)
+    find_by_provider_and_uid(auth.fetch("provider"), auth.fetch("uid")) || create_with_omniauth(auth)
+  end
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.provider = auth.fetch("provider")
+      user.uid = auth.fetch("uid")
+    end
+  end
+
+  def generate_token
+    begin
+      self.token = SecureRandom.hex
+    end while self.class.exists?(token: token)
   end
 end

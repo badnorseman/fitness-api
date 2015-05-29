@@ -3,7 +3,7 @@ require "rails_helper"
 describe "Coach", type: :request do
   before do
     user = create(:user)
-    @tokens = user.create_new_auth_token("test")
+    @tokens = user.generate_token("test")
     @coach = create_list(:coach, 2).first
   end
 

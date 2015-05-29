@@ -3,7 +3,7 @@ require "rails_helper"
 describe Habit, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.create_new_auth_token("test")
+    @tokens = coach.generate_token("test")
     @product = create(:product,
                       user: coach)
     @habit_description = create(:habit_description,

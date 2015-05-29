@@ -1,6 +1,5 @@
 module Api
   class LocationsController < ApplicationController
-    before_action :authenticate_user!
     before_action :set_user, only: [:show, :create, :update]
     after_action :verify_authorized
 

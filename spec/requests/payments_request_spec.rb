@@ -20,7 +20,7 @@ describe Payment, type: :request do
   describe "GET #index" do
     before do
       user = create(:user)
-      tokens = user.create_new_auth_token("test")
+      tokens = user.generate_token("test")
       create_list(:payment,
                   2,
                   user: user).first
@@ -42,7 +42,7 @@ describe Payment, type: :request do
   describe "GET #show" do
     before do
       user = create(:user)
-      tokens = user.create_new_auth_token("test")
+      tokens = user.generate_token("test")
       @payment = create(:payment,
                         user: user)
       get(
@@ -63,7 +63,7 @@ describe Payment, type: :request do
   describe "POST #create" do
     before do
       user = create(:user)
-      @tokens = user.create_new_auth_token("test")
+      @tokens = user.generate_token("test")
     end
 
     context "with valid attributes" do
@@ -118,7 +118,7 @@ describe Payment, type: :request do
       @payment = create(:payment,
                         user: user)
       admin = create(:administrator)
-      @tokens = admin.create_new_auth_token("test")
+      @tokens = admin.generate_token("test")
     end
 
     context "with valid attributes" do
@@ -165,7 +165,7 @@ describe Payment, type: :request do
       @payment = create(:payment,
                         user: user)
       admin = create(:administrator)
-      @tokens = admin.create_new_auth_token("test")
+      @tokens = admin.generate_token("test")
 
       delete(
         "/api/payments/#{@payment.id}.json",

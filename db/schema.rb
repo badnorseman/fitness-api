@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514143309) do
+ActiveRecord::Schema.define(version: 20150528123707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,16 +235,13 @@ ActiveRecord::Schema.define(version: 20150514143309) do
   add_index "habits", ["product_id"], name: "index_habits_on_product_id", using: :btree
 
   create_table "identities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "provider",   limit: 50,  null: false
-    t.string   "uid",        limit: 50,  null: false
-    t.string   "token",      limit: 100, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true, using: :btree
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+  add_index "identities", ["email"], name: "index_identities_on_email", unique: true, using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -338,39 +335,20 @@ ActiveRecord::Schema.define(version: 20150514143309) do
   add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email"
-    t.string   "name"
-    t.string   "nickname"
-    t.string   "image"
+    t.string   "uid"
+    t.string   "provider"
+    t.string   "token",                             null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "gender",                 limit: 1
+    t.string   "gender",     limit: 1
     t.date     "birth_date"
     t.integer  "height"
     t.integer  "weight"
-    t.text     "roles",                            default: [],              array: true
-    t.string   "provider"
-    t.string   "uid",                              default: "", null: false
-    t.text     "tokens"
-    t.string   "encrypted_password",               default: "", null: false
-    t.datetime "reset_password_sent_at"
-    t.string   "reset_password_token"
-    t.datetime "remember_created_at"
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.integer  "sign_in_count",                    default: 0,  null: false
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "confirmation_token"
-    t.string   "unconfirmed_email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text     "roles",                default: [],              array: true
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
+  add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
 end

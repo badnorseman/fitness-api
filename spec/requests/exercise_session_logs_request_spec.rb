@@ -26,7 +26,7 @@ describe ExerciseSessionLog, type: :request do
 
   describe "GET #show" do
     before do
-      tokens = @user.create_new_auth_token("test")
+      tokens = @user.generate_token("test")
 
       get(
         "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
@@ -46,7 +46,7 @@ describe ExerciseSessionLog, type: :request do
   describe "POST #create" do
     context "with valid attributes" do
       before do
-        tokens = @coach.create_new_auth_token("test")
+        tokens = @coach.generate_token("test")
         @exercise_session_log_attributes =
           attributes_for(:exercise_session_log,
                          exercise_plan_log_id: @exercise_plan_log.id,
@@ -73,7 +73,7 @@ describe ExerciseSessionLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @coach.create_new_auth_token("test")
+        tokens = @coach.generate_token("test")
         exercise_session_log_attributes =
           attributes_for(:exercise_session_log,
                          exercise_plan_log_id: nil,
@@ -98,7 +98,7 @@ describe ExerciseSessionLog, type: :request do
   describe "PATCH #update" do
     context "with valid attributes" do
       before do
-        tokens = @user.create_new_auth_token("test")
+        tokens = @user.generate_token("test")
         @started_at = Time.zone.now.change(usec: 0)
 
         patch(
@@ -118,7 +118,7 @@ describe ExerciseSessionLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @user.create_new_auth_token("test")
+        tokens = @user.generate_token("test")
 
         patch(
           "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
@@ -138,7 +138,7 @@ describe ExerciseSessionLog, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      tokens = @coach.create_new_auth_token("test")
+      tokens = @coach.generate_token("test")
 
       delete(
         "/api/exercise_session_logs/#{@exercise_session_log.id}.json",

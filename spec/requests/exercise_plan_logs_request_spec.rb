@@ -22,7 +22,7 @@ describe ExercisePlanLog, type: :request do
 
   describe "GET #show" do
     before do
-      tokens = @user.create_new_auth_token("test")
+      tokens = @user.generate_token("test")
 
       get(
         "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",
@@ -42,7 +42,7 @@ describe ExercisePlanLog, type: :request do
   describe "POST #create" do
     context "with valid attributes" do
       before do
-        tokens = @coach.create_new_auth_token("test")
+        tokens = @coach.generate_token("test")
         @exercise_plan_attributes =
           attributes_for(:exercise_plan_log,
                          user_id: @user.id,
@@ -68,7 +68,7 @@ describe ExercisePlanLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @coach.create_new_auth_token("test")
+        tokens = @coach.generate_token("test")
         exercise_plan_attributes =
           attributes_for(:exercise_plan_log,
                          name: nil,
@@ -93,7 +93,7 @@ describe ExercisePlanLog, type: :request do
   describe "PATCH #update" do
     context "with valid attributes" do
       before do
-        tokens = @user.create_new_auth_token("test")
+        tokens = @user.generate_token("test")
         @name = "Name #{rand(100)}"
 
         patch(
@@ -113,7 +113,7 @@ describe ExercisePlanLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @user.create_new_auth_token("test")
+        tokens = @user.generate_token("test")
         name = "too long name" * 100
 
         patch(
@@ -134,7 +134,7 @@ describe ExercisePlanLog, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      tokens = @coach.create_new_auth_token("test")
+      tokens = @coach.generate_token("test")
 
       delete(
         "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",

@@ -1,6 +1,5 @@
 module Api
   class ExerciseSetLogsController < ApplicationController
-    before_action :authenticate_user!
     before_action :set_exercise_set_log, only: [:show, :update, :destroy]
     after_action :verify_authorized
 

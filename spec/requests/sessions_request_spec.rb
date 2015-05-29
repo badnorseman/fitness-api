@@ -49,7 +49,7 @@ describe "Session", type: :request do
   describe "when user logs out" do
     before do
       @user = create(:user)
-      @tokens = @user.create_new_auth_token("test")
+      @tokens = @user.generate_token("test")
 
       delete(
         "/api/auth/sign_out",

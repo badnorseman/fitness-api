@@ -3,7 +3,7 @@ require "rails_helper"
 describe User, type: :request do
   before do
     user = create(:administrator)
-    @tokens = user.create_new_auth_token("test")
+    @tokens = user.generate_token("test")
   end
 
   describe "Unauthorized request" do

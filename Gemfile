@@ -2,23 +2,16 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails"
-# Add JQuery to the JavaScript library
-gem "jquery-rails"
-# Add CoffeeScript to the JavaScript library
-gem "coffee-rails"
-# Use Sass for stylesheets
-gem "sass-rails"
-# Use FontAwesome for icons
-gem "font-awesome-sass"
+# Enable JSON output
+gem 'responders', '~> 2.0'
 # Use PostgreSQL as database
 gem "pg"
 # Encapsulate the JSON serialization of objects. Read more: https://github.com/rails-api/active_model_serializers
 gem "active_model_serializers"
 # Memcached store cashe on server
 gem "dalli"
-# Authorize the user sign up and the user log in
-gem "devise", "3.4"
-gem "devise_token_auth"
+# Authenticate user with Email
+gem "omniauth-identity"
 # Authenticate user with Facebook
 gem "omniauth-facebook"
 # Authorize what ressources a given user is allowed to access within your application
@@ -63,21 +56,3 @@ group :production do
   # Enable Heroku features
   gem "rails_12factor"
 end
-
-# Fetch Bower components
-source "http://rails-assets.org" do
-  gem "rails-assets-angular"
-  gem "rails-assets-angular-cookie"
-  gem "rails-assets-angular-messages"
-  gem "rails-assets-angular-material"
-  gem "rails-assets-angular-resource"
-  gem "rails-assets-angular-ui-router"
-  gem "rails-assets-angular-ui-utils"
-  gem "rails-assets-ng-token-auth"
-end
-
-# Required for any Windows computer
-# gem "tzinfo-data", platforms: [:mingw, :mswin, :ruby_19]
-
-# Use ActiveModel has_secure_password
-# gem "bcrypt", "~> 3.1.7"
