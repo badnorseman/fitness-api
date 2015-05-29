@@ -38,6 +38,4 @@ Rails.application.routes.draw do
     post "users/:id/location", to: "locations#create", as: "create_user_location"
     put "users/:id/location", to: "locations#update", as: "update_user_location"
   end
-
-  root to: "welcome#index"
 end
