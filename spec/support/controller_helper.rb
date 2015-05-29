@@ -1,4 +1,4 @@
-module ControllerHelpers
+module ControllerHelper
   def sign_in(user = double("user"))
     if user.nil?
       allow(request.env["warden"]).to receive(:authenticate!).
@@ -10,12 +10,12 @@ module ControllerHelpers
     end
   end
 
+  def login(user)
+    # Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:identity]
+    @request.env["HTTP_AUTHORIZATION"] = ActionController::HttpAuthentication::Token.encode_credentials(user.token)
+  end
+
   def json
     @json ||= JSON.parse(response.body)
   end
-end
-
-RSpec.configure do |config|
-  config.include ControllerHelpers, type: :controller
-  config.include ControllerHelpers, type: :request
 end

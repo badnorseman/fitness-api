@@ -10,9 +10,9 @@ gem "pg"
 gem "active_model_serializers"
 # Memcached store cashe on server
 gem "dalli"
-# Authenticate user with Email
+# Authenticate with Email
 gem "omniauth-identity"
-# Authenticate user with Facebook
+# Authenticate with Facebook
 gem "omniauth-facebook"
 # Authorize what ressources a given user is allowed to access within your application
 gem "pundit"

@@ -3,7 +3,8 @@ require "rails_helper"
 describe Api::RolesController, type: :controller do
   before do
     admin = create(:administrator)
-    sign_in admin
+    # sign_in admin
+    login(admin)
     @role = create_list(:role, 2).first
   end
 
