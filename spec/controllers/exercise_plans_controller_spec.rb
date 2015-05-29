@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::ExercisePlansController, type: :controller do
   before do

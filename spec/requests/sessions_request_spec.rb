@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe "Session", type: :request do
   describe "when user logs in" do

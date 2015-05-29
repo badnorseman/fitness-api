@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe "Registration", type: :request do
   describe "when user signs up with valid credentials" do

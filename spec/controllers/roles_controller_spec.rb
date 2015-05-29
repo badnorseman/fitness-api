@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::RolesController, type: :controller do
   before do

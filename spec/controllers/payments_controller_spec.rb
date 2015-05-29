@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::PaymentsController, type: :controller do
   before do

@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::ProductsController, type: :controller do
   before do

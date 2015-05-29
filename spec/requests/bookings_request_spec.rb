@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Booking, type: :request do
   before do
