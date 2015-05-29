@@ -1,6 +1,6 @@
 module Api
   class SessionsController < ApplicationController
-    skip_before_action :authenticate_user_from_token!
+    skip_before_action :restrict_access
 
     def create
       user = User.from_omniauth(auth_params)

@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails"
+# Enable JSON output
+gem 'responders', '~> 2.0'
 # Use PostgreSQL as database
 gem "pg"
 # Encapsulate the JSON serialization of objects. Read more: https://github.com/rails-api/active_model_serializers
