@@ -7,16 +7,6 @@ describe Payment, type: :request do
                            user: coach)
   end
 
-  # describe "Unauthorized request" do
-  #   before do
-  #     get "/api/payments.json"
-  #   end
-  #
-  #   it "should respond with status 401" do
-  #     expect(response.status).to eq 401
-  #   end
-  # end
-
   describe "GET #index" do
     before do
       user = create(:user)
@@ -164,4 +154,14 @@ describe Payment, type: :request do
       expect(response.status).to eq 204
     end
   end
+
+  # context "when unauthenticated" do
+  #   before do
+  #     get "/api/payments.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 end

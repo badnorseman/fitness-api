@@ -14,16 +14,6 @@ describe Habit, type: :request do
                          habit_description: @habit_description).first
   end
 
-  # describe "Unauthorized request" do
-  #   before do
-  #     get "/api/habits.json"
-  #   end
-  #
-  #   it "should respond with status 401" do
-  #     expect(response.status).to eq 401
-  #   end
-  # end
-
   describe "GET #index" do
     before do
       get("/api/habits.json")
@@ -143,4 +133,14 @@ describe Habit, type: :request do
       expect(response.status).to eq 204
     end
   end
+
+  # context "when unauthenticated" do
+  #   before do
+  #     get "/api/habits.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 end

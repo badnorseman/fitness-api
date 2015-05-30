@@ -6,16 +6,6 @@ describe User, type: :request do
     login(user)
   end
 
-  # describe "Unauthorized request" do
-  #   before do
-  #     get "/api/users.json"
-  #   end
-  #
-  #   it "should respond with status 401" do
-  #     expect(response.status).to eq 401
-  #   end
-  # end
-
   describe "GET list of users" do
     before do
       create_list(:user, 2)
@@ -30,4 +20,14 @@ describe User, type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  # context "when unauthenticated" do
+  #   before do
+  #     get "/api/users.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 end
