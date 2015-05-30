@@ -6,7 +6,7 @@ describe HabitLog, type: :request do
     @habit_description = create(:habit_description,
                                 user: coach)
     user = create(:user)
-    @tokens = user.generate_token("test")
+    @token = user.generate_token
     @habit_log = create_list(:habit_log,
                              2,
                              user: user).first
@@ -27,7 +27,7 @@ describe HabitLog, type: :request do
       get(
         "/api/habit_logs.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with an array of 2 Habits" do
@@ -44,7 +44,7 @@ describe HabitLog, type: :request do
       get(
         "/api/habit_logs/#{@habit_log.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 HabitLog" do
@@ -66,7 +66,7 @@ describe HabitLog, type: :request do
         post(
           "/api/habit_logs.json",
           { habit_log: habit_log_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created HabitLog" do
@@ -90,7 +90,7 @@ describe HabitLog, type: :request do
         post(
           "/api/habit_logs.json",
           { habit_log: habit_log_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -113,7 +113,7 @@ describe HabitLog, type: :request do
         patch(
           "/api/habit_logs/#{@habit_log.id}.json",
           { habit_log: habit_log_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated HabitLog" do
@@ -132,7 +132,7 @@ describe HabitLog, type: :request do
         patch(
           "/api/habit_logs/#{@habit_log.id}.json",
           { habit_log: { habit_description_id: habit_description_id } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -150,7 +150,7 @@ describe HabitLog, type: :request do
       delete(
         "/api/habit_logs/#{@habit_log.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

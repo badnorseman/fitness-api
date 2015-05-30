@@ -6,7 +6,7 @@ describe Api::HabitLogsController, type: :controller do
     @habit_description = create(:habit_description,
                                 user: coach)
     @user = create(:user)
-    sign_in @user
+    login(@user)
     @habit_log = create_list(:habit_log,
                              2,
                              user: @user,

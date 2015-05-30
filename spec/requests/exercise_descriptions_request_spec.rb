@@ -3,7 +3,7 @@ require "spec_helper"
 describe ExerciseDescription, type: :request do
   before do
     @coach = create(:coach)
-    @tokens = @coach.generate_token("test")
+    @token = @coach.generate_token
     @exercise_description = create_list(:exercise_description,
                                         2,
                                         user: @coach).first
@@ -24,7 +24,7 @@ describe ExerciseDescription, type: :request do
       get(
         "/api/exercise_descriptions.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 ExerciseDescriptions" do
@@ -41,7 +41,7 @@ describe ExerciseDescription, type: :request do
       get(
         "/api/exercise_descriptions/#{@exercise_description.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 ExerciseDescription" do
@@ -63,7 +63,7 @@ describe ExerciseDescription, type: :request do
           "/api/exercise_descriptions.json",
           { exercise_description: @exercise_description_attributes,
             user: @coach },
-          @tokens)
+          @token)
       end
 
       it "should respond with created ExerciseDescription" do
@@ -92,7 +92,7 @@ describe ExerciseDescription, type: :request do
           "/api/exercise_descriptions.json",
           { exercise_description: exercise_description_attributes,
             user: @coach },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -114,7 +114,7 @@ describe ExerciseDescription, type: :request do
         patch(
           "/api/exercise_descriptions/#{@exercise_description.id}.json",
           { exercise_description: { name: @name, tag_list: @tag_list } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated ExerciseDescription" do
@@ -137,7 +137,7 @@ describe ExerciseDescription, type: :request do
         patch(
           "/api/exercise_descriptions/#{@exercise_description.id}.json",
           { exercise_description: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -155,7 +155,7 @@ describe ExerciseDescription, type: :request do
       delete(
         "/api/exercise_descriptions/#{@exercise_description.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

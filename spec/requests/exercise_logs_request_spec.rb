@@ -25,12 +25,12 @@ describe ExerciseLog, type: :request do
 
   describe "GET #show" do
     before do
-      tokens = @user.generate_token("test")
+      token = @user.generate_token
 
       get(
         "/api/exercise_logs/#{@exercise_log.id}.json",
         {},
-        tokens)
+        token)
     end
 
     it "should respond with 1 ExerciseLog" do
@@ -45,7 +45,7 @@ describe ExerciseLog, type: :request do
   describe "POST #create" do
     context "with valid attributes" do
       before do
-        tokens = @coach.generate_token("test")
+        token = @coach.generate_token
         @exercise_log_attributes =
           attributes_for(:exercise_log,
                          exercise_description_id: @exercise_description.id,
@@ -54,7 +54,7 @@ describe ExerciseLog, type: :request do
         post(
           "/api/exercise_logs.json",
           { exercise_log: @exercise_log_attributes },
-          tokens)
+          token)
       end
 
       it "should respond with created ExerciseLog" do
@@ -68,7 +68,7 @@ describe ExerciseLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @coach.generate_token("test")
+        token = @coach.generate_token
         exercise_log_attributes =
           attributes_for(:exercise_log, tempo: "too long value")
 
@@ -76,7 +76,7 @@ describe ExerciseLog, type: :request do
           "/api/exercise_logs.json",
           { exercise_log: exercise_log_attributes,
             exercise_description_id: @exercise_description.id },
-          tokens)
+          token)
       end
 
       it "should respond with errors" do
@@ -92,13 +92,13 @@ describe ExerciseLog, type: :request do
   describe "PATCH #update" do
     context "with valid attributes" do
       before do
-        tokens = @user.generate_token("test")
+        token = @user.generate_token
         @tempo = "12X#{rand(100)}"
 
         patch(
           "/api/exercise_logs/#{@exercise_log.id}.json",
           { exercise_log: { tempo: @tempo } },
-          tokens)
+          token)
       end
 
       it "should respond with updated ExerciseLog" do
@@ -112,13 +112,13 @@ describe ExerciseLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @user.generate_token("test")
+        token = @user.generate_token
         tempo = "too long value" * 100
 
         patch(
           "/api/exercise_logs/#{@exercise_log.id}.json",
           { exercise_log: { tempo: tempo } },
-          tokens)
+          token)
       end
 
       it "should respond with errors" do
@@ -133,12 +133,12 @@ describe ExerciseLog, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      tokens = @coach.generate_token("test")
+      token = @coach.generate_token
 
       delete(
         "/api/exercise_logs/#{@exercise_log.id}.json",
         {},
-        tokens)
+        token)
     end
 
     it "should respond with status 204" do

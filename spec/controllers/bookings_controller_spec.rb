@@ -4,7 +4,7 @@ describe Api::BookingsController, type: :controller do
   before do
     @coach = create(:coach)
     user = create(:user)
-    sign_in user
+    login(user)
     create(:availability,
            coach: @coach,
            start_at: Date.today,

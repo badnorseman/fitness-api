@@ -49,12 +49,12 @@ describe "Session", type: :request do
   describe "when user logs out" do
     before do
       @user = create(:user)
-      @tokens = @user.generate_token("test")
+      @token = @user.generate_token
 
       delete(
         "/api/auth/sign_out",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 200" do
@@ -65,12 +65,12 @@ describe "Session", type: :request do
       expect(number_of_headers(response.headers.keys)).to eq(0)
     end
 
-    context "when Authorization tokens are expired" do
+    context "when Authorization token are expired" do
       before do
         get(
           "/api/users/#{@user.id}",
           {},
-          @tokens)
+          @token)
       end
 
       it "should respond with status 401" do

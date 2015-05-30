@@ -26,12 +26,12 @@ describe ExerciseSessionLog, type: :request do
 
   describe "GET #show" do
     before do
-      tokens = @user.generate_token("test")
+      token = @user.generate_token
 
       get(
         "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
         {},
-        tokens)
+        token)
     end
 
     it "should respond with 1 ExerciseSessionLog" do
@@ -46,7 +46,7 @@ describe ExerciseSessionLog, type: :request do
   describe "POST #create" do
     context "with valid attributes" do
       before do
-        tokens = @coach.generate_token("test")
+        token = @coach.generate_token
         @exercise_session_log_attributes =
           attributes_for(:exercise_session_log,
                          exercise_plan_log_id: @exercise_plan_log.id,
@@ -55,7 +55,7 @@ describe ExerciseSessionLog, type: :request do
         post(
           "/api/exercise_session_logs.json",
           { exercise_session_log: @exercise_session_log_attributes },
-          tokens)
+          token)
       end
 
       it "should respond with created ExerciseSessionLog" do
@@ -73,7 +73,7 @@ describe ExerciseSessionLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @coach.generate_token("test")
+        token = @coach.generate_token
         exercise_session_log_attributes =
           attributes_for(:exercise_session_log,
                          exercise_plan_log_id: nil,
@@ -82,7 +82,7 @@ describe ExerciseSessionLog, type: :request do
         post(
           "/api/exercise_session_logs.json",
           { exercise_session_log: exercise_session_log_attributes },
-          tokens)
+          token)
       end
 
       it "should respond with errors" do
@@ -98,13 +98,13 @@ describe ExerciseSessionLog, type: :request do
   describe "PATCH #update" do
     context "with valid attributes" do
       before do
-        tokens = @user.generate_token("test")
+        token = @user.generate_token
         @started_at = Time.zone.now.change(usec: 0)
 
         patch(
           "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
           { exercise_session_log: { started_at: @started_at } },
-          tokens)
+          token)
       end
 
       it "should respond with updated ExerciseSessionLog" do
@@ -118,12 +118,12 @@ describe ExerciseSessionLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        tokens = @user.generate_token("test")
+        token = @user.generate_token
 
         patch(
           "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
           { exercise_session_log: { exercise_plan_log_id: "" } },
-          tokens)
+          token)
       end
 
       it "should respond with errors" do
@@ -138,12 +138,12 @@ describe ExerciseSessionLog, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      tokens = @coach.generate_token("test")
+      token = @coach.generate_token
 
       delete(
         "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
         {},
-        tokens)
+        token)
     end
 
     it "should respond with status 204" do

@@ -3,7 +3,7 @@ require "spec_helper"
 describe ExerciseSet, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.generate_token("test")
+    @token = coach.generate_token
     exercise_plan = create(:exercise_plan,
                             user: coach)
     @exercise_session = create(:exercise_session,
@@ -29,7 +29,7 @@ describe ExerciseSet, type: :request do
       get(
         "/api/exercise_sets/#{@exercise_set.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 ExerciseSet" do
@@ -50,7 +50,7 @@ describe ExerciseSet, type: :request do
         post(
           "/api/exercise_sets.json",
           { exercise_set: @exercise_set_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created ExerciseSet" do
@@ -75,7 +75,7 @@ describe ExerciseSet, type: :request do
         post(
           "/api/exercise_sets.json",
           { exercise_set: exercise_set_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -96,7 +96,7 @@ describe ExerciseSet, type: :request do
         patch(
           "/api/exercise_sets/#{@exercise_set.id}.json",
           { exercise_set: { name: @name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated ExerciseSet" do
@@ -115,7 +115,7 @@ describe ExerciseSet, type: :request do
         patch(
           "/api/exercise_sets/#{@exercise_set.id}.json",
           { exercise_set: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -133,7 +133,7 @@ describe ExerciseSet, type: :request do
       delete(
         "/api/exercise_sets/#{@exercise_set.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

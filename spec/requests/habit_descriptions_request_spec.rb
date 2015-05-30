@@ -3,7 +3,7 @@ require "spec_helper"
 describe HabitDescription, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.generate_token("test")
+    @token = coach.generate_token
     @habit_description = create_list(:habit_description,
                                      2,
                                      user: coach).first
@@ -24,7 +24,7 @@ describe HabitDescription, type: :request do
       get(
         "/api/habit_descriptions.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 Habits" do
@@ -41,7 +41,7 @@ describe HabitDescription, type: :request do
       get(
         "/api/habit_descriptions/#{@habit_description.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 Habit" do
@@ -61,7 +61,7 @@ describe HabitDescription, type: :request do
         post(
           "/api/habit_descriptions.json",
           { habit_description: @habit_description_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created Habit" do
@@ -89,7 +89,7 @@ describe HabitDescription, type: :request do
         post(
           "/api/habit_descriptions.json",
           { habit_description: habit_description_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -111,7 +111,7 @@ describe HabitDescription, type: :request do
         patch(
           "/api/habit_descriptions/#{@habit_description.id}.json",
           { habit_description: { name: @name, tag_list: @tag_list } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated Habit" do
@@ -134,7 +134,7 @@ describe HabitDescription, type: :request do
         patch(
           "/api/habit_descriptions/#{@habit_description.id}.json",
           { habit_description: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -152,7 +152,7 @@ describe HabitDescription, type: :request do
       delete(
         "/api/habit_descriptions/#{@habit_description.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

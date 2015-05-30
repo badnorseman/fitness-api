@@ -3,7 +3,7 @@ require "spec_helper"
 describe Api::ExerciseSetsController, type: :controller do
   before do
     coach = create(:coach)
-    sign_in coach
+    login(coach)
     exercise_plan = create(:exercise_plan,
                             user: coach)
     @exercise_session = create(:exercise_session,

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::TagsController, type: :controller do
   before do
     admin = create(:administrator)
-    sign_in admin
+    login(admin)
     @tag = create_list(:tag,
                        2,
                        user: admin).first

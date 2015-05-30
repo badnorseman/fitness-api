@@ -13,6 +13,11 @@ module ControllerHelper
   def login(user)
     # Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:identity]
     @request.env["HTTP_AUTHORIZATION"] = ActionController::HttpAuthentication::Token.encode_credentials(user.token)
+    # puts "------------------------------------------------------"
+    # puts user.inspect
+    # puts @request.env["HTTP_AUTHORIZATION"].inspect
+    # puts @request.env.inspect
+    # puts "------------------------------------------------------"
   end
 
   def json

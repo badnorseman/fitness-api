@@ -4,7 +4,7 @@ describe Api::ExerciseSessionLogsController, type: :controller do
   before do
     @user = create(:user)
     @coach = create(:coach)
-    sign_in @coach
+    login(@coach)
     @exercise_plan_log = create(:exercise_plan_log,
                                 user: @user,
                                 coach: @coach)

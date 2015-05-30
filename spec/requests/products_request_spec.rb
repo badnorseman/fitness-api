@@ -3,7 +3,7 @@ require "spec_helper"
 describe Product, type: :request do
   before do
     @coach = create(:coach)
-    @tokens = @coach.generate_token("test")
+    @token = @coach.generate_token
     @product = create_list(:product,
                            2,
                            user: @coach).first
@@ -24,7 +24,7 @@ describe Product, type: :request do
       get(
         "/api/users/#{@coach.id}/products.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with an array of 2 Products" do
@@ -41,7 +41,7 @@ describe Product, type: :request do
       get(
         "/api/users/#{@coach.id}/products/#{@product.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 Product" do
@@ -61,7 +61,7 @@ describe Product, type: :request do
         post(
           "/api/users/#{@coach.id}/products.json",
           { product: @product_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created Product" do
@@ -85,7 +85,7 @@ describe Product, type: :request do
         post(
           "/api/users/#{@coach.id}/products.json",
           { product: product_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -106,7 +106,7 @@ describe Product, type: :request do
         patch(
           "/api/users/#{@coach.id}/products/#{@product.id}.json",
           { product: { name: @name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated Product" do
@@ -125,7 +125,7 @@ describe Product, type: :request do
         patch(
           "/api/users/#{@coach.id}/products/#{@product.id}.json",
           { product: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -143,7 +143,7 @@ describe Product, type: :request do
       delete(
         "/api/users/#{@coach.id}/products/#{@product.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

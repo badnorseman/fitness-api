@@ -3,7 +3,7 @@ require "spec_helper"
 describe Api::AvailabilitiesController, type: :controller do
   before do
     coach = create(:coach)
-    sign_in coach
+    login(coach)
     @availability = create_list(:availability,
                                 2,
                                 coach: coach).first

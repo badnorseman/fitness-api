@@ -3,7 +3,7 @@ require "spec_helper"
 describe "Coach", type: :request do
   before do
     user = create(:user)
-    @tokens = user.generate_token("test")
+    @token = user.generate_token
     @coach = create_list(:coach, 2).first
   end
 
@@ -22,7 +22,7 @@ describe "Coach", type: :request do
       get(
         "/api/coaches.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 coaches" do
@@ -43,7 +43,7 @@ describe "Coach", type: :request do
       get(
         "/api/coaches/#{@coach.id}/schedule.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with schedule that has 8 days" do

@@ -3,7 +3,7 @@ require "spec_helper"
 describe PaymentPlan, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.generate_token("test")
+    @token = coach.generate_token
     @payment_plan = create_list(:payment_plan,
                                 2,
                                 user: coach).first
@@ -24,7 +24,7 @@ describe PaymentPlan, type: :request do
       get(
         "/api/payment_plans.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with an array of 2 PaymentPlans" do
@@ -41,7 +41,7 @@ describe PaymentPlan, type: :request do
       get(
         "/api/payment_plans/#{@payment_plan.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 PaymentPlan" do
@@ -61,7 +61,7 @@ describe PaymentPlan, type: :request do
         post(
           "/api/payment_plans.json",
           { payment_plan: @payment_plan_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created PaymentPlan" do
@@ -85,7 +85,7 @@ describe PaymentPlan, type: :request do
         post(
           "/api/payment_plans.json",
           { payment_plan: payment_plan_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -106,7 +106,7 @@ describe PaymentPlan, type: :request do
         patch(
           "/api/payment_plans/#{@payment_plan.id}.json",
           { payment_plan: { name: @name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated PaymentPlan" do
@@ -125,7 +125,7 @@ describe PaymentPlan, type: :request do
         patch(
           "/api/payment_plans/#{@payment_plan.id}.json",
           { payment_plan: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -143,7 +143,7 @@ describe PaymentPlan, type: :request do
       delete(
         "/api/payment_plans/#{@payment_plan.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

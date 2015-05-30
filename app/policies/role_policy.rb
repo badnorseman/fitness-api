@@ -5,15 +5,15 @@ class RolePolicy < ApplicationPolicy
   end
 
   def create?
-    user.administrator?
+    show?
   end
 
   def update?
-    user.administrator?
+    show?
   end
 
   def destroy?
-    user.administrator?
+    show?
   end
 
   class Scope < Scope
@@ -21,7 +21,7 @@ class RolePolicy < ApplicationPolicy
       if user.administrator?
         scope.all
       else
-        raise Pundit::NotAuthorizedError, "You are not authenticated."
+        raise Pundit::NotAuthorizedError
       end
     end
   end

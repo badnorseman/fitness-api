@@ -3,7 +3,7 @@ require "spec_helper"
 describe ExerciseSession, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.generate_token("test")
+    @token = coach.generate_token
     @exercise_plan = create(:exercise_plan,
                             user: coach)
     @exercise_session = create_list(:exercise_session,
@@ -27,7 +27,7 @@ describe ExerciseSession, type: :request do
       get(
         "/api/exercise_sessions/#{@exercise_session.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 ExerciseSession" do
@@ -48,7 +48,7 @@ describe ExerciseSession, type: :request do
         post(
           "/api/exercise_sessions.json",
           { exercise_session: @exercise_session_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created ExerciseSession" do
@@ -73,7 +73,7 @@ describe ExerciseSession, type: :request do
         post(
           "/api/exercise_sessions.json",
           { exercise_session: exercise_session_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -94,7 +94,7 @@ describe ExerciseSession, type: :request do
         patch(
           "/api/exercise_sessions/#{@exercise_session.id}.json",
           { exercise_session: { name: @name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated ExerciseSession" do
@@ -113,7 +113,7 @@ describe ExerciseSession, type: :request do
         patch(
           "/api/exercise_sessions/#{@exercise_session.id}.json",
           { exercise_session: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -131,7 +131,7 @@ describe ExerciseSession, type: :request do
       delete(
         "/api/exercise_sessions/#{@exercise_session.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

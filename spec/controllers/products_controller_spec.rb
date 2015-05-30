@@ -3,7 +3,7 @@ require "spec_helper"
 describe Api::ProductsController, type: :controller do
   before do
     @coach = create(:coach)
-    sign_in @coach
+    login(@coach)
     @product = create_list(:product,
                            2,
                            user: @coach).first

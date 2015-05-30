@@ -3,7 +3,7 @@ require "spec_helper"
 describe Availability, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.generate_token("test")
+    @token = coach.generate_token
     @availability = create_list(:availability,
                                 2,
                                 coach: coach).first
@@ -24,7 +24,7 @@ describe Availability, type: :request do
       get(
         "/api/availabilities.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 Availabilities" do
@@ -41,7 +41,7 @@ describe Availability, type: :request do
       get(
         "/api/availabilities/#{@availability.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 Availability" do
@@ -61,7 +61,7 @@ describe Availability, type: :request do
         post(
           "/api/availabilities.json",
           { availability: @availability_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created Availability" do
@@ -85,7 +85,7 @@ describe Availability, type: :request do
         post(
           "/api/availabilities.json",
           { availability: availability_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -109,7 +109,7 @@ describe Availability, type: :request do
         patch(
           "/api/availabilities/#{@availability.id}.json",
           { availability: @availability_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated Availability" do
@@ -131,7 +131,7 @@ describe Availability, type: :request do
         patch(
           "/api/availabilities/#{@availability.id}.json",
           { availability: availability_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -149,7 +149,7 @@ describe Availability, type: :request do
       delete(
         "/api/availabilities/#{@availability.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Role, type: :request do
   before do
     admin = create(:administrator)
-    @tokens = admin.generate_token("test")
+    @token = admin.generate_token
     @role = create_list(:role, 2).first
   end
 
@@ -22,7 +22,7 @@ describe Role, type: :request do
       get(
         "/api/roles.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 Roles" do
@@ -39,7 +39,7 @@ describe Role, type: :request do
       get(
         "/api/roles/#{@role.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 Role" do
@@ -60,7 +60,7 @@ describe Role, type: :request do
         post(
           "/api/roles.json",
           { role: @role_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created Role" do
@@ -84,7 +84,7 @@ describe Role, type: :request do
         post(
           "/api/roles.json",
           { role: role_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -105,7 +105,7 @@ describe Role, type: :request do
         patch(
           "/api/roles/#{@role.id}.json",
           { role: { name: @name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated Role" do
@@ -124,7 +124,7 @@ describe Role, type: :request do
         patch(
           "/api/roles/#{@role.id}.json",
           { role: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -142,7 +142,7 @@ describe Role, type: :request do
       delete(
         "/api/roles/#{@role.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Tag, type: :request do
   before do
     admin = create(:administrator)
-    @tokens = admin.generate_token("test")
+    @token = admin.generate_token
     @tag = create_list(:tag,
                        2,
                        user: admin).first
@@ -24,7 +24,7 @@ describe Tag, type: :request do
       get(
         "/api/tags.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 tags" do
@@ -41,7 +41,7 @@ describe Tag, type: :request do
       get(
         "/api/tags/#{@tag.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 Tag" do
@@ -61,7 +61,7 @@ describe Tag, type: :request do
         post(
           "/api/tags.json",
           { tag: @tag_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created Tag" do
@@ -85,7 +85,7 @@ describe Tag, type: :request do
         post(
           "/api/tags.json",
           { tag: @tag_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -106,7 +106,7 @@ describe Tag, type: :request do
         patch(
           "/api/tags/#{@tag.id}.json",
           { tag: { name: @name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated Tag" do
@@ -125,7 +125,7 @@ describe Tag, type: :request do
         patch(
           "/api/tags/#{@tag.id}.json",
           { tag: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -143,7 +143,7 @@ describe Tag, type: :request do
       delete(
         "/api/tags/#{@tag.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Api::HabitDescriptionsController, type: :controller do
   before do
     coach = create(:coach)
-    sign_in coach
+    login(coach)
     @habit_description = create_list(:habit_description,
                                      2,
                                      user: coach).first

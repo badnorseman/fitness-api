@@ -3,7 +3,7 @@ require "spec_helper"
 describe Api::PaymentPlansController, type: :controller do
   before do
     coach = create(:coach)
-    sign_in coach
+    login(coach)
     @payment_plan = create_list(:payment_plan,
                                 2,
                                 user: coach).first

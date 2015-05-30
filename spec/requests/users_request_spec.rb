@@ -3,7 +3,7 @@ require "spec_helper"
 describe User, type: :request do
   before do
     user = create(:administrator)
-    @tokens = user.generate_token("test")
+    @token = user.generate_token
   end
 
   describe "Unauthorized request" do
@@ -22,7 +22,7 @@ describe User, type: :request do
       get(
         "/api/users.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 3 users" do

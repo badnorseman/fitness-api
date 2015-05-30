@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  attr_reader :current_user
+
   # Allows access to current_user in serializators.
   serialization_scope :current_user
 

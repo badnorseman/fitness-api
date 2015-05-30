@@ -4,7 +4,7 @@ describe Booking, type: :request do
   before do
     @coach = create(:coach)
     user = create(:user)
-    @tokens = user.generate_token("test")
+    @token = user.generate_token
     create(:availability,
            coach: @coach,
            duration: 60)
@@ -35,7 +35,7 @@ describe Booking, type: :request do
       get(
         "/api/bookings.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 Bookings" do
@@ -52,7 +52,7 @@ describe Booking, type: :request do
       get(
         "/api/bookings/#{@booking.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 Booking" do
@@ -75,7 +75,7 @@ describe Booking, type: :request do
         post(
           "/api/bookings.json",
           { booking: @booking_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created Booking" do
@@ -101,7 +101,7 @@ describe Booking, type: :request do
         post(
           "/api/bookings.json",
           { booking: booking_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -124,7 +124,7 @@ describe Booking, type: :request do
         patch(
           "/api/bookings/#{@booking.id}.json",
           { booking: @booking_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated Booking" do
@@ -145,7 +145,7 @@ describe Booking, type: :request do
         patch(
           "/api/bookings/#{@booking.id}.json",
           { booking: booking_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -163,7 +163,7 @@ describe Booking, type: :request do
       delete(
         "/api/bookings/#{@booking.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 200" do

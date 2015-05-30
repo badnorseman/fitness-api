@@ -3,7 +3,7 @@ require "spec_helper"
 describe ExercisePlan, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.generate_token("test")
+    @token = coach.generate_token
     @exercise_plan = create_list(:exercise_plan,
                                  2,
                                  user: coach).first
@@ -24,7 +24,7 @@ describe ExercisePlan, type: :request do
       get(
         "/api/exercise_plans.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 ExercisePlans" do
@@ -41,7 +41,7 @@ describe ExercisePlan, type: :request do
       get(
         "/api/exercise_plans/#{@exercise_plan.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 ExercisePlan" do
@@ -61,7 +61,7 @@ describe ExercisePlan, type: :request do
         post(
           "/api/exercise_plans.json",
           { exercise_plan: @exercise_plan_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created ExercisePlan" do
@@ -85,7 +85,7 @@ describe ExercisePlan, type: :request do
         post(
           "/api/exercise_plans.json",
           { exercise_plan: exercise_plan_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -106,7 +106,7 @@ describe ExercisePlan, type: :request do
         patch(
             "/api/exercise_plans/#{@exercise_plan.id}.json",
             { exercise_plan: { name: @name } },
-            @tokens)
+            @token)
       end
 
       it "should respond with updated ExercisePlan" do
@@ -125,7 +125,7 @@ describe ExercisePlan, type: :request do
         patch(
           "/api/exercise_plans/#{@exercise_plan.id}.json",
           { exercise_plan: { name: name } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -143,7 +143,7 @@ describe ExercisePlan, type: :request do
       delete(
         "/api/exercise_plans/#{@exercise_plan.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do

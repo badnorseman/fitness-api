@@ -3,7 +3,7 @@ require "spec_helper"
 describe Habit, type: :request do
   before do
     coach = create(:coach)
-    @tokens = coach.generate_token("test")
+    @token = coach.generate_token
     @product = create(:product,
                       user: coach)
     @habit_description = create(:habit_description,
@@ -29,7 +29,7 @@ describe Habit, type: :request do
       get(
         "/api/habits.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with array of 2 Habits" do
@@ -46,7 +46,7 @@ describe Habit, type: :request do
       get(
         "/api/habits/#{@habit.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with 1 Habit" do
@@ -68,7 +68,7 @@ describe Habit, type: :request do
         post(
           "/api/habits.json",
           { habit: @habit_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with created Habit" do
@@ -93,7 +93,7 @@ describe Habit, type: :request do
         post(
           "/api/habits.json",
           { habit: habit_attributes },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -114,7 +114,7 @@ describe Habit, type: :request do
         patch(
           "/api/habits/#{@habit.id}.json",
           { habit: { unit: @unit } },
-          @tokens)
+          @token)
       end
 
       it "should respond with updated Habit" do
@@ -131,7 +131,7 @@ describe Habit, type: :request do
         patch(
           "/api/habits/#{@habit.id}.json",
           { habit: { unit: nil } },
-          @tokens)
+          @token)
       end
 
       it "should respond with errors" do
@@ -149,7 +149,7 @@ describe Habit, type: :request do
       delete(
         "/api/habits/#{@habit.id}.json",
         {},
-        @tokens)
+        @token)
     end
 
     it "should respond with status 204" do
