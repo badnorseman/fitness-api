@@ -3,28 +3,25 @@ require "spec_helper"
 describe Availability, type: :request do
   before do
     coach = create(:coach)
-    @token = coach.generate_token
+    login(coach)
     @availability = create_list(:availability,
                                 2,
                                 coach: coach).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/availabilities.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/availabilities.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
-      get(
-        "/api/availabilities.json",
-        {},
-        @token)
+      get("/api/availabilities.json")
     end
 
     it "should respond with array of 2 Availabilities" do
@@ -38,10 +35,7 @@ describe Availability, type: :request do
 
   describe "GET #show" do
     before do
-      get(
-        "/api/availabilities/#{@availability.id}.json",
-        {},
-        @token)
+      get("/api/availabilities/#{@availability.id}.json")
     end
 
     it "should respond with 1 Availability" do
@@ -60,8 +54,7 @@ describe Availability, type: :request do
 
         post(
           "/api/availabilities.json",
-          { availability: @availability_attributes },
-          @token)
+          { availability: @availability_attributes })
       end
 
       it "should respond with created Availability" do
@@ -84,8 +77,7 @@ describe Availability, type: :request do
 
         post(
           "/api/availabilities.json",
-          { availability: availability_attributes },
-          @token)
+          { availability: availability_attributes })
       end
 
       it "should respond with errors" do
@@ -108,8 +100,7 @@ describe Availability, type: :request do
 
         patch(
           "/api/availabilities/#{@availability.id}.json",
-          { availability: @availability_attributes },
-          @token)
+          { availability: @availability_attributes })
       end
 
       it "should respond with updated Availability" do
@@ -130,8 +121,7 @@ describe Availability, type: :request do
 
         patch(
           "/api/availabilities/#{@availability.id}.json",
-          { availability: availability_attributes },
-          @token)
+          { availability: availability_attributes })
       end
 
       it "should respond with errors" do
@@ -146,10 +136,7 @@ describe Availability, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/availabilities/#{@availability.id}.json",
-        {},
-        @token)
+      delete("/api/availabilities/#{@availability.id}.json")
     end
 
     it "should respond with status 204" do

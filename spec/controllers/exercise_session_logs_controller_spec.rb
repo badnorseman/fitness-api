@@ -64,7 +64,7 @@ describe Api::ExerciseSessionLogsController, type: :controller do
         patch(
           :update,
           id: @exercise_session_log.id,
-          exercise_session_log: { started_at: started_at } )
+          exercise_session_log: { started_at: started_at })
 
         expect(ExerciseSessionLog.find(@exercise_session_log.id).started_at).to eq(started_at)
       end
@@ -77,7 +77,7 @@ describe Api::ExerciseSessionLogsController, type: :controller do
         patch(
           :update,
           id: @exercise_session_log.id,
-          exercise_session_log: { exercise_plan_log_id: exercise_plan_log_id } )
+          exercise_session_log: { exercise_plan_log_id: exercise_plan_log_id })
 
         expect(ExerciseSessionLog.find(@exercise_session_log.id).exercise_plan_log_id).to eq(@exercise_session_log.exercise_plan_log_id)
       end

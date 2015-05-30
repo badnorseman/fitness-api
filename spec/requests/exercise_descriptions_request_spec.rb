@@ -3,28 +3,25 @@ require "spec_helper"
 describe ExerciseDescription, type: :request do
   before do
     @coach = create(:coach)
-    @token = @coach.generate_token
+    login(@coach)
     @exercise_description = create_list(:exercise_description,
                                         2,
                                         user: @coach).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/exercise_descriptions.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/exercise_descriptions.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
-      get(
-        "/api/exercise_descriptions.json",
-        {},
-        @token)
+      get("/api/exercise_descriptions.json")
     end
 
     it "should respond with array of 2 ExerciseDescriptions" do
@@ -38,10 +35,7 @@ describe ExerciseDescription, type: :request do
 
   describe "GET #show" do
     before do
-      get(
-        "/api/exercise_descriptions/#{@exercise_description.id}.json",
-        {},
-        @token)
+      get("/api/exercise_descriptions/#{@exercise_description.id}.json")
     end
 
     it "should respond with 1 ExerciseDescription" do
@@ -62,8 +56,7 @@ describe ExerciseDescription, type: :request do
         post(
           "/api/exercise_descriptions.json",
           { exercise_description: @exercise_description_attributes,
-            user: @coach },
-          @token)
+            user: @coach })
       end
 
       it "should respond with created ExerciseDescription" do
@@ -91,8 +84,7 @@ describe ExerciseDescription, type: :request do
         post(
           "/api/exercise_descriptions.json",
           { exercise_description: exercise_description_attributes,
-            user: @coach },
-          @token)
+            user: @coach })
       end
 
       it "should respond with errors" do
@@ -113,8 +105,7 @@ describe ExerciseDescription, type: :request do
 
         patch(
           "/api/exercise_descriptions/#{@exercise_description.id}.json",
-          { exercise_description: { name: @name, tag_list: @tag_list } },
-          @token)
+          { exercise_description: { name: @name, tag_list: @tag_list }})
       end
 
       it "should respond with updated ExerciseDescription" do
@@ -136,8 +127,7 @@ describe ExerciseDescription, type: :request do
 
         patch(
           "/api/exercise_descriptions/#{@exercise_description.id}.json",
-          { exercise_description: { name: name } },
-          @token)
+          { exercise_description: { name: name }})
       end
 
       it "should respond with errors" do
@@ -152,10 +142,7 @@ describe ExerciseDescription, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/exercise_descriptions/#{@exercise_description.id}.json",
-        {},
-        @token)
+      delete("/api/exercise_descriptions/#{@exercise_description.id}.json")
     end
 
     it "should respond with status 204" do

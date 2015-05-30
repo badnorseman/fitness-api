@@ -3,28 +3,25 @@ require "spec_helper"
 describe Tag, type: :request do
   before do
     admin = create(:administrator)
-    @token = admin.generate_token
+    login(admin)
     @tag = create_list(:tag,
                        2,
                        user: admin).first
   end
 
-  describe "Unauthorised request" do
-    before do
-      get "/api/tags.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorised request" do
+  #   before do
+  #     get "/api/tags.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
-      get(
-        "/api/tags.json",
-        {},
-        @token)
+      get("/api/tags.json")
     end
 
     it "should respond with array of 2 tags" do
@@ -38,10 +35,7 @@ describe Tag, type: :request do
 
   describe "GET #show" do
     before do
-      get(
-        "/api/tags/#{@tag.id}.json",
-        {},
-        @token)
+      get("/api/tags/#{@tag.id}.json")
     end
 
     it "should respond with 1 Tag" do
@@ -60,8 +54,7 @@ describe Tag, type: :request do
 
         post(
           "/api/tags.json",
-          { tag: @tag_attributes },
-          @token)
+          { tag: @tag_attributes })
       end
 
       it "should respond with created Tag" do
@@ -84,8 +77,7 @@ describe Tag, type: :request do
 
         post(
           "/api/tags.json",
-          { tag: @tag_attributes },
-          @token)
+          { tag: @tag_attributes })
       end
 
       it "should respond with errors" do
@@ -105,8 +97,7 @@ describe Tag, type: :request do
 
         patch(
           "/api/tags/#{@tag.id}.json",
-          { tag: { name: @name } },
-          @token)
+          { tag: { name: @name }})
       end
 
       it "should respond with updated Tag" do
@@ -124,8 +115,7 @@ describe Tag, type: :request do
 
         patch(
           "/api/tags/#{@tag.id}.json",
-          { tag: { name: name } },
-          @token)
+          { tag: { name: name }})
       end
 
       it "should respond with errors" do
@@ -140,10 +130,7 @@ describe Tag, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/tags/#{@tag.id}.json",
-        {},
-        @token)
+      delete("/api/tags/#{@tag.id}.json")
     end
 
     it "should respond with status 204" do

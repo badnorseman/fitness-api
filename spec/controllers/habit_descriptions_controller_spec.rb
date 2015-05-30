@@ -71,7 +71,7 @@ describe Api::HabitDescriptionsController, type: :controller do
         patch(
           :update,
           id: @habit_description.id,
-          habit_description: { name: name, tag_list: tag_list } )
+          habit_description: { name: name, tag_list: tag_list })
 
         expect(HabitDescription.find(@habit_description.id).name).to eq(name)
       end
@@ -84,7 +84,7 @@ describe Api::HabitDescriptionsController, type: :controller do
         patch(
           :update,
           id: @habit_description.id,
-          habit_description: { name: name } )
+          habit_description: { name: name })
 
         expect(HabitDescription.find(@habit_description.id).name).to eq(@habit_description.name)
       end

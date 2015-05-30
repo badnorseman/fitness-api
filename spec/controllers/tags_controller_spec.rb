@@ -63,7 +63,7 @@ describe Api::TagsController, type: :controller do
         patch(
           :update,
           id: @tag.id,
-          tag: { name: name } )
+          tag: { name: name })
 
         expect(Tag.find(@tag.id).name).to eq(name)
       end
@@ -76,7 +76,7 @@ describe Api::TagsController, type: :controller do
         patch(
           :update,
           id: @tag.id,
-          tag: { name: name } )
+          tag: { name: name })
 
         expect(Tag.find(@tag.id).name).to eq(@tag.name)
       end

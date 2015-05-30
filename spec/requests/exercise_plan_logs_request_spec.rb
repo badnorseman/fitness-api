@@ -10,24 +10,21 @@ describe ExercisePlanLog, type: :request do
                                      coach: @coach).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/exercise_plan_logs.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/exercise_plan_logs.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #show" do
     before do
-      token = @user.generate_token
+      login(@user)
 
-      get(
-        "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",
-        {},
-        token)
+      get("/api/exercise_plan_logs/#{@exercise_plan_log.id}.json")
     end
 
     it "should respond with 1 ExercisePlanLog" do
@@ -42,15 +39,15 @@ describe ExercisePlanLog, type: :request do
   describe "POST #create" do
     context "with valid attributes" do
       before do
-        token = @coach.generate_token
+        login(@coach)
+
         @exercise_plan_attributes =
           attributes_for(:exercise_plan_log,
                          user_id: @user.id,
                          coach_id: @coach.id)
         post(
           "/api/exercise_plan_logs.json",
-          { exercise_plan_log: @exercise_plan_attributes },
-          token)
+          { exercise_plan_log: @exercise_plan_attributes })
       end
 
       it "should respond with created ExercisePlan" do
@@ -68,7 +65,8 @@ describe ExercisePlanLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        token = @coach.generate_token
+        login(@coach)
+
         exercise_plan_attributes =
           attributes_for(:exercise_plan_log,
                          name: nil,
@@ -76,8 +74,7 @@ describe ExercisePlanLog, type: :request do
                          coach_id: @coach.id)
         post(
           "/api/exercise_plan_logs.json",
-          { exercise_plan_log: exercise_plan_attributes },
-          token)
+          { exercise_plan_log: exercise_plan_attributes })
       end
 
       it "should respond with errors" do
@@ -93,13 +90,13 @@ describe ExercisePlanLog, type: :request do
   describe "PATCH #update" do
     context "with valid attributes" do
       before do
-        token = @user.generate_token
+        login(@user)
+
         @name = "Name #{rand(100)}"
 
         patch(
           "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",
-          { exercise_plan_log: { name: @name } },
-          token)
+          { exercise_plan_log: { name: @name }})
       end
 
       it "should respond with updated ExercisePlan" do
@@ -113,13 +110,13 @@ describe ExercisePlanLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        token = @user.generate_token
+        login(@user)
+
         name = "too long name" * 100
 
         patch(
           "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",
-          { exercise_plan_log: { name: name } },
-          token)
+          { exercise_plan_log: { name: name }})
       end
 
       it "should respond with errors" do
@@ -134,12 +131,9 @@ describe ExercisePlanLog, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      token = @coach.generate_token
+      login(@coach)
 
-      delete(
-        "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",
-        {},
-        token)
+      delete("/api/exercise_plan_logs/#{@exercise_plan_log.id}.json")
     end
 
     it "should respond with status 204" do

@@ -3,28 +3,25 @@ require "spec_helper"
 describe PaymentPlan, type: :request do
   before do
     coach = create(:coach)
-    @token = coach.generate_token
+    login(coach)
     @payment_plan = create_list(:payment_plan,
                                 2,
                                 user: coach).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/payment_plans.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/payment_plans.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
-      get(
-        "/api/payment_plans.json",
-        {},
-        @token)
+      get("/api/payment_plans.json")
     end
 
     it "should respond with an array of 2 PaymentPlans" do
@@ -38,10 +35,7 @@ describe PaymentPlan, type: :request do
 
   describe "GET #show" do
     before do
-      get(
-        "/api/payment_plans/#{@payment_plan.id}.json",
-        {},
-        @token)
+      get("/api/payment_plans/#{@payment_plan.id}.json")
     end
 
     it "should respond with 1 PaymentPlan" do
@@ -60,8 +54,7 @@ describe PaymentPlan, type: :request do
 
         post(
           "/api/payment_plans.json",
-          { payment_plan: @payment_plan_attributes },
-          @token)
+          { payment_plan: @payment_plan_attributes })
       end
 
       it "should respond with created PaymentPlan" do
@@ -84,8 +77,7 @@ describe PaymentPlan, type: :request do
 
         post(
           "/api/payment_plans.json",
-          { payment_plan: payment_plan_attributes },
-          @token)
+          { payment_plan: payment_plan_attributes })
       end
 
       it "should respond with errors" do
@@ -105,8 +97,7 @@ describe PaymentPlan, type: :request do
 
         patch(
           "/api/payment_plans/#{@payment_plan.id}.json",
-          { payment_plan: { name: @name } },
-          @token)
+          { payment_plan: { name: @name }})
       end
 
       it "should respond with updated PaymentPlan" do
@@ -124,8 +115,7 @@ describe PaymentPlan, type: :request do
 
         patch(
           "/api/payment_plans/#{@payment_plan.id}.json",
-          { payment_plan: { name: name } },
-          @token)
+          { payment_plan: { name: name }})
       end
 
       it "should respond with errors" do
@@ -140,10 +130,7 @@ describe PaymentPlan, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/payment_plans/#{@payment_plan.id}.json",
-        {},
-        @token)
+      delete("/api/payment_plans/#{@payment_plan.id}.json")
     end
 
     it "should respond with status 204" do

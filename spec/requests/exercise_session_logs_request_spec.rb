@@ -14,24 +14,21 @@ describe ExerciseSessionLog, type: :request do
                                         coach: @coach).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/exercise_session_logs/#{@exercise_session_log.id}.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/exercise_session_logs/#{@exercise_session_log.id}.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #show" do
     before do
-      token = @user.generate_token
+      login(@user)
 
-      get(
-        "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
-        {},
-        token)
+      get("/api/exercise_session_logs/#{@exercise_session_log.id}.json")
     end
 
     it "should respond with 1 ExerciseSessionLog" do
@@ -46,7 +43,8 @@ describe ExerciseSessionLog, type: :request do
   describe "POST #create" do
     context "with valid attributes" do
       before do
-        token = @coach.generate_token
+        login(@coach)
+
         @exercise_session_log_attributes =
           attributes_for(:exercise_session_log,
                          exercise_plan_log_id: @exercise_plan_log.id,
@@ -54,8 +52,7 @@ describe ExerciseSessionLog, type: :request do
                          coach_id: @coach.id)
         post(
           "/api/exercise_session_logs.json",
-          { exercise_session_log: @exercise_session_log_attributes },
-          token)
+          { exercise_session_log: @exercise_session_log_attributes })
       end
 
       it "should respond with created ExerciseSessionLog" do
@@ -73,7 +70,8 @@ describe ExerciseSessionLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        token = @coach.generate_token
+        login(@coach)
+
         exercise_session_log_attributes =
           attributes_for(:exercise_session_log,
                          exercise_plan_log_id: nil,
@@ -81,8 +79,7 @@ describe ExerciseSessionLog, type: :request do
                          coach_id: @coach.id)
         post(
           "/api/exercise_session_logs.json",
-          { exercise_session_log: exercise_session_log_attributes },
-          token)
+          { exercise_session_log: exercise_session_log_attributes })
       end
 
       it "should respond with errors" do
@@ -98,13 +95,13 @@ describe ExerciseSessionLog, type: :request do
   describe "PATCH #update" do
     context "with valid attributes" do
       before do
-        token = @user.generate_token
+        login(@user)
+
         @started_at = Time.zone.now.change(usec: 0)
 
         patch(
           "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
-          { exercise_session_log: { started_at: @started_at } },
-          token)
+          { exercise_session_log: { started_at: @started_at }})
       end
 
       it "should respond with updated ExerciseSessionLog" do
@@ -118,12 +115,11 @@ describe ExerciseSessionLog, type: :request do
 
     context "with invalid attributes" do
       before do
-        token = @user.generate_token
+        login(@user)
 
         patch(
           "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
-          { exercise_session_log: { exercise_plan_log_id: "" } },
-          token)
+          { exercise_session_log: { exercise_plan_log_id: "" }})
       end
 
       it "should respond with errors" do
@@ -138,12 +134,9 @@ describe ExerciseSessionLog, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      token = @coach.generate_token
+      login(@coach)
 
-      delete(
-        "/api/exercise_session_logs/#{@exercise_session_log.id}.json",
-        {},
-        token)
+      delete("/api/exercise_session_logs/#{@exercise_session_log.id}.json")
     end
 
     it "should respond with status 204" do

@@ -3,26 +3,23 @@ require "spec_helper"
 describe User, type: :request do
   before do
     user = create(:administrator)
-    @token = user.generate_token
+    login(user)
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/users.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/users.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET list of users" do
     before do
       create_list(:user, 2)
-      get(
-        "/api/users.json",
-        {},
-        @token)
+      get("/api/users.json")
     end
 
     it "should respond with array of 3 users" do

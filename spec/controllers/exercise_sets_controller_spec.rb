@@ -60,7 +60,7 @@ describe Api::ExerciseSetsController, type: :controller do
         patch(
           :update,
           id: @exercise_set.id,
-          exercise_set: { name: name } )
+          exercise_set: { name: name })
 
         expect(ExerciseSet.find(@exercise_set.id).name).to eq(name)
       end
@@ -73,7 +73,7 @@ describe Api::ExerciseSetsController, type: :controller do
         patch(
           :update,
           id: @exercise_set.id,
-          exercise_set: { name: name } )
+          exercise_set: { name: name })
 
         expect(ExerciseSet.find(@exercise_set.id).name).to eq(@exercise_set.name)
       end

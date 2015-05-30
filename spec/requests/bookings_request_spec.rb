@@ -4,7 +4,7 @@ describe Booking, type: :request do
   before do
     @coach = create(:coach)
     user = create(:user)
-    @token = user.generate_token
+    login(user)
     create(:availability,
            coach: @coach,
            duration: 60)
@@ -20,22 +20,19 @@ describe Booking, type: :request do
            end_at: Time.zone.parse("11:00AM") + 1.day)
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/bookings.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/bookings.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
-      get(
-        "/api/bookings.json",
-        {},
-        @token)
+      get("/api/bookings.json")
     end
 
     it "should respond with array of 2 Bookings" do
@@ -49,10 +46,7 @@ describe Booking, type: :request do
 
   describe "GET #show" do
     before do
-      get(
-        "/api/bookings/#{@booking.id}.json",
-        {},
-        @token)
+      get("/api/bookings/#{@booking.id}.json")
     end
 
     it "should respond with 1 Booking" do
@@ -74,8 +68,7 @@ describe Booking, type: :request do
                          end_at: Time.zone.parse("10:00AM") + 2.days)
         post(
           "/api/bookings.json",
-          { booking: @booking_attributes },
-          @token)
+          { booking: @booking_attributes })
       end
 
       it "should respond with created Booking" do
@@ -100,8 +93,7 @@ describe Booking, type: :request do
                          end_at: Time.zone.parse("10:00AM") + 2.days)
         post(
           "/api/bookings.json",
-          { booking: booking_attributes },
-          @token)
+          { booking: booking_attributes })
       end
 
       it "should respond with errors" do
@@ -123,8 +115,7 @@ describe Booking, type: :request do
 
         patch(
           "/api/bookings/#{@booking.id}.json",
-          { booking: @booking_attributes },
-          @token)
+          { booking: @booking_attributes })
       end
 
       it "should respond with updated Booking" do
@@ -144,8 +135,7 @@ describe Booking, type: :request do
 
         patch(
           "/api/bookings/#{@booking.id}.json",
-          { booking: booking_attributes },
-          @token)
+          { booking: booking_attributes })
       end
 
       it "should respond with errors" do
@@ -160,10 +150,7 @@ describe Booking, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/bookings/#{@booking.id}.json",
-        {},
-        @token)
+      delete("/api/bookings/#{@booking.id}.json")
     end
 
     it "should respond with status 200" do

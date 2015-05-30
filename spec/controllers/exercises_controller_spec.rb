@@ -66,7 +66,7 @@ describe Api::ExercisesController, type: :controller do
         patch(
           :update,
           id: @exercise.id,
-          exercise: { tempo: tempo } )
+          exercise: { tempo: tempo })
 
         expect(Exercise.find(@exercise.id).tempo).to eq(tempo)
       end
@@ -79,7 +79,7 @@ describe Api::ExercisesController, type: :controller do
         patch(
           :update,
           id: @exercise.id,
-          exercise: { tempo: tempo } )
+          exercise: { tempo: tempo })
 
         expect(Exercise.find(@exercise.id).tempo).to eq(@exercise.tempo)
       end

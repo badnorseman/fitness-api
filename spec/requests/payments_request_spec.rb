@@ -7,27 +7,24 @@ describe Payment, type: :request do
                            user: coach)
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/payments.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/payments.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
       user = create(:user)
-      tokens = user.generate_token("test")
+      login(user)
       create_list(:payment,
                   2,
                   user: user).first
-      get(
-        "/api/payments.json",
-        {},
-        tokens)
+      get("/api/payments.json")
     end
 
     it "should respond with an array of 2 PaymentPlans" do
@@ -42,13 +39,10 @@ describe Payment, type: :request do
   describe "GET #show" do
     before do
       user = create(:user)
-      tokens = user.generate_token("test")
+      login(user)
       @payment = create(:payment,
                         user: user)
-      get(
-        "/api/payments/#{@payment.id}.json",
-        {},
-        tokens)
+      get("/api/payments/#{@payment.id}.json")
     end
 
     it "should respond with 1 Payment" do
@@ -63,7 +57,7 @@ describe Payment, type: :request do
   describe "POST #create" do
     before do
       user = create(:user)
-      @tokens = user.generate_token("test")
+      login(user)
     end
 
     context "with valid attributes" do
@@ -73,8 +67,7 @@ describe Payment, type: :request do
                          payment_plan_id: @payment_plan.id)
         post(
           "/api/payments.json",
-          { payment: @payment_attributes},
-          @tokens)
+          { payment: @payment_attributes })
       end
 
       it "should respond with created Payment" do
@@ -98,8 +91,7 @@ describe Payment, type: :request do
                          transaction_id: nil)
         post(
           "/api/payments.json",
-          { payment: payment_attributes },
-          @tokens)
+          { payment: payment_attributes })
       end
 
       it "should respond with errors" do
@@ -118,7 +110,7 @@ describe Payment, type: :request do
       @payment = create(:payment,
                         user: user)
       admin = create(:administrator)
-      @tokens = admin.generate_token("test")
+      login(admin)
     end
 
     context "with valid attributes" do
@@ -128,8 +120,7 @@ describe Payment, type: :request do
 
         patch(
           "/api/payments/#{@payment.id}.json",
-          { payment: { transaction_id: @transaction_id } },
-          @tokens)
+          { payment: { transaction_id: @transaction_id }})
       end
 
       it "should respond with updated PaymentPlan" do
@@ -145,8 +136,7 @@ describe Payment, type: :request do
       before do
         patch(
           "/api/payments/#{@payment.id}.json",
-          { payment: { transaction_id: "" } },
-          @tokens)
+          { payment: { transaction_id: "" }})
       end
 
       it "should respond with errors" do
@@ -165,12 +155,9 @@ describe Payment, type: :request do
       @payment = create(:payment,
                         user: user)
       admin = create(:administrator)
-      @tokens = admin.generate_token("test")
+      login(admin)
 
-      delete(
-        "/api/payments/#{@payment.id}.json",
-        {},
-        @tokens)
+      delete("/api/payments/#{@payment.id}.json")
     end
 
     it "should respond with status 204" do

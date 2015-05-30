@@ -73,7 +73,7 @@ describe Api::ExercisePlanLogsController, type: :controller do
 
         patch(
           :update, id: @exercise_plan_log.id,
-          exercise_plan_log: { name: name } )
+          exercise_plan_log: { name: name })
 
         expect(ExercisePlanLog.find(@exercise_plan_log.id).name).to eq(name)
       end
@@ -86,7 +86,7 @@ describe Api::ExercisePlanLogsController, type: :controller do
         patch(
           :update,
           id: @exercise_plan_log.id,
-          exercise_plan_log: { name: name } )
+          exercise_plan_log: { name: name })
 
         expect(ExercisePlanLog.find(@exercise_plan_log.id).name).to eq(@exercise_plan_log.name)
       end

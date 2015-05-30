@@ -60,7 +60,7 @@ describe Api::RolesController, type: :controller do
         patch(
           :update,
           id: @role.id,
-          role: { name: name } )
+          role: { name: name })
 
         expect(Role.find(@role.id).name).to eq(name)
       end
@@ -73,7 +73,7 @@ describe Api::RolesController, type: :controller do
         patch(
           :update,
           id: @role.id,
-          role: { name: name } )
+          role: { name: name })
 
         expect(Role.find(@role.id).name).to eq(@role.name)
       end

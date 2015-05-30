@@ -3,26 +3,23 @@ require "spec_helper"
 describe "Coach", type: :request do
   before do
     user = create(:user)
-    @token = user.generate_token
+    login(user)
     @coach = create_list(:coach, 2).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/coaches.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/coaches.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET list of coaches " do
     before do
-      get(
-        "/api/coaches.json",
-        {},
-        @token)
+      get("/api/coaches.json")
     end
 
     it "should respond with array of 2 coaches" do
@@ -40,10 +37,7 @@ describe "Coach", type: :request do
              coach: @coach,
              start_at: Time.zone.now,
              end_at: 1.week.from_now)
-      get(
-        "/api/coaches/#{@coach.id}/schedule.json",
-        {},
-        @token)
+      get("/api/coaches/#{@coach.id}/schedule.json")
     end
 
     it "should respond with schedule that has 8 days" do

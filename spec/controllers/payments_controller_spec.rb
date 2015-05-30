@@ -85,7 +85,7 @@ describe Api::PaymentsController, type: :controller do
         patch(
           :update,
           id: @payment.id,
-          payment: { transaction_id: transaction_id } )
+          payment: { transaction_id: transaction_id })
 
         expect(Payment.find(@payment.id).transaction_id).to eq(transaction_id)
       end
@@ -98,7 +98,7 @@ describe Api::PaymentsController, type: :controller do
         patch(
           :update,
           id: @payment.id,
-          payment: { payment_plan_id: payment_plan_id } )
+          payment: { payment_plan_id: payment_plan_id })
 
         expect(Payment.find(@payment.id).transaction_id).to eq(@payment.transaction_id)
       end

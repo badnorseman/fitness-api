@@ -3,28 +3,25 @@ require "spec_helper"
 describe Product, type: :request do
   before do
     @coach = create(:coach)
-    @token = @coach.generate_token
+    login(@coach)
     @product = create_list(:product,
                            2,
                            user: @coach).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/users/#{@coach.id}/products.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/users/#{@coach.id}/products.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
-      get(
-        "/api/users/#{@coach.id}/products.json",
-        {},
-        @token)
+      get("/api/users/#{@coach.id}/products.json")
     end
 
     it "should respond with an array of 2 Products" do
@@ -38,10 +35,7 @@ describe Product, type: :request do
 
   describe "GET #show" do
     before do
-      get(
-        "/api/users/#{@coach.id}/products/#{@product.id}.json",
-        {},
-        @token)
+      get("/api/users/#{@coach.id}/products/#{@product.id}.json")
     end
 
     it "should respond with 1 Product" do
@@ -60,8 +54,7 @@ describe Product, type: :request do
 
         post(
           "/api/users/#{@coach.id}/products.json",
-          { product: @product_attributes },
-          @token)
+          { product: @product_attributes })
       end
 
       it "should respond with created Product" do
@@ -84,8 +77,7 @@ describe Product, type: :request do
 
         post(
           "/api/users/#{@coach.id}/products.json",
-          { product: product_attributes },
-          @token)
+          { product: product_attributes })
       end
 
       it "should respond with errors" do
@@ -105,8 +97,7 @@ describe Product, type: :request do
 
         patch(
           "/api/users/#{@coach.id}/products/#{@product.id}.json",
-          { product: { name: @name } },
-          @token)
+          { product: { name: @name }})
       end
 
       it "should respond with updated Product" do
@@ -124,8 +115,7 @@ describe Product, type: :request do
 
         patch(
           "/api/users/#{@coach.id}/products/#{@product.id}.json",
-          { product: { name: name } },
-          @token)
+          { product: { name: name }})
       end
 
       it "should respond with errors" do
@@ -140,10 +130,7 @@ describe Product, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/users/#{@coach.id}/products/#{@product.id}.json",
-        {},
-        @token)
+      delete("/api/users/#{@coach.id}/products/#{@product.id}.json")
     end
 
     it "should respond with status 204" do

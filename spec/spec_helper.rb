@@ -41,7 +41,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include ControllerHelper, type: :controller
-  config.include ControllerHelper, type: :request
+  config.include RequestHelper, type: :request
 
   config.include FactoryGirl::Syntax::Methods
 end

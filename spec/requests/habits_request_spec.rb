@@ -3,7 +3,7 @@ require "spec_helper"
 describe Habit, type: :request do
   before do
     coach = create(:coach)
-    @token = coach.generate_token
+    login(coach)
     @product = create(:product,
                       user: coach)
     @habit_description = create(:habit_description,
@@ -14,22 +14,19 @@ describe Habit, type: :request do
                          habit_description: @habit_description).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/habits.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/habits.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #index" do
     before do
-      get(
-        "/api/habits.json",
-        {},
-        @token)
+      get("/api/habits.json")
     end
 
     it "should respond with array of 2 Habits" do
@@ -43,10 +40,7 @@ describe Habit, type: :request do
 
   describe "GET #show" do
     before do
-      get(
-        "/api/habits/#{@habit.id}.json",
-        {},
-        @token)
+      get("/api/habits/#{@habit.id}.json")
     end
 
     it "should respond with 1 Habit" do
@@ -67,8 +61,7 @@ describe Habit, type: :request do
                          habit_description_id: @habit_description.id)
         post(
           "/api/habits.json",
-          { habit: @habit_attributes },
-          @token)
+          { habit: @habit_attributes })
       end
 
       it "should respond with created Habit" do
@@ -92,8 +85,7 @@ describe Habit, type: :request do
                          habit_description_id: nil)
         post(
           "/api/habits.json",
-          { habit: habit_attributes },
-          @token)
+          { habit: habit_attributes })
       end
 
       it "should respond with errors" do
@@ -113,8 +105,7 @@ describe Habit, type: :request do
 
         patch(
           "/api/habits/#{@habit.id}.json",
-          { habit: { unit: @unit } },
-          @token)
+          { habit: { unit: @unit }})
       end
 
       it "should respond with updated Habit" do
@@ -130,8 +121,7 @@ describe Habit, type: :request do
       before do
         patch(
           "/api/habits/#{@habit.id}.json",
-          { habit: { unit: nil } },
-          @token)
+          { habit: { unit: nil }})
       end
 
       it "should respond with errors" do
@@ -146,10 +136,7 @@ describe Habit, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/habits/#{@habit.id}.json",
-        {},
-        @token)
+      delete("/api/habits/#{@habit.id}.json")
     end
 
     it "should respond with status 204" do

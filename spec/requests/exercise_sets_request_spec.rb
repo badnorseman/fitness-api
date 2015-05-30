@@ -3,7 +3,7 @@ require "spec_helper"
 describe ExerciseSet, type: :request do
   before do
     coach = create(:coach)
-    @token = coach.generate_token
+    login(coach)
     exercise_plan = create(:exercise_plan,
                             user: coach)
     @exercise_session = create(:exercise_session,
@@ -14,22 +14,19 @@ describe ExerciseSet, type: :request do
                                 user: coach).first
   end
 
-  describe "Unauthorized request" do
-    before do
-      get "/api/exercise_sets/#{@exercise_set.id}.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
+  # describe "Unauthorized request" do
+  #   before do
+  #     get "/api/exercise_sets/#{@exercise_set.id}.json"
+  #   end
+  #
+  #   it "should respond with status 401" do
+  #     expect(response.status).to eq 401
+  #   end
+  # end
 
   describe "GET #show" do
     before do
-      get(
-        "/api/exercise_sets/#{@exercise_set.id}.json",
-        {},
-        @token)
+      get("/api/exercise_sets/#{@exercise_set.id}.json")
     end
 
     it "should respond with 1 ExerciseSet" do
@@ -49,8 +46,7 @@ describe ExerciseSet, type: :request do
                          exercise_session_id: @exercise_session.id)
         post(
           "/api/exercise_sets.json",
-          { exercise_set: @exercise_set_attributes },
-          @token)
+          { exercise_set: @exercise_set_attributes })
       end
 
       it "should respond with created ExerciseSet" do
@@ -74,8 +70,7 @@ describe ExerciseSet, type: :request do
                          exercise_session_id: @exercise_session.id)
         post(
           "/api/exercise_sets.json",
-          { exercise_set: exercise_set_attributes },
-          @token)
+          { exercise_set: exercise_set_attributes })
       end
 
       it "should respond with errors" do
@@ -95,8 +90,7 @@ describe ExerciseSet, type: :request do
 
         patch(
           "/api/exercise_sets/#{@exercise_set.id}.json",
-          { exercise_set: { name: @name } },
-          @token)
+          { exercise_set: { name: @name }})
       end
 
       it "should respond with updated ExerciseSet" do
@@ -114,8 +108,7 @@ describe ExerciseSet, type: :request do
 
         patch(
           "/api/exercise_sets/#{@exercise_set.id}.json",
-          { exercise_set: { name: name } },
-          @token)
+          { exercise_set: { name: name }})
       end
 
       it "should respond with errors" do
@@ -130,10 +123,7 @@ describe ExerciseSet, type: :request do
 
   describe "DELETE #destroy" do
     before do
-      delete(
-        "/api/exercise_sets/#{@exercise_set.id}.json",
-        {},
-        @token)
+      delete("/api/exercise_sets/#{@exercise_set.id}.json")
     end
 
     it "should respond with status 204" do
