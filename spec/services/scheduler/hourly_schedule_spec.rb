@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe Scheduler::HourlySchedule do
   before do
     @coach = create(:coach)

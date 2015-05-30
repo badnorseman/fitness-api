@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe CountBookings do
   before do
     @coach = create(:coach)

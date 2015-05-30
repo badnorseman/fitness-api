@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe Scheduler::ReconciledSchedule do
   before do
     @coach = create(:coach)

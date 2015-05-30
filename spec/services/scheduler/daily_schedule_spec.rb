@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe Scheduler::DailySchedule do
   before do
     @availability = create(:availability)
