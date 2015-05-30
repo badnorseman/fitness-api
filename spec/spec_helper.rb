@@ -42,7 +42,6 @@ RSpec.configure do |config|
 
   config.include ControllerHelper, type: :controller
   config.include ControllerHelper, type: :request
-  # config.include OmniAuthHelper
 
   config.include FactoryGirl::Syntax::Methods
 end

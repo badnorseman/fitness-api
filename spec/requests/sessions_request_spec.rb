@@ -7,7 +7,7 @@ describe "Session", type: :request do
         user = create(:user)
 
         post(
-          "/api/auth/sign_in",
+          "/api/auth/login",
           { email: user.email,
             password: user.password } )
       end
@@ -31,7 +31,7 @@ describe "Session", type: :request do
           attributes_for(:user, password: rand(1000))
 
         post(
-          "/api/auth/sign_in",
+          "/api/auth/login",
           { email: user_attributes[:email],
            password: user_attributes[:password] } )
       end
@@ -52,7 +52,7 @@ describe "Session", type: :request do
       @token = @user.generate_token
 
       delete(
-        "/api/auth/sign_out",
+        "/api/auth/logout",
         {},
         @token)
     end
