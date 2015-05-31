@@ -1,10 +1,6 @@
 FactoryGirl.define do
   factory :identity do
-    # sequence(:email) { |n| "admin#{n}@fitbird.com" }
-    # password "Test1234"
-    # sequence(:email) { |n| "coach#{n}@fitbird.com" }
-    # password "Test1234"
-    sequence(:email) { |n| "user#{n}@example.com" }
-    password "test"
+    sequence(:email) { |n| "123#{n}@test.com" }
+    password "123test"
   end
 end

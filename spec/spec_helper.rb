@@ -45,3 +45,7 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 end
+
+def json
+  @json ||= JSON.parse(response.body)
+end

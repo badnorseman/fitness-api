@@ -3,35 +3,37 @@ Rails.application.routes.draw do
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
   namespace :api do
+    resource :sessions, only: [:create, :destroy]
+
     get "/auth/:provider/callback", to: "sessions#create", as: "login"
     get "/auth/logout", to: "sessions#destroy", as: "logout"
 
-    resources :availabilities, except: [:new, :edit]
-    resources :bookings, except: [:new, :edit] do
+    resources :availabilities, only: [:index, :show, :create, :update, :destroy]
+    resources :bookings, only: [:index, :show, :create, :update, :destroy] do
       post "confirm", to: "bookings#confirm", as: "confirm"
     end
-    resources :bookings, except: [:new, :edit]
+    resources :bookings, only: [:index, :show, :create, :update, :destroy]
     resources :coaches, only: [:index] do
       get "schedule", to: "coaches#schedule", as: "schedule"
     end
-    resources :exercise_plans, except: [:new, :edit]
-    resources :exercise_plan_logs, except: [:new, :edit]
-    resources :exercise_sessions, except: [:index, :new, :edit]
-    resources :exercise_session_logs, except: [:index, :new, :edit]
-    resources :exercise_sets, except: [:index, :new, :edit]
-    resources :exercise_set_logs, except: [:index, :new, :edit]
-    resources :exercises, except: [:index, :new, :edit]
-    resources :exercise_logs, except: [:index, :new, :edit]
-    resources :exercise_descriptions, except: [:new, :edit]
-    resources :habit_descriptions, except: [:new, :edit]
-    resources :habit_logs, except: [:new, :edit]
-    resources :habits, except: [:new, :edit]
-    resources :payment_plans, except: [:new, :edit]
-    resources :payments, except: [:new, :edit]
-    resources :roles, except: [:new, :edit]
-    resources :tags, except: [:new, :edit]
+    resources :exercise_plans, only: [:index, :show, :create, :update, :destroy]
+    resources :exercise_plan_logs, only: [:index, :show, :create, :update, :destroy]
+    resources :exercise_sessions, only: [:show, :create, :update, :destroy]
+    resources :exercise_session_logs, only: [:show, :create, :update, :destroy]
+    resources :exercise_sets, only: [:show, :create, :update, :destroy]
+    resources :exercise_set_logs, only: [:show, :create, :update, :destroy]
+    resources :exercises, only: [:show, :create, :update, :destroy]
+    resources :exercise_logs, only: [:show, :create, :update, :destroy]
+    resources :exercise_descriptions, only: [:index, :show, :create, :update, :destroy]
+    resources :habit_descriptions, only: [:index, :show, :create, :update, :destroy]
+    resources :habit_logs, only: [:index, :show, :create, :update, :destroy]
+    resources :habits, only: [:index, :show, :create, :update, :destroy]
+    resources :payment_plans, only: [:index, :show, :create, :update, :destroy]
+    resources :payments, only: [:index, :show, :create, :update, :destroy]
+    resources :roles, only: [:index, :show, :create, :update, :destroy]
+    resources :tags, only: [:index, :show, :create, :update, :destroy]
     resources :users, only: [:index, :show] do
-      resources :products, except: [:new, :edit]
+      resources :products, only: [:index, :show, :create, :update, :destroy]
     end
 
     get "users/:id/location", to: "locations#show", as: "user_location"

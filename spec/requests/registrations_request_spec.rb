@@ -6,7 +6,7 @@
 #       user_attributes = attributes_for(:user,
 #                                        confirm_success_url: "/")
 #       post(
-#         "/api/auth",
+#         "/api/auth/identity/register",
 #         user_attributes)
 #     end
 #
@@ -29,7 +29,7 @@
 #                                        password: "",
 #                                        confirm_success_url: "/")
 #       post(
-#         "/api/auth",
+#         "/api/auth/identity/register",
 #         user_attributes)
 #     end
 #
