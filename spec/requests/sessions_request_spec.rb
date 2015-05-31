@@ -6,8 +6,8 @@ describe "Session", type: :request do
       before do
         # identity = create(:identity)
 
-        get(
-          "/api/auth/identity/callback",
+        post(
+          "/api/auth/login",
           { auth_key: "agent.smith@matrix.com",
             password: "dammit" })
       end
@@ -25,7 +25,7 @@ describe "Session", type: :request do
       before do
         # identity = create(:identity)
 
-        get(
+        post(
           "/api/auth/identity/callback",
           { auth_key: "agent.smith@matrix.com",
             password: nil })
@@ -42,7 +42,7 @@ describe "Session", type: :request do
       user = create(:user)
       login(user)
 
-      get("/api/auth/logout")
+      post("/api/auth/logout")
     end
 
     it "should respond with status 200" do

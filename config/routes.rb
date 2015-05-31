@@ -3,10 +3,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
   namespace :api do
-    resource :sessions, only: [:create, :destroy]
-
-    get "/auth/:provider/callback", to: "sessions#create", as: "login"
-    get "/auth/logout", to: "sessions#destroy", as: "logout"
+    post "/auth/:provider/callback", to: "sessions#create", as: "login"
+    post "/auth/logout", to: "sessions#destroy", as: "logout"
 
     resources :availabilities, only: [:index, :show, :create, :update, :destroy]
     resources :bookings, only: [:index, :show, :create, :update, :destroy] do
@@ -30,7 +28,6 @@ Rails.application.routes.draw do
     resources :habits, only: [:index, :show, :create, :update, :destroy]
     resources :payment_plans, only: [:index, :show, :create, :update, :destroy]
     resources :payments, only: [:index, :show, :create, :update, :destroy]
-    resources :roles, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index, :show, :create, :update, :destroy]
     resources :users, only: [:index, :show] do
       resources :products, only: [:index, :show, :create, :update, :destroy]
