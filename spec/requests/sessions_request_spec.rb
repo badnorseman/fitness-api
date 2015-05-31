@@ -4,8 +4,6 @@ describe "Session", type: :request do
   describe "when user logs in" do
     context "with valid credentials" do
       before do
-        # identity = create(:identity)
-
         post(
           "/api/auth/identity/callback",
           { auth_key: "agent.smith@matrix.com",
@@ -15,16 +13,10 @@ describe "Session", type: :request do
       it "should respond with status 200" do
         expect(response.status).to eq(200)
       end
-
-      it "should respond with role as user" do
-        expect(json.fetch("data").fetch("roles")).to include("user")
-      end
     end
 
     context "with invalid credentials" do
       before do
-        # identity = create(:identity)
-
         post(
           "/api/auth/identity/callback",
           { auth_key: "agent.smith@matrix.com",
