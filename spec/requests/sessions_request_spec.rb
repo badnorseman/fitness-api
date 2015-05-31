@@ -7,7 +7,7 @@ describe "Session", type: :request do
         # identity = create(:identity)
 
         post(
-          "/api/auth/login",
+          "/api/auth/identity/callback",
           { auth_key: "agent.smith@matrix.com",
             password: "dammit" })
       end
