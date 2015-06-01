@@ -1,7 +1,7 @@
 module Api
   class ProductsController < ApplicationController
     before_action :set_product, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
+    after_action :verify_authorized, except: [:index, :show]
 
     # GET /products.json
     def index

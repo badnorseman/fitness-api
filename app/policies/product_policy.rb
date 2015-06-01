@@ -1,13 +1,5 @@
 class ProductPolicy < ApplicationPolicy
 
-  def index?
-    true
-  end
-
-  def show?
-    true
-  end
-
   def create?
     user.administrator? || (user.coach? && user.id == record.user_id)
   end
