@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  default_scope { where(ended_at: nil) }
+
   belongs_to :user
   has_many :habits, inverse_of: :product, dependent: :destroy
   has_many :users

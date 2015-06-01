@@ -15,7 +15,7 @@ describe Product, type: :request do
 
     describe "GET #index" do
       before do
-        get("/api/users/#{@coach.id}/products.json")
+        get("/api/products.json")
       end
 
       it "should respond with an array of 2 Products" do
@@ -29,7 +29,7 @@ describe Product, type: :request do
 
     describe "GET #show" do
       before do
-        get("/api/users/#{@coach.id}/products/#{@product.id}.json")
+        get("/api/products/#{@product.id}.json")
       end
 
       it "should respond with 1 Product" do
@@ -47,7 +47,7 @@ describe Product, type: :request do
           @product_attributes = attributes_for(:product)
 
           post(
-            "/api/users/#{@coach.id}/products.json",
+            "/api/products.json",
             { product: @product_attributes })
         end
 
@@ -70,7 +70,7 @@ describe Product, type: :request do
             attributes_for(:product, name: nil)
 
           post(
-            "/api/users/#{@coach.id}/products.json",
+            "/api/products.json",
             { product: product_attributes })
         end
 
@@ -90,7 +90,7 @@ describe Product, type: :request do
           @name = "Name #{rand(100)}"
 
           patch(
-            "/api/users/#{@coach.id}/products/#{@product.id}.json",
+            "/api/products/#{@product.id}.json",
             { product: { name: @name }})
         end
 
@@ -108,7 +108,7 @@ describe Product, type: :request do
           name = "too long name" * 100
 
           patch(
-            "/api/users/#{@coach.id}/products/#{@product.id}.json",
+            "/api/products/#{@product.id}.json",
             { product: { name: name }})
         end
 
@@ -124,7 +124,7 @@ describe Product, type: :request do
 
     describe "DELETE #destroy" do
       before do
-        delete("/api/users/#{@coach.id}/products/#{@product.id}.json")
+        delete("/api/products/#{@product.id}.json")
       end
 
       it "should respond with status 204" do
@@ -135,7 +135,7 @@ describe Product, type: :request do
 
   context "when unauthenticated" do
     before do
-      get "/api/users/#{@coach.id}/products.json"
+      delete "/api/products/#{@product.id}.json"
     end
 
     it "should respond with status 401" do

@@ -30,9 +30,8 @@ Rails.application.routes.draw do
     resources :payment_plans, only: [:index, :show, :create, :update, :destroy]
     resources :payments, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index, :show, :create, :update, :destroy]
-    resources :users, only: [:index, :show] do
-      resources :products, only: [:index, :show, :create, :update, :destroy]
-    end
+    resources :products, only: [:index, :show, :create, :update, :destroy]
+    resources :users, only: [:index, :show]
 
     get "users/:id/location", to: "locations#show", as: "user_location"
     post "users/:id/location", to: "locations#create", as: "create_user_location"

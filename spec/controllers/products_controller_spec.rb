@@ -2,11 +2,11 @@ require "spec_helper"
 
 describe Api::ProductsController, type: :controller do
   before do
-    @coach = create(:coach)
-    login(@coach)
+    coach = create(:coach)
+    login(coach)
     @product = create_list(:product,
                            2,
-                           user: @coach).first
+                           user: coach).first
   end
 
   describe "GET #index" do
@@ -17,12 +17,10 @@ describe Api::ProductsController, type: :controller do
                   user: another_coach)
     end
 
-    it "should query 2 Products" do
-      get(
-        :index,
-        user_id: @coach)
+    it "should query 4 Products" do
+      get(:index)
 
-      expect(json.count).to eq 2
+      expect(json.count).to eq 4
     end
   end
 
@@ -30,7 +28,6 @@ describe Api::ProductsController, type: :controller do
     it "should read 1 Product" do
       get(
         :show,
-        user_id: @coach,
         id: @product.id)
 
       expect(json["name"]).to eq(@product.name)
@@ -46,7 +43,6 @@ describe Api::ProductsController, type: :controller do
         expect do
           post(
             :create,
-            user_id: @coach,
             product: product_attributes)
         end.to change(Product, :count).by(1)
       end
@@ -60,7 +56,6 @@ describe Api::ProductsController, type: :controller do
         expect do
           post(
             :create,
-            user_id: @coach,
             product: product_attributes)
         end.to change(Product, :count).by(0)
       end
@@ -74,7 +69,6 @@ describe Api::ProductsController, type: :controller do
 
         patch(
           :update,
-          user_id: @coach,
           id: @product.id,
           product: { name: name })
 
@@ -88,7 +82,6 @@ describe Api::ProductsController, type: :controller do
 
         patch(
           :update,
-          user_id: @coach,
           id: @product.id,
           product: { name: name })
 
@@ -102,7 +95,6 @@ describe Api::ProductsController, type: :controller do
       expect do
         delete(
           :destroy,
-          user_id: @coach,
           id: @product.id)
       end.to change(Product, :count).by(-1)
     end

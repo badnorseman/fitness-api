@@ -2,7 +2,7 @@ class ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
-    raise Pundit::NotAuthorizedError, "You must be signed in." unless user
+    raise Pundit::NotAuthorizedError, "You must log in." unless user
     @user = user
     @record = record
   end
