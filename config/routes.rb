@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     post "/auth/:provider/callback", to: "sessions#create"
-    post "/auth/logout", to: "sessions#destroy"
+    get "/auth/failure", to: "sessions#failure"
+    get "/logout", to: "sessions#destroy"
 
     resources :availabilities, only: [:index, :show, :create, :update, :destroy]
     resources :bookings, only: [:index, :show, :create, :update, :destroy] do

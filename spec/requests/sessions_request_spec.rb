@@ -34,7 +34,7 @@ describe "Session", type: :request do
       user = create(:user)
       login(user)
 
-      post("/api/auth/logout")
+      get("/api/logout")
     end
 
     it "should respond with status 200" do
