@@ -2,29 +2,29 @@ require "spec_helper"
 
 describe "Session", type: :request do
   describe "when user logs in" do
-    context "with valid credentials" do
-      before do
-        post(
-          "/api/auth/identity",
-          { email: "agent.smith@matrix.com",
-            password: "dammit" })
-      end
-
-      it "should respond with status 200" do
-        expect(response.status).to eq(200)
-      end
-    end
-
     context "with invalid credentials" do
       before do
-        post(
-          "/api/auth/identity",
-          { email: "agent.smith@matrix.com",
+        get(
+          "/api/auth/identity/callback",
+          { auth_key: "agent.smith@matrix.com",
             password: nil })
       end
 
       it "should respond with status 401" do
         expect(response.status).to eq(401)
+      end
+    end
+
+    context "with valid credentials" do
+      before do
+        get(
+          "/api/auth/identity/callback",
+          { auth_key: "agent.smith@matrix.com",
+            password: "dammit" })
+      end
+
+      it "should respond with status 200" do
+        expect(response.status).to eq(200)
       end
     end
   end
