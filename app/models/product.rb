@@ -3,7 +3,6 @@ class Product < ActiveRecord::Base
 
   belongs_to :user
   has_many :habits, inverse_of: :product, dependent: :destroy
-  has_many :users
 
   # Validate associations
   validates :user, presence: true

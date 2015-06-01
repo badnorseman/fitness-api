@@ -17,10 +17,10 @@ describe Api::ProductsController, type: :controller do
                   user: another_coach)
     end
 
-    it "should query 4 Products" do
+    it "should query 2 Products" do
       get(:index)
 
-      expect(json.count).to eq 4
+      expect(json.count).to eq 2
     end
   end
 
