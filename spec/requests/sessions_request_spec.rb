@@ -5,8 +5,8 @@ describe "Session", type: :request do
     context "with valid credentials" do
       before do
         post(
-          "/api/auth/identity/callback",
-          { auth_key: "agent.smith@matrix.com",
+          "/api/auth/identity",
+          { email: "agent.smith@matrix.com",
             password: "dammit" })
       end
 
@@ -18,8 +18,8 @@ describe "Session", type: :request do
     context "with invalid credentials" do
       before do
         post(
-          "/api/auth/identity/callback",
-          { auth_key: "agent.smith@matrix.com",
+          "/api/auth/identity",
+          { email: "agent.smith@matrix.com",
             password: nil })
       end
 
