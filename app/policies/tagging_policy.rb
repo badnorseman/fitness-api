@@ -15,7 +15,7 @@ class TaggingPolicy < ApplicationPolicy
       elsif user.coach?
         scope.all
       else
-        raise Pundit::NotAuthorizedError, "You are not authenticated."
+        raise Pundit::NotAuthorizedError, "You must log in."
       end
     end
   end

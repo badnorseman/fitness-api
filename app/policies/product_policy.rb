@@ -1,19 +1,15 @@
 class ProductPolicy < ApplicationPolicy
 
-  def show?
+  def create?
     user.administrator? || (user.coach? && user.id == record.user_id)
   end
 
-  def create?
-    show?
-  end
-
   def update?
-    show?
+    create?
   end
 
   def destroy?
-    show?
+    create?
   end
 
   class Scope < Scope
@@ -23,7 +19,7 @@ class ProductPolicy < ApplicationPolicy
       elsif user.coach?
         scope.where(user_id: user.id)
       else
-        raise Pundit::NotAuthorizedError, "You are not authenticated."
+        raise Pundit::NotAuthorizedError, "You must log in."
       end
     end
   end

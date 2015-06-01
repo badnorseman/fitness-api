@@ -1,13 +1,11 @@
 module Api
   class UsersController < ApplicationController
-    skip_before_action :restrict_access
     before_action :set_user, only: :show
     skip_after_action :verify_authorized, only: :index
 
     # GET /users.json
     def index
-      render json: User.find_each, status: :ok
-      # render json: policy_scope(User).data_for_listing, status: :ok
+      render json: policy_scope(User).data_for_listing, status: :ok
     end
 
     # GET /users/1.json

@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(version: 20150528123707) do
     t.integer  "user_id"
     t.string   "name",        null: false
     t.text     "description", null: false
+    t.datetime "ended_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -46,8 +46,7 @@ module Api
     def exercise_plan_params
       params.require(:exercise_plan).
         permit(:name,
-               :description,
-               :ended_at)
+               :description)
     end
 
     def set_exercise_plan

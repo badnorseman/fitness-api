@@ -25,7 +25,7 @@ class ExerciseSetLogPolicy < ApplicationPolicy
       elsif user.present?
         scope.where(user_id: user.id)
       else
-        raise Pundit::NotAuthorizedError, "You are not authenticated."
+        raise Pundit::NotAuthorizedError, "You must log in."
       end
     end
   end

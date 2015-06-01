@@ -3,17 +3,17 @@ module Api
     before_action :set_payment, only: [:show, :update, :destroy]
     after_action :verify_authorized, except: :index
 
-    # GET /users/1/payments.json
+    # GET /payments.json
     def index
       render json: policy_scope(Payment).order(:transaction_id), status: :ok
     end
 
-    # GET /users/1/payments/1.json
+    # GET /payments/1.json
     def show
       render json: @payment, status: :ok
     end
 
-    # POST /users/1/payments.json
+    # POST /payments.json
     def create
       @payment = Payment.new(payment_params)
       @payment.user = current_user
@@ -26,7 +26,7 @@ module Api
       end
     end
 
-    # PUT /users/1/payments/1.json
+    # PUT /payments/1.json
     def update
       if @payment.update(payment_params)
         render json: @payment, status: :ok
@@ -35,7 +35,7 @@ module Api
       end
     end
 
-    # DELETE /users/1/payments/1.json
+    # DELETE /payments/1.json
     def destroy
       @payment.destroy
       head :no_content
