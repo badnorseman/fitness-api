@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe Tag, type: :model do
   it "has a valid factory" do

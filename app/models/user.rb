@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  scope :data_for_listing, -> { select(:id, :uid, :name, :email, :roles) }
+  scope :data_for_listing, -> { select(:id, :first_name, :last_name, :roles) }
 
   has_one  :location, dependent: :destroy
   has_many :availabilities, class: Availability, foreign_key: :coach_id, dependent: :destroy

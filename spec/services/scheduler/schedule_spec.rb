@@ -1,5 +1,3 @@
-require "rails_helper"
-
 describe Scheduler::Schedule do
   before do
     availability = create(:availability,

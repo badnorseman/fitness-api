@@ -5,7 +5,7 @@ class TaggingPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.administrator? || user.coach?
+    create?
   end
 
   class Scope < Scope

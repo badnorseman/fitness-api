@@ -5,15 +5,15 @@ class TagPolicy < ApplicationPolicy
   end
 
   def create?
-    user.administrator?
+    show?
   end
 
   def update?
-    user.administrator?
+    show?
   end
 
   def destroy?
-    user.administrator?
+    show?
   end
 
   class Scope < Scope

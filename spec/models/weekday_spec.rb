@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Weekday do
   it "should have permitted weekdays" do

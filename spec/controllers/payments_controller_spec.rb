@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::PaymentsController, type: :controller do
   before do
@@ -10,7 +10,7 @@ describe Api::PaymentsController, type: :controller do
   describe "GET #index" do
     it "should query 2 Payments" do
       user = create(:user)
-      sign_in user
+      login(user)
       payment = create_list(:payment,
                             2,
                             user: user).first
@@ -23,7 +23,7 @@ describe Api::PaymentsController, type: :controller do
   describe "GET #show" do
     it "should read 1 Payment" do
       user = create(:user)
-      sign_in user
+      login(user)
       payment = create(:payment,
                        user: user)
       get(
@@ -37,7 +37,7 @@ describe Api::PaymentsController, type: :controller do
   describe "POST #create" do
     before do
       user = create(:user)
-      sign_in user
+      login(user)
     end
 
     context "with valid attributes" do
@@ -74,7 +74,7 @@ describe Api::PaymentsController, type: :controller do
                         user: user)
 
       admin = create(:administrator)
-      sign_in admin
+      login(admin)
     end
 
     context "with valid attributes" do
@@ -85,7 +85,7 @@ describe Api::PaymentsController, type: :controller do
         patch(
           :update,
           id: @payment.id,
-          payment: { transaction_id: transaction_id } )
+          payment: { transaction_id: transaction_id })
 
         expect(Payment.find(@payment.id).transaction_id).to eq(transaction_id)
       end
@@ -98,7 +98,7 @@ describe Api::PaymentsController, type: :controller do
         patch(
           :update,
           id: @payment.id,
-          payment: { payment_plan_id: payment_plan_id } )
+          payment: { payment_plan_id: payment_plan_id })
 
         expect(Payment.find(@payment.id).transaction_id).to eq(@payment.transaction_id)
       end
@@ -111,7 +111,7 @@ describe Api::PaymentsController, type: :controller do
       payment = create(:payment,
                        user: user)
       admin = create(:administrator)
-      sign_in admin
+      login(admin)
 
       expect do
         delete(

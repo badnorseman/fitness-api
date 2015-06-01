@@ -1,9 +1,9 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::ExercisePlansController, type: :controller do
   before do
     coach = create(:coach)
-    sign_in coach
+    login(coach)
     @exercise_plan = create_list(:exercise_plan,
                                  2,
                                  user: coach).first
@@ -69,7 +69,7 @@ describe Api::ExercisePlansController, type: :controller do
 
         patch(
           :update, id: @exercise_plan.id,
-          exercise_plan: { name: name } )
+          exercise_plan: { name: name })
 
         expect(ExercisePlan.find(@exercise_plan.id).name).to eq(name)
       end
@@ -82,7 +82,7 @@ describe Api::ExercisePlansController, type: :controller do
         patch(
           :update,
           id: @exercise_plan.id,
-          exercise_plan: { name: name } )
+          exercise_plan: { name: name })
 
         expect(ExercisePlan.find(@exercise_plan.id).name).to eq(@exercise_plan.name)
       end

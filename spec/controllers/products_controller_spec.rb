@@ -1,9 +1,9 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::ProductsController, type: :controller do
   before do
     @coach = create(:coach)
-    sign_in @coach
+    login(@coach)
     @product = create_list(:product,
                            2,
                            user: @coach).first
@@ -76,7 +76,7 @@ describe Api::ProductsController, type: :controller do
           :update,
           user_id: @coach,
           id: @product.id,
-          product: { name: name } )
+          product: { name: name })
 
         expect(Product.find(@product.id).name).to eq(name)
       end
@@ -90,7 +90,7 @@ describe Api::ProductsController, type: :controller do
           :update,
           user_id: @coach,
           id: @product.id,
-          product: { name: name } )
+          product: { name: name })
 
         expect(Product.find(@product.id).name).to eq(@product.name)
       end

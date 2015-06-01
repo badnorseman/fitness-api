@@ -1,9 +1,9 @@
-require "rails_helper"
+require "spec_helper"
 
 describe Api::PaymentPlansController, type: :controller do
   before do
     coach = create(:coach)
-    sign_in coach
+    login(coach)
     @payment_plan = create_list(:payment_plan,
                                 2,
                                 user: coach).first
@@ -70,7 +70,7 @@ describe Api::PaymentPlansController, type: :controller do
         patch(
           :update,
           id: @payment_plan.id,
-          payment_plan: { name: name } )
+          payment_plan: { name: name })
 
         expect(PaymentPlan.find(@payment_plan.id).name).to eq(name)
       end
@@ -83,7 +83,7 @@ describe Api::PaymentPlansController, type: :controller do
         patch(
           :update,
           id: @payment_plan.id,
-          payment_plan: { name: name } )
+          payment_plan: { name: name })
 
         expect(PaymentPlan.find(@payment_plan.id).name).to eq(@payment_plan.name)
       end

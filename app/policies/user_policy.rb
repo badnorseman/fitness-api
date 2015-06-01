@@ -13,7 +13,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.administrator?
+    create?
   end
 
   def schedule?

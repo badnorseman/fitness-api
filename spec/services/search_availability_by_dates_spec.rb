@@ -1,5 +1,3 @@
-require "rails_helper"
-
 describe SearchAvailabilityByDates do
   before do
     @coach = create(:coach)

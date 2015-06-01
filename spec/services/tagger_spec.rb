@@ -1,5 +1,3 @@
-require "rails_helper"
-
 describe Tagger do
   before do
     @user = create(:user)

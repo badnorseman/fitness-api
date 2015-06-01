@@ -1,5 +1,3 @@
-require "rails_helper"
-
 describe SearchTaggableByTags do
   before do
     @user = create(:user)

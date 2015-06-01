@@ -302,15 +302,6 @@ ActiveRecord::Schema.define(version: 20150528123707) do
     t.datetime "updated_at"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string   "name",           limit: 50, null: false
-    t.string   "uniquable_name", limit: 50, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "roles", ["uniquable_name"], name: "index_roles_on_uniquable_name", unique: true, using: :btree
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

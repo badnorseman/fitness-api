@@ -1,5 +1,3 @@
-require "rails_helper"
-
 describe VerifyAvailability do
   before do
     @coach = create(:coach)

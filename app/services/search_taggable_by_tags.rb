@@ -6,7 +6,7 @@ class SearchTaggableByTags
   def call
     Tagging.select(:taggable_id, :taggable_type).
             joins(:tag).
-            where(tags: { name: @tags } ).
+            where(tags: { name: @tags }).
             group(:taggable_id, :taggable_type).
             having("COUNT(taggable_id) = ?", @tags.count).
             collect(&:taggable)
