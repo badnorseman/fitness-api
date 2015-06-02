@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
   namespace :api do
-    post "/auth/:provider/callback", to: "sessions#create"
+    get "/auth/:provider/callback", to: "sessions#create"
     get "/auth/failure", to: "sessions#failure"
     get "/logout", to: "sessions#destroy"
 
