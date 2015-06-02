@@ -17,7 +17,7 @@ describe User, type: :model do
   end
 
   it "has a invalid factory for user" do
-    user = build(:user, roles: [])
+    user = build(:user, uid: nil)
     expect(user).to be_invalid
   end
 end
