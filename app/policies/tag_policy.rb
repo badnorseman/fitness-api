@@ -1,5 +1,17 @@
 class TagPolicy < ApplicationPolicy
 
+  class Scope < Scope
+    def resolve
+      if user.administrator?
+        scope.all
+      elsif user.coach?
+        scope.all
+      else
+        raise Pundit::NotAuthorizedError, "You must log in."
+      end
+    end
+  end
+
   def show?
     user.administrator? || user.coach?
   end
@@ -14,17 +26,5 @@ class TagPolicy < ApplicationPolicy
 
   def destroy?
     show?
-  end
-
-  class Scope < Scope
-    def resolve
-      if user.administrator?
-        scope.all
-      elsif user.coach?
-        scope.all
-      else
-        raise Pundit::NotAuthorizedError, "You must log in."
-      end
-    end
   end
 end

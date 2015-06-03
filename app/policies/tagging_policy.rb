@@ -1,13 +1,5 @@
 class TaggingPolicy < ApplicationPolicy
 
-  def create?
-    user.administrator? || user.coach?
-  end
-
-  def destroy?
-    create?
-  end
-
   class Scope < Scope
     def resolve
       if user.administrator?
@@ -18,5 +10,13 @@ class TaggingPolicy < ApplicationPolicy
         raise Pundit::NotAuthorizedError, "You must log in."
       end
     end
+  end
+
+  def create?
+    user.administrator? || user.coach?
+  end
+
+  def destroy?
+    create?
   end
 end

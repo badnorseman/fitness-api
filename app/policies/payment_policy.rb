@@ -1,5 +1,17 @@
 class PaymentPolicy < ApplicationPolicy
 
+  class Scope < Scope
+    def resolve
+      if user.administrator?
+        scope.all
+      elsif user.id
+        scope.where(user_id: user.id)
+      else
+        raise Pundit::NotAuthorizedError, "You must log in."
+      end
+    end
+  end
+
   def show?
     user.administrator? || user.id == record.user_id
   end
@@ -14,17 +26,5 @@ class PaymentPolicy < ApplicationPolicy
 
   def destroy?
     update?
-  end
-
-  class Scope < Scope
-    def resolve
-      if user.administrator?
-        scope.all
-      elsif user.id
-        scope.where(user_id: user.id)
-      else
-        raise Pundit::NotAuthorizedError, "You must log in."
-      end
-    end
   end
 end
