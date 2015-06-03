@@ -10,13 +10,6 @@ describe Api::ProductsController, type: :controller do
   end
 
   describe "GET #index" do
-    before do
-      another_coach = create(:coach)
-      create_list(:product,
-                  2,
-                  user: another_coach)
-    end
-
     it "should query 2 Products" do
       get(:index)
 

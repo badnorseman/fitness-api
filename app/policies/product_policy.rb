@@ -2,13 +2,7 @@ class ProductPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.administrator?
-        scope.all
-      elsif user.coach?
-        scope.where(user_id: user.id)
-      else
-        raise Pundit::NotAuthorizedError, "You must log in."
-      end
+      scope.all
     end
   end
 
