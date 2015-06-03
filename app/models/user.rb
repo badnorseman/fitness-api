@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  scope :data_for_listing, -> { select(:id, :first_name, :last_name, :roles) }
+  scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name) }
 
   has_one  :location, dependent: :destroy
   has_many :availabilities, class: Availability, foreign_key: :coach_id, dependent: :destroy
@@ -27,15 +27,11 @@ class User < ActiveRecord::Base
   end
 
   def administrator?
-    self.roles.include?("administrator")
+    self.administrator
   end
 
   def coach?
-    self.roles.include?("coach")
-  end
-
-  def user?
-    self.roles.include?("user")
+    self.coach
   end
 
   def self.from_omniauth(auth)
