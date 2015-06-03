@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_secure_token
+
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name) }
 
   has_one  :location, dependent: :destroy
@@ -14,8 +16,6 @@ class User < ActiveRecord::Base
   has_many :payment_plans
   has_many :products
   has_many :tags
-
-  before_validation :generate_token, on: :create
 
   # Validate attributes
   validates :uid,
@@ -43,11 +43,5 @@ class User < ActiveRecord::Base
       user.provider = auth.fetch("provider")
       user.uid = auth.fetch("uid")
     end
-  end
-
-  def generate_token
-    begin
-      self.token = SecureRandom.hex
-    end while self.class.exists?(token: token)
   end
 end

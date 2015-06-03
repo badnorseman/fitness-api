@@ -1,4 +1,4 @@
-namespace :fitbird do
+namespace :db do
   desc 'Build development database'
-  task :db_build => ["db:drop", "db:create", "db:migrate", "db:seed"]
+  task :build => ["db:drop", "db:create", "db:migrate", "db:seed"]
 end

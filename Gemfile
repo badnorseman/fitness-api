@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails"
+# Enable token authentication
+gem "has_secure_token"
 # Enable JSON output
 gem 'responders', '~> 2.0'
 # Use PostgreSQL as database

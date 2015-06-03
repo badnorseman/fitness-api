@@ -337,6 +337,8 @@ ActiveRecord::Schema.define(version: 20150528123707) do
     t.datetime "updated_at",              null: false
   end
 
+  add_index "users", ["coach"], name: "index_users_on_coach", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
 
 end
