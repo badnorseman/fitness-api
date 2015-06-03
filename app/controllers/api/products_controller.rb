@@ -1,5 +1,6 @@
 module Api
   class ProductsController < ApplicationController
+    skip_before_action :restrict_access, only: [:index, :show]
     before_action :set_product, only: [:show, :update, :destroy]
     after_action :verify_authorized, except: :index
 

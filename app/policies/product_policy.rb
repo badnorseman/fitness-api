@@ -7,7 +7,9 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def create?
-    user.administrator? || (user.coach? && user.id == record.user_id)
+    if user.present?
+      user.administrator? || (user.coach? && user.id == record.user_id)
+    end
   end
 
   def update?
