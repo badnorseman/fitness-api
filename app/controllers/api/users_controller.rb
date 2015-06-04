@@ -19,8 +19,8 @@ module Api
       params.require(:user).
         permit(:password,
                :password_confirmation,
-               :first_name,
-               :last_name,
+               :email,
+               :name,
                :gender,
                :birth_date,
                :height,

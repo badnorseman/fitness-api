@@ -1,5 +1,17 @@
 class AvailabilityPolicy < ApplicationPolicy
 
+  class Scope < Scope
+    def resolve
+      if user.administrator?
+        scope.all
+      elsif user.coach?
+        scope.where(coach_id: user.id)
+      else
+        raise Pundit::NotAuthorizedError, "You must log in."
+      end
+    end
+  end
+
   def show?
     user.administrator? || (user.coach? && user.id == record.coach_id)
   end
@@ -14,17 +26,5 @@ class AvailabilityPolicy < ApplicationPolicy
 
   def destroy?
     show?
-  end
-
-  class Scope < Scope
-    def resolve
-      if user.administrator?
-        scope.all
-      elsif user.coach?
-        scope.where(coach_id: user.id)
-      else
-        raise Pundit::NotAuthorizedError, "You must log in."
-      end
-    end
   end
 end

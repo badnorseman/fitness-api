@@ -7,17 +7,17 @@ class BookingSerializer < ActiveModel::Serializer
              :canceled_by,
              :confirmed_at,
              :coach_id,
-             :coach_full_name,
-             :user_full_name,
+             :coach_name,
+             :user_name,
              :can_update,
              :can_delete
 
-  def coach_full_name
-    [object.coach.first_name, object.coach.last_name].join(" ") || object.coach.email
+  def coach_name
+    object.coach.name || object.coach.email
   end
 
-  def user_full_name
-    [object.user.first_name, object.user.last_name].join(" ") || object.user.email
+  def user_name
+    object.user.name || object.user.email
   end
 
   def can_update

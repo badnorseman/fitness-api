@@ -7,7 +7,8 @@ identity = Identity.create(
 user = User.create(
     uid: identity.id,
     provider: "identity",
-    first_name: "Agent",
-    last_name: "Smith",
-    roles: ["user", "coach", "administrator"]
+    email: "agent.smith@matrix.com",
+    administrator: true,
+    coach: true,
+    name: "Agent Smith"
   )

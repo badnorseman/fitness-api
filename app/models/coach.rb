@@ -1,3 +1,3 @@
 class Coach < User
-  default_scope { where("roles @> ?", "{coach}") }
+  default_scope { where(coach: true) }
 end

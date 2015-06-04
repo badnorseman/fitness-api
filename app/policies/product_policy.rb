@@ -1,7 +1,15 @@
 class ProductPolicy < ApplicationPolicy
 
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+  end
+
   def create?
-    user.administrator? || (user.coach? && user.id == record.user_id)
+    if user.present?
+      user.administrator? || (user.coach? && user.id == record.user_id)
+    end
   end
 
   def update?
@@ -10,17 +18,5 @@ class ProductPolicy < ApplicationPolicy
 
   def destroy?
     create?
-  end
-
-  class Scope < Scope
-    def resolve
-      if user.administrator?
-        scope.all
-      elsif user.coach?
-        scope.where(user_id: user.id)
-      else
-        raise Pundit::NotAuthorizedError, "You must log in."
-      end
-    end
   end
 end

@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  scope :data_for_listing, -> { select(:id, :first_name, :last_name, :roles) }
+  has_secure_token
+
+  scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name) }
 
   has_one  :location, dependent: :destroy
   has_many :availabilities, class: Availability, foreign_key: :coach_id, dependent: :destroy
@@ -15,8 +17,6 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :tags
 
-  before_validation :generate_token, on: :create
-
   # Validate attributes
   validates :uid,
             :provider,
@@ -27,15 +27,11 @@ class User < ActiveRecord::Base
   end
 
   def administrator?
-    self.roles.include?("administrator")
+    self.administrator
   end
 
   def coach?
-    self.roles.include?("coach")
-  end
-
-  def user?
-    self.roles.include?("user")
+    self.coach
   end
 
   def self.from_omniauth(auth)
@@ -47,11 +43,5 @@ class User < ActiveRecord::Base
       user.provider = auth.fetch("provider")
       user.uid = auth.fetch("uid")
     end
-  end
-
-  def generate_token
-    begin
-      self.token = SecureRandom.hex
-    end while self.class.exists?(token: token)
   end
 end

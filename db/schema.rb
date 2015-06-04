@@ -298,11 +298,6 @@ ActiveRecord::Schema.define(version: 20150528123707) do
 
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
-  create_table "profiles", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -329,18 +324,21 @@ ActiveRecord::Schema.define(version: 20150528123707) do
   create_table "users", force: :cascade do |t|
     t.string   "uid"
     t.string   "provider"
-    t.string   "token",                             null: false
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "gender",     limit: 1
+    t.string   "token",                   null: false
+    t.string   "email"
+    t.boolean  "administrator"
+    t.boolean  "coach"
+    t.string   "name"
+    t.string   "gender",        limit: 1
     t.date     "birth_date"
     t.integer  "height"
     t.integer  "weight"
-    t.text     "roles",                default: [],              array: true
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
+  add_index "users", ["coach"], name: "index_users_on_coach", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
 
 end
