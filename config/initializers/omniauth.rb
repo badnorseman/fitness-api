@@ -7,6 +7,6 @@ OmniAuth.config.on_failure = Proc.new { |env|
 }
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, "262325467304404", "9b99168917274f014915e1cbb9704e3b"
+  provider :facebook, Rails.application.secrets.facebook_key, Rails.application.secrets.facebook_secret
   provider :identity, fields: [:email]
 end
