@@ -1,7 +1,6 @@
 module Api
   class ExercisesController < ApplicationController
     before_action :set_exercise, only: [:show, :update, :destroy]
-    after_action :verify_authorized
 
     # GET /exercises/1.json
     def show

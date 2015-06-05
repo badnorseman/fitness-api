@@ -1,7 +1,6 @@
 module Api
   class AvailabilitiesController < ApplicationController
     before_action :set_availability, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
 
     # GET /availabilities.json
     def index

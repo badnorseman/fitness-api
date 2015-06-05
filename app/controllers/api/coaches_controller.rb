@@ -1,7 +1,6 @@
 module Api
   class CoachesController < ApplicationController
     before_action :set_coach, only: :schedule
-    after_action :verify_authorized, except: [:index]
 
     # GET /coaches.json
     def index

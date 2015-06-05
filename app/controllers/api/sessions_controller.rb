@@ -1,6 +1,7 @@
 module Api
   class SessionsController < ApplicationController
     skip_before_action :restrict_access
+    skip_after_action :verify_authorized
 
     def create
       user = User.from_omniauth(auth_params)

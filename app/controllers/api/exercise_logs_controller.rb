@@ -1,7 +1,6 @@
 module Api
   class ExerciseLogsController < ApplicationController
     before_action :set_exercise_log, only: [:show, :update, :destroy]
-    after_action :verify_authorized
 
     # GET /exercise_logs/1.json
     def show

@@ -1,7 +1,6 @@
 module Api
   class ExercisePlansController < ApplicationController
     before_action :set_exercise_plan, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
 
     # GET /exercise_plans.json
     def index

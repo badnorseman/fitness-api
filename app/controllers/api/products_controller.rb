@@ -1,8 +1,7 @@
 module Api
   class ProductsController < ApplicationController
     skip_before_action :restrict_access, only: [:index, :show]
-    before_action :set_product, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
+    before_action :set_product, except: :index
 
     # GET /products.json
     def index
@@ -16,10 +15,6 @@ module Api
 
     # POST /products.json
     def create
-      @product = Product.new(product_params)
-      @product.user = current_user
-      authorize @product
-
       if @product.save
         render json: @product, status: :created
       else
@@ -51,12 +46,13 @@ module Api
     end
 
     def set_product
-      @product = Product.find(product_id)
+      if params.has_key?(:id)
+        @product = Product.find(params.fetch(:id))
+      else
+        @product = Product.new(product_params)
+        @product.user = current_user
+      end
       authorize @product
-    end
-
-    def product_id
-      params.fetch(:id)
     end
   end
 end

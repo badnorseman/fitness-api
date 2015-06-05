@@ -1,7 +1,6 @@
 module Api
   class PaymentPlansController < ApplicationController
     before_action :set_payment_plan, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
 
     # GET /payment_plans.json
     def index

@@ -1,7 +1,6 @@
 module Api
   class TagsController < ApplicationController
     before_action :set_tag, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
 
     # GET /tags.json
     def index

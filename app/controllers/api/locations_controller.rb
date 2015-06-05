@@ -1,7 +1,6 @@
 module Api
   class LocationsController < ApplicationController
     before_action :set_user, only: [:show, :create, :update]
-    after_action :verify_authorized
 
     # GET /users/1/location.json
     def show
