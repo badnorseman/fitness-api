@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "Session", type: :request do
-  describe "when log in with email" do
+  describe "log in with email" do
     before do
       identity = create(:identity)
 
@@ -16,7 +16,19 @@ describe "Session", type: :request do
     end
   end
 
-  describe "when log in with facebook" do
+  describe "failure to log in with email" do
+    before do
+      get(
+        "/api/auth/identity/callback",
+        { auth_key: nil })
+    end
+
+    it "should respond with invalid credentials" do
+      expect(response.headers["Location"]).to include("invalid_credentials")
+    end
+  end
+
+  describe "log in with facebook" do
     before do
       OmniAuth.config.test_mode = true
       OmniAuth.config.add_mock(:facebook, { uid: "1234" })
@@ -30,7 +42,7 @@ describe "Session", type: :request do
     end
   end
 
-  describe "when log out" do
+  describe "log out" do
     before do
       user = create(:user)
       login(user)

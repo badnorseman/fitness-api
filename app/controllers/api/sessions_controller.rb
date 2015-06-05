@@ -15,7 +15,7 @@ module Api
     end
 
     def failure
-      render json: {}, status: :unauthorized
+      render json: { errors: params[:message] }, status: :unauthorized
     end
 
     private
