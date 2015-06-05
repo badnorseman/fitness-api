@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   before_action :restrict_access
   after_action :verify_authorized, :except => :index
+  after_action :verify_policy_scoped, :only => :index
 
   respond_to :json
 
