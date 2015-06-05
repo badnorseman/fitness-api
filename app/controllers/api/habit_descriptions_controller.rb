@@ -1,7 +1,6 @@
 module Api
   class HabitDescriptionsController < ApplicationController
     before_action :set_habit_description, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
 
     # GET /habit_descriptions.json
     def index

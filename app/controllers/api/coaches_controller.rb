@@ -1,11 +1,10 @@
 module Api
   class CoachesController < ApplicationController
     before_action :set_coach, only: :schedule
-    after_action :verify_authorized, except: [:index]
+    skip_after_action :verify_policy_scoped
 
     # GET /coaches.json
     def index
-      # render json: User.coaches.data_for_listing, status: :ok
       render json: Coach.data_for_listing, status: :ok
     end
 

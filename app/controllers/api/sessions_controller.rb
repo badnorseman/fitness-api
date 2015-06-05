@@ -1,6 +1,7 @@
 module Api
   class SessionsController < ApplicationController
     skip_before_action :restrict_access
+    skip_after_action :verify_authorized
 
     def create
       user = User.from_omniauth(auth_params)
@@ -14,7 +15,7 @@ module Api
     end
 
     def failure
-      render json: {}, status: :unauthorized
+      render json: { errors: params[:message] }, status: :unauthorized
     end
 
     private

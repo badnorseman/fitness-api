@@ -1,7 +1,6 @@
 module Api
   class ExerciseDescriptionsController < ApplicationController
     before_action :set_exercise_description, only: [:show, :update, :destroy]
-    after_action :verify_authorized, except: :index
 
     # GET /exercise_descriptions.json
     def index
