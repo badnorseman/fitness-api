@@ -24,10 +24,12 @@ gem "pundit"
 gem "mixpanel-ruby"
 # Enable payment options
 gem "braintree"
-# Use Unitwise for unit measurement conversion
+# Handle unit measurement conversion
 gem "unitwise"
-# Monitor Ruby Gems are out-of-date or vulnerable
+# Monitor Ruby gems to be up-to-date
 gem "gemsurance"
+# Provide cross-origin resource sharing
+gem "rack-cors", :require => "rack/cors"
 
 group :doc do
   # Bundle exec rake doc:rails generates the API under doc/api.

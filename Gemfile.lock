@@ -136,6 +136,7 @@ GEM
     rack (1.6.1)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -237,6 +238,7 @@ DEPENDENCIES
   puma
   pundit
   quiet_assets
+  rack-cors
   rails
   rails_12factor
   responders (~> 2.0)
