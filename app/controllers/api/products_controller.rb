@@ -53,12 +53,10 @@ module Api
         @product = Product.find(params.fetch(:id))
       else
         @product = Product.new(product_params)
-        if current_user
-          @product.user = current_user
-        else
-          # Remove when login is added to app
-          @product.user = User.first
-        end
+        # Enable when login is added to app
+        # @product.user = current_user
+        # Remove when login is added to app
+        @product.user = User.first
       end
       authorize @product
     end
