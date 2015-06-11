@@ -10,6 +10,8 @@ class ProductPolicy < ApplicationPolicy
     if user.present?
       user.administrator? || (user.coach? && user.id == record.user_id)
     end
+    # Remove when login is added to app
+    true
   end
 
   def update?
