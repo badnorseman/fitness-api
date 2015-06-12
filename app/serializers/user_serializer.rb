@@ -1,10 +1,11 @@
 class UserSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
+             :name,
              :email,
              :administrator,
              :coach,
-             :name
+             :token
 
   def pundit_user
     scope

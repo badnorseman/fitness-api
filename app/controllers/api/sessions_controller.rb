@@ -6,7 +6,7 @@ module Api
     def create
       user = User.from_omniauth(auth_params)
       session[:user_id] = user.id
-      render json: {}, status: :ok
+      render json: user, status: :ok
     end
 
     def destroy

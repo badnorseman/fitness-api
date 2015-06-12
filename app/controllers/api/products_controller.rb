@@ -1,9 +1,6 @@
 module Api
   class ProductsController < ApplicationController
-    # Remove when login is added to app
-    skip_before_action :restrict_access
-    # Enable when login is added to app
-    # skip_before_action :restrict_access, only: [:index, :show]
+    skip_before_action :restrict_access, only: [:index, :show]
     before_action :set_product, except: :index
 
     # GET /products.json
@@ -53,10 +50,7 @@ module Api
         @product = Product.find(params.fetch(:id))
       else
         @product = Product.new(product_params)
-        # Enable when login is added to app
-        # @product.user = current_user
-        # Remove when login is added to app
-        @product.user = User.first
+        @product.user = current_user
       end
       authorize @product
     end
