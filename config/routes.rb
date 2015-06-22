@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
   namespace :api do
-    get "/auth/:provider/callback", to: "sessions#create", as: "login"
+    match "/auth/:provider/callback", to: "sessions#create", via: [:get, :post]
     get "/auth/failure", to: "sessions#failure"
     get "/logout", to: "sessions#destroy"
 
@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :habit_descriptions, only: [:index, :show, :create, :update, :destroy]
     resources :habit_logs, only: [:index, :show, :create, :update, :destroy]
     resources :habits, only: [:index, :show, :create, :update, :destroy]
+    resources :identities, only: [:new]
     resources :payment_plans, only: [:index, :show, :create, :update, :destroy]
     resources :payments, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index, :show, :create, :update, :destroy]
