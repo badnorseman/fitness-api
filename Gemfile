@@ -31,6 +31,9 @@ gem "gemsurance"
 # Provide cross-origin resource sharing
 gem "rack-cors", :require => "rack/cors"
 
+gem "paperclip"
+gem "aws-sdk"
+
 group :doc do
   # Bundle exec rake doc:rails generates the API under doc/api.
   gem "sdoc", "~> 0.4.0"

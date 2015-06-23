@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
   has_secure_token
+  has_attached_file :avatar, styles: {
+    thumb: "100x100>",
+    square: "200x200#",
+    medium: "300x300>"
+  }
 
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name) }
 
@@ -21,6 +26,10 @@ class User < ActiveRecord::Base
   validates :uid,
             :provider,
             presence: true
+
+  validates :avatar,
+    attachment_content_type: { content_type: /\Aimage\/.*\Z/ },
+    attachment_size: { less_than: 5.megabytes }
 
   def as_json(options={})
     UserSerializer.new(self).as_json(options)
