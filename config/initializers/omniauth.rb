@@ -7,8 +7,21 @@ OmniAuth.config.on_failure = Proc.new { |env|
 }
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, Rails.application.secrets.facebook_key, Rails.application.secrets.facebook_secret
-  provider :identity, fields: [:email], on_failed_registration: lambda { |env|
-    Api::IdentitiesController.action(:new).call(env)
-  }
+  provider :facebook,
+    Rails.application.secrets.facebook_key,
+    Rails.application.secrets.facebook_secret, {
+      :scope => "email, user_birthday",
+      provider_ignores_state: true
+    }
+  provider :google_oauth2,
+    Rails.application.secrets.google_key,
+    Rails.application.secrets.google_secret, {
+      :scope => "email, profile",
+      provider_ignores_state: true
+    }
+  provider :identity,
+    fields: [:email],
+    on_failed_registration: lambda { |env|
+      Api::IdentitiesController.action(:new).call(env)
+    }
 end
