@@ -1,13 +1,10 @@
 class ApplicationController < ActionController::Base
   include Pundit
   before_action :restrict_access
-  after_action :verify_authorized, :except => :index
-  after_action :verify_policy_scoped, :only => :index
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
 
   respond_to :json
-
-  # Prevents CSRF attacks by raising an exception.
-  protect_from_forgery with: :null_session
 
   protected
 
