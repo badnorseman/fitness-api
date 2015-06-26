@@ -2,7 +2,7 @@ class Availability < ActiveRecord::Base
   scope :future, -> { where("end_at >= ?", Time.zone.now) }
   scope :sort_by_priority, -> { order(priority: :asc) }
 
-  belongs_to :coach, class: User
+  belongs_to :coach, class_name: :User
 
   # Validate associations
   validates :coach, presence: true
