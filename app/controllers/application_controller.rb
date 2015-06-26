@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  skip_before_action :verify_authenticity_token
   before_action :restrict_access
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index

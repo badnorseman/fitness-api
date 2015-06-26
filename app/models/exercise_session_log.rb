@@ -1,7 +1,7 @@
 class ExerciseSessionLog < ActiveRecord::Base
   belongs_to :exercise_plan_log, inverse_of: :exercise_session_logs
   belongs_to :user
-  belongs_to :coach, class: User
+  belongs_to :coach, class_name: :User
   has_many :exercise_set_logs, inverse_of: :exercise_session_log, dependent: :destroy
 
   # Validate associations
