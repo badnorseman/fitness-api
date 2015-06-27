@@ -18,6 +18,8 @@ gem "dalli"
 gem "omniauth-identity"
 # Authenticate with Facebook
 gem "omniauth-facebook"
+# Authenticate with Google
+gem "omniauth-google-oauth2"
 # Authorize what ressources a given user is allowed to access within your application
 gem "pundit"
 # Track user activity. Read more: https://mixpanel.com/help/reference/ruby
@@ -30,7 +32,7 @@ gem "unitwise"
 gem "gemsurance"
 # Provide cross-origin resource sharing
 gem "rack-cors", :require => "rack/cors"
-
+# Store files with Amazon S3 service
 gem "paperclip"
 gem "aws-sdk"
 

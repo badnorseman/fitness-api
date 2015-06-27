@@ -2,7 +2,7 @@ class Booking < ActiveRecord::Base
   default_scope { where(canceled_at: nil) }
 
   belongs_to :user
-  belongs_to :coach, class: User
+  belongs_to :coach, class_name: :User
 
   # Validate associations
   validates :user, :coach, presence: true

@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name) }
 
   has_one  :location, dependent: :destroy
-  has_many :availabilities, class: Availability, foreign_key: :coach_id, dependent: :destroy
-  has_many :bookings, class: Booking, foreign_key: :coach_id
+  has_many :availabilities, class_name: :Availability, foreign_key: :coach_id, dependent: :destroy
+  has_many :bookings, class_name: :Booking, foreign_key: :coach_id
   has_many :exercise_descriptions
   has_many :exercise_plans
   has_many :habit_descriptions

@@ -1,6 +1,6 @@
 class ExerciseLog < ActiveRecord::Base
   belongs_to :user
-  belongs_to :coach, class: User
+  belongs_to :coach, class_name: :User
   belongs_to :exercise_description
   belongs_to :exercise_set_log, inverse_of: :exercise_logs
 
