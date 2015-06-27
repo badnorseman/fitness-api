@@ -10,4 +10,10 @@ class Product < ActiveRecord::Base
   # Validate attributes
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true, length: { maximum: 500 }
+
+  def image
+  end
+
+  def image=(value)
+  end
 end

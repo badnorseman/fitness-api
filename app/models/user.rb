@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     medium: "300x300>"
   }
 
-  scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name) }
+  scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :avatar) }
 
   has_one  :location, dependent: :destroy
   has_many :availabilities, class_name: :Availability, foreign_key: :coach_id, dependent: :destroy
@@ -27,9 +27,9 @@ class User < ActiveRecord::Base
             :provider,
             presence: true
 
-  validates :avatar,
-    attachment_content_type: { content_type: /\Aimage\/.*\Z/ },
-    attachment_size: { less_than: 5.megabytes }
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/]
+  validates_attachment_size :avatar, :less_than => 5.megabytes
 
   def as_json(options={})
     UserSerializer.new(self).as_json(options)
