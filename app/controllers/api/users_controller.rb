@@ -13,6 +13,15 @@ module Api
       render json: @user, status: :ok
     end
 
+    # PUT /users/1.json
+    def update
+      if @user.update(user_params)
+        render json: @user, status: :ok
+      else
+        render json: { errors: @user.errors }, status: :unprocessable_entity, location: nil
+      end
+    end
+
     private
 
     def user_params
@@ -24,7 +33,8 @@ module Api
                :gender,
                :birth_date,
                :height,
-               :weight)
+               :weight,
+               :avatar)
     end
 
     def set_user
