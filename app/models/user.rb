@@ -1,10 +1,9 @@
 class User < ActiveRecord::Base
   has_secure_token
-  has_attached_file :avatar, styles: {
-    thumb: "100x100>",
-    square: "200x200#",
-    medium: "300x300>"
-  }
+  has_attached_file :avatar,
+    :styles => { :small => "100x100>" },
+    :url => "/images/users/:id/:style/:basename.:extension",
+    :path => "/:rails_root/images/users/:id/:style/:basename.:extension"
 
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :avatar) }
 
