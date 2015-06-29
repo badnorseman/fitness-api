@@ -1,11 +1,9 @@
 class User < ActiveRecord::Base
+  scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :avatar) }
+
   has_secure_token
   has_attached_file :avatar,
-    :styles => { :small => "100x100>" },
-    :url => "/images/users/:id/:style/:basename.:extension",
-    :path => "/:rails_root/images/users/:id/:style/:basename.:extension"
-
-  scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :avatar) }
+    :styles => { :small => "100x100>" }
 
   has_one  :location, dependent: :destroy
   has_many :availabilities, class_name: :Availability, foreign_key: :coach_id, dependent: :destroy
@@ -26,9 +24,9 @@ class User < ActiveRecord::Base
             :provider,
             presence: true
 
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-  validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/]
-  validates_attachment_size :avatar, :less_than => 5.megabytes
+  validates_with AttachmentContentTypeValidator, :attributes => :avatar, :content_type => /\Aimage\/.*\Z/
+  validates_with AttachmentFileNameValidator, :attributes => :avatar, :matches => [/png\Z/, /jpe?g\Z/]
+  validates_with AttachmentSizeValidator, :attributes => :avatar, :less_than => 5.megabytes
 
   def as_json(options={})
     UserSerializer.new(self).as_json(options)

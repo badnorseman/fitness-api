@@ -38,3 +38,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
+
+Paperclip.options[:command_path] = "/opt/local/bin/convert"
+Paperclip::Attachment.default_options[:url] = "/:attachment/:class/:id/:style/:basename.:extension"
+Paperclip::Attachment.default_options[:path] = ":rails_root/public/:attachment/:class/:id/:style/:basename.:extension"
