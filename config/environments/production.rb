@@ -81,13 +81,15 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Store static assets on AWS with Paperclip
+  # Store images on AWS S3 with Paperclip
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
       :bucket => Rails.application.secrets.s3_bucket,
       :access_key_id => Rails.application.secrets.s3_key,
       :secret_access_key => Rails.application.secrets.s3_secret
-    }
+    },
+    :url => ":s3_domain_url",
+    :path => ":attachment/:class/:id/:style/:basename.:extension"
   }
 end
