@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
             presence: true
 
   validates_with AttachmentContentTypeValidator, :attributes => :image, :content_type => /^image\/(png|gif|jpeg|jpg)/
-  validates_with AttachmentSizeValidator, :attributes => :avatar, :less_than => 5.megabytes
 
   def as_json(options={})
     UserSerializer.new(self).as_json(options)

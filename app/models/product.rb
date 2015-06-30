@@ -14,5 +14,4 @@ class Product < ActiveRecord::Base
   validates :description, presence: true, length: { maximum: 500 }
   # validates :image, presence: true
   validates_with AttachmentContentTypeValidator, :attributes => :image, :content_type => /^image\/(png|gif|jpeg|jpg)/
-  validates_with AttachmentSizeValidator, :attributes => :image, :less_than => 5.megabytes
 end
