@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
   # Validate attributes
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true, length: { maximum: 500 }
-  # validates :image, presence: true
-  validates_attachment_content_type :image, :content_type => [/image\/jpeg/, /image\/jpg/, /image\/png/]
-  validates_attachment_file_name :image, :matches => [/jpeg/, /jpg/, /png/]
+  validates_attachment :image, # presence: true,
+    :content_type => { :content_type => [/image\/jpeg/, /image\/png/] },
+    :file_name => { :matches => [/jpeg/, /jpg/, /png/] }
 end
