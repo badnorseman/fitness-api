@@ -23,8 +23,9 @@ class User < ActiveRecord::Base
             :provider,
             presence: true
 
-  validates_attachment_content_type :avatar, :content_type => [/image\/jpeg/, /image\/jpg/, /image\/png/]
-  validates_attachment_file_name :avatar, :matches => [/jpeg/, /jpg/, /png/]
+  validates_attachment :avatar, # presence: true,
+    :content_type => { :content_type => [/image\/jpeg/, /image\/png/] },
+    :file_name => { :matches => [/jpeg/, /jpg/, /png/] }
 
   def as_json(options={})
     UserSerializer.new(self).as_json(options)
