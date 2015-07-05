@@ -18,7 +18,7 @@ module Api
       if @product.save
         render json: @product, status: :created
       else
-        render json: { errors: @product.errors }, status: :unprocessable_entity, location: nil
+        render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity, location: nil
       end
     end
 
@@ -27,7 +27,7 @@ module Api
       if @product.update(product_params)
         render json: @product, status: :ok
       else
-        render json: { errors: @product.errors }, status: :unprocessable_entity, location: nil
+        render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity, location: nil
       end
     end
 
