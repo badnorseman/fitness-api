@@ -37,9 +37,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-end
 
-# Store images on localhost with Paperclip
-Paperclip.options[:command_path] = "/opt/local/bin/convert"
-Paperclip::Attachment.default_options[:url] = "/system/:attachment/:class/:id/:style/:basename.:extension"
-Paperclip::Attachment.default_options[:path] = ":rails_root/public/system/:attachment/:class/:id/:style/:basename.:extension"
+  # Store images on localhost with Paperclip
+  Paperclip::Attachment.default_options[:path] = ":rails_root/public/system/:attachment/:class/:id/:style/:basename.:extension"
+  Paperclip::Attachment.default_options[:url] = "/system/:attachment/:class/:id/:style/:basename.:extension"
+
+  # Locate ImageMagick
+  Paperclip.options[:command_path] = "/opt/local/bin/convert"
+end
