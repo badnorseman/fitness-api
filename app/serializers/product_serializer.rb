@@ -7,6 +7,10 @@ class ProductSerializer < ActiveModel::Serializer
              :can_update,
              :can_delete
 
+  def image
+    object.image.url(:small)
+  end
+
   def can_update
     policy(object).update?
   end
