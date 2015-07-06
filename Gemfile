@@ -34,7 +34,7 @@ gem "gemsurance"
 gem "rack-cors", :require => "rack/cors"
 # Store files with Amazon S3 service
 gem "paperclip"
-gem "aws-sdk"
+gem "aws-sdk-v1"
 
 group :doc do
   # Bundle exec rake doc:rails generates the API under doc/api.
