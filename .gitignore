@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore images files.
+/public/images
+
 # Ignore lib files.
 /lib
 
@@ -14,4 +17,3 @@
 /tmp
 *.log
 /log
-/public/system

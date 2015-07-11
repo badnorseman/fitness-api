@@ -30,18 +30,24 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  # Adds additional error checking when serving assets at runtime.
-  # Checks for improperly declared sprockets dependencies.
-  # Raises helpful error messages.
+  # Add additional error checking when serving assets at runtime.
+  # Check for improperly declared sprockets dependencies.
+  # Raise helpful error messages.
   config.assets.raise_runtime_errors = true
 
-  # Raises error for missing translations
+  # Raise error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
-  # Store images on localhost with Paperclip
-  Paperclip::Attachment.default_options[:path] = ":rails_root/public/system/:attachment/:class/:id/:style/:basename.:extension"
-  Paperclip::Attachment.default_options[:url] = "/system/:attachment/:class/:id/:style/:basename.:extension"
+  # Store images on localhost with Paperclip.
+  Paperclip::Attachment.default_options[:path] = ":rails_root/public/:attachment/:class/:id/:style/:basename.:extension"
+  Paperclip::Attachment.default_options[:url] = "/:attachment/:class/:id/:style/:basename.:extension"
 
-  # Locate ImageMagick
+  # Set image size with ImageMagick.
   Paperclip.options[:command_path] = "/opt/local/bin/convert"
+
+  # Accept online payment with Braintree.
+  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.merchant_id = Rails.application.secrets.braintree_merchant_id
+  Braintree::Configuration.private_key = Rails.application.secrets.braintree_private_key
+  Braintree::Configuration.public_key = Rails.application.secrets.braintree_public_key
 end
