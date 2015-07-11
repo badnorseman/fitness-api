@@ -16,7 +16,7 @@ module Api
     # GET /payments/new.json
     def new
       @client_token = generate_client_token
-      render json: @client_token, status: :created
+      render json: { client_token: @client_token }, status: :ok
     end
 
     # POST /payments.json
