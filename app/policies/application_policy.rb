@@ -14,6 +14,10 @@ class ApplicationPolicy
     scope.where(:id => record.id).exists?
   end
 
+  def new?
+    false
+  end
+
   def create?
     false
   end

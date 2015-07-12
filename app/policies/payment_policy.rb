@@ -16,6 +16,10 @@ class PaymentPolicy < ApplicationPolicy
     user.administrator? || user.id == record.user_id
   end
 
+  def new?
+    user.id?
+  end
+
   def create?
     show?
   end

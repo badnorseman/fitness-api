@@ -1,5 +1,6 @@
 module Api
   class PaymentsController < ApplicationController
+    skip_after_action :verify_authorized, only: :new
     before_action :set_payment, only: [:show, :update, :destroy]
 
     # GET /payments.json
@@ -10,6 +11,12 @@ module Api
     # GET /payments/1.json
     def show
       render json: @payment, status: :ok
+    end
+
+    # GET /payments/new.json
+    def new
+      @client_token = generate_client_token
+      render json: { client_token: @client_token }, status: :ok
     end
 
     # POST /payments.json
@@ -47,6 +54,10 @@ module Api
         permit(:transaction_id,
                :customer_id,
                :payment_plan_id)
+    end
+
+    def generate_client_token
+      Braintree::ClientToken.generate
     end
 
     def set_payment
