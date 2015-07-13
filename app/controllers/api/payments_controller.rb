@@ -1,3 +1,8 @@
+# Will Payment#update and Payment#delete be used?
+# Move Payment#create into service object
+# Add Product (product_id)
+# Remove PaymentPlan (payment_plan_id)
+# Add transaction data e.g. type, id (last 4 for cc or email for paypal)
 module Api
   class PaymentsController < ApplicationController
     skip_after_action :verify_authorized, only: :new
@@ -21,14 +26,23 @@ module Api
 
     # POST /payments.json
     def create
-      @payment = Payment.new(payment_params)
-      @payment.user = current_user
-      authorize @payment
+      @transaction = Braintree::Transaction.sale(
+        amount: amount,
+        payment_method_nonce: payment_method_nonce)
 
-      if @payment.save
-        render json: @payment, status: :created
+      if @transaction.success?
+        # Add transaction data to payment_params
+        @payment = Payment.new(payment_params)
+        @payment.user = current_user
+        authorize @payment
+
+        if @payment.save
+          render json: @payment, status: :created
+        else
+          render json: { errors: @payment.errors }, status: :unprocessable_entity
+        end
       else
-        render json: { errors: @payment.errors }, status: :unprocessable_entity
+        render json: {}, status: :unprocessable_entity, location: nil
       end
     end
 
@@ -67,6 +81,14 @@ module Api
 
     def payment_id
       params.fetch(:id)
+    end
+
+    def amount
+      params[:transaction][:amount]
+    end
+
+    def payment_method_nonce
+      params[:transaction][:payment_method_nonce]
     end
   end
 end

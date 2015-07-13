@@ -10,11 +10,12 @@ module Api
         amount: amount,
         payment_method_nonce: payment_method_nonce)
 
+      puts @transaction.inspect
+
       if @transaction.success?
         render json: {}, status: :created
       else
         render json: {}, status: :unprocessable_entity, location: nil
-        # render json: { errors: @transaction.errors.full_messages }, status: :unprocessable_entity, location: nil
       end
     end
 
