@@ -1,6 +1,7 @@
+# Merge confirm into update
 module Api
   class BookingsController < ApplicationController
-    before_action :set_booking, only: [:show, :update, :destroy]
+    before_action :set_booking, only: [:show, :update, :destroy, :confirm]
 
     # GET /bookings.json
     def index
@@ -27,6 +28,7 @@ module Api
     # PUT /bookings/1.json
     def update
       @booking.assign_attributes(booking_params)
+
       if @booking.save
         render json: @booking, status: :ok
       else
@@ -45,12 +47,10 @@ module Api
 
     # POST /bookings/1/confirm.json
     def confirm
-      booking = Booking.find(params.fetch(:booking_id))
-      authorize booking
-      if booking.update(confirmed_at: Time.zone.now)
-        render json: booking
+      if @booking.update(confirmed_at: Time.zone.now)
+        render json: @booking
       else
-        render json: { errors: booking.errors }, status: :unprocessable_entity
+        render json: { errors: @booking.errors }, status: :unprocessable_entity
       end
     end
 

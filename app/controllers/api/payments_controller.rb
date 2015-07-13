@@ -20,29 +20,20 @@ module Api
 
     # GET /payments/new.json
     def new
-      @client_token = generate_client_token
+      @client_token = GenerateClientTokenForPayment.new().call
       render json: { client_token: @client_token }, status: :ok
     end
 
     # POST /payments.json
     def create
-      @transaction = Braintree::Transaction.sale(
-        amount: amount,
-        payment_method_nonce: payment_method_nonce)
+      @payment = Payment.new(payment_params)
+      @payment.user = current_user
+      authorize @payment
 
-      if @transaction.success?
-        # Add transaction data to payment_params
-        @payment = Payment.new(payment_params)
-        @payment.user = current_user
-        authorize @payment
-
-        if @payment.save
-          render json: @payment, status: :created
-        else
-          render json: { errors: @payment.errors }, status: :unprocessable_entity
-        end
+      if @payment.save
+        render json: @payment, status: :created
       else
-        render json: {}, status: :unprocessable_entity, location: nil
+        render json: { errors: @payment.errors }, status: :unprocessable_entity
       end
     end
 
@@ -68,10 +59,10 @@ module Api
         permit(:transaction_id,
                :customer_id,
                :payment_plan_id)
-    end
-
-    def generate_client_token
-      Braintree::ClientToken.generate
+      # params.require(:payment).
+      #   permit(:amount,
+      #          :payment_method_nonce,
+      #          :product_id)
     end
 
     def set_payment
@@ -81,14 +72,6 @@ module Api
 
     def payment_id
       params.fetch(:id)
-    end
-
-    def amount
-      params[:transaction][:amount]
-    end
-
-    def payment_method_nonce
-      params[:transaction][:payment_method_nonce]
     end
   end
 end

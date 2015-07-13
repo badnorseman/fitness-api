@@ -6,13 +6,13 @@ module Api
 
     # POST /transactions.json
     def create
-      @transaction = Braintree::Transaction.sale(
-        amount: amount,
-        payment_method_nonce: payment_method_nonce)
+      transaction = Braintree::Transaction.sale(
+        amount: params[:transaction][:amount],
+        payment_method_nonce: params[:transaction][:payment_method_nonce])
 
-      puts @transaction.inspect
+      puts transaction.inspect
 
-      if @transaction.success?
+      if transaction.success?
         render json: {}, status: :created
       else
         render json: {}, status: :unprocessable_entity, location: nil
@@ -20,14 +20,6 @@ module Api
     end
 
     private
-
-    def amount
-      params[:transaction][:amount]
-    end
-
-    def payment_method_nonce
-      params[:transaction][:payment_method_nonce]
-    end
 
     def transaction_params
       params.require(:transaction).
