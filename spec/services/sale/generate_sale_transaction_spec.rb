@@ -8,7 +8,7 @@ describe Sale::CreateSaleTransaction do
         amount: amount,
         payment_method_nonce: payment_method_nonce).call
 
-      expect(transaction).to eq("SUCCESS")
+      expect(transaction: :transaction_id).to be_truthy
     end
   end
 
@@ -21,7 +21,7 @@ describe Sale::CreateSaleTransaction do
         amount: amount,
         payment_method_nonce: payment_method_nonce).call
 
-      expect(transaction).to eq("ERROR")
+      expect(transaction: :errors).to be_truthy
     end
   end
 end

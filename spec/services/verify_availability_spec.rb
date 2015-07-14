@@ -14,7 +14,7 @@ describe VerifyAvailability do
       start_at: @availability.start_at,
       end_at: @availability.start_at + @availability.duration.minutes,
       maximum_of_participants: @availability.maximum_of_participants).
-      call).to eq(true)
+      call).to be_truthy
   end
 
   it "shouldn't have availability" do
@@ -28,6 +28,6 @@ describe VerifyAvailability do
       start_at: @availability.start_at,
       end_at: @availability.start_at + @availability.duration.minutes,
       maximum_of_participants: @availability.maximum_of_participants).
-      call).to eq(false)
+      call).to be_falsey
   end
 end
