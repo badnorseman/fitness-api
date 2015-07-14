@@ -1,17 +1,13 @@
-class ProductSerializer < ActiveModel::Serializer
+class PaymentSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
-             :name,
-             :description,
+             :amount,
              :currency,
-             :price,
-             :image,
+             :customer_id,
+             :product_id,
+             :transaction_id,
              :can_update,
              :can_delete
-
-  def image
-    object.image.url(:small)
-  end
 
   def can_update
     policy(object).update?

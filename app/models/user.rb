@@ -7,15 +7,14 @@ class User < ActiveRecord::Base
   has_one  :location, dependent: :destroy
   has_many :availabilities, class_name: :Availability, foreign_key: :coach_id, dependent: :destroy
   has_many :bookings, class_name: :Booking, foreign_key: :coach_id
-  has_many :exercise_descriptions
-  has_many :exercise_plans
-  has_many :habit_descriptions
+  has_many :exercise_descriptions, dependent: :destroy
+  has_many :exercise_plans, dependent: :destroy
+  has_many :habit_descriptions, dependent: :destroy
   has_many :habit_descriptions, through: :habit_logs
   has_many :habit_logs, dependent: :destroy
-  has_many :payments, dependent: :destroy
-  has_many :payment_plans, through: :payments
+  has_many :payments
   has_many :payment_plans
-  has_many :products
+  has_many :products, dependent: :destroy
   has_many :tags
 
   # Validate attributes

@@ -12,7 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.date       :birth_date
       t.integer    :height
       t.integer    :weight
-      t.timestamps null: false
+      t.timestamps
     end
 
     add_index :users, :uid, unique: true

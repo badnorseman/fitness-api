@@ -12,6 +12,6 @@ FactoryGirl.define do
     repetition_selected false
     repetition nil
     rest 15
-    tempo "12X1"
+    tempo "TEMPO"
   end
 end

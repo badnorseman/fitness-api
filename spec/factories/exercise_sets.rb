@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :exercise_set do
     user
     exercise_session
-    name "1"
+    sequence(:name) { |n| "NAME#{n}" }
     duration 45
   end
 end

@@ -3,7 +3,7 @@ class CreateIdentities < ActiveRecord::Migration
     create_table   :identities do |t|
       t.string     :email
       t.string     :password_digest
-      t.timestamps null: false
+      t.timestamps
     end
 
     add_index :identities, :email, unique: true

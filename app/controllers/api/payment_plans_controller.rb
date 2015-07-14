@@ -47,7 +47,7 @@ module Api
         permit(:name,
                :description,
                :price,
-               :currency_iso_code,
+               :currency,
                :billing_day_of_month,
                :number_of_billing_cycles,
                :billing_frequency)

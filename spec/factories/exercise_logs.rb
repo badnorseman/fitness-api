@@ -7,6 +7,6 @@ FactoryGirl.define do
     duration 45
     load 80.5
     repetition nil
-    tempo "12X1"
+    tempo "TEMPO"
   end
 end

@@ -1,15 +1,15 @@
 FactoryGirl.define do
   factory :exercise_description do
     user
-    sequence(:name) { |n| "Push-ups#{n}" }
-    short_name_for_mobile "Push-ups"
-    description "Push-ups with no weight"
+    sequence(:name) { |n| "NAME#{n}" }
+    short_name_for_mobile "SHORT NAME FOR MOBILE"
+    description "DESCRIPTION"
     distance false
     duration false
     load false
     repetition true
-    tempo ""
-    video_url "http://www.youtube.com"
+    tempo "TEMPO"
+    video_url "HTTP://WWW.YOUTUBE.COM"
     unilateral_execution false
     unilateral_loading false
   end

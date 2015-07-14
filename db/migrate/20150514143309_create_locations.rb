@@ -10,7 +10,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string     :state_province, limit: 100
       t.string     :country,        limit: 100
       t.string     :phone_number,   limit: 20
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

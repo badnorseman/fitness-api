@@ -2,12 +2,6 @@ require "spec_helper"
 
 describe Payment, type: :request do
   context "when authenticated" do
-    before do
-      coach = create(:coach)
-      @payment_plan = create(:payment_plan,
-                             user: coach)
-    end
-
     describe "GET #index" do
       before do
         user = create(:user)
@@ -18,7 +12,7 @@ describe Payment, type: :request do
         get("/api/payments.json")
       end
 
-      it "should respond with an array of 2 PaymentPlans" do
+      it "should respond with an array of 2 Payments" do
         expect(json.count).to eq 2
       end
 
@@ -37,7 +31,7 @@ describe Payment, type: :request do
       end
 
       it "should respond with 1 Payment" do
-        expect(json["customer_id"]).to eq(@payment.customer_id.as_json)
+        expect(json["amount"]).to eq(@payment.amount.as_json)
       end
 
       it "should respond with status 200" do
@@ -54,15 +48,14 @@ describe Payment, type: :request do
       context "with valid attributes" do
         before do
           @payment_attributes =
-            attributes_for(:payment,
-                           payment_plan_id: @payment_plan.id)
+            attributes_for(:payment)
           post(
             "/api/payments.json",
             { payment: @payment_attributes })
         end
 
         it "should respond with created Payment" do
-          expect(json["transaction_id"]).to eq @payment_attributes[:transaction_id]
+          expect(json["created_at"].as_json).to eq @payment_attributes[:created_at].as_json
         end
 
         it "should respond with new id" do
@@ -78,8 +71,7 @@ describe Payment, type: :request do
         before do
           payment_attributes =
             attributes_for(:payment,
-                           payment_plan_id: @payment_plan.id,
-                           transaction_id: nil)
+                           amount: nil)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -106,16 +98,15 @@ describe Payment, type: :request do
 
       context "with valid attributes" do
         before do
-          @transaction_id =
-            ([*('A'..'Z'),*('0'..'9')]-%w(0 1 I O)).sample(6).join
+          @amount = 120
 
           patch(
             "/api/payments/#{@payment.id}.json",
-            { payment: { transaction_id: @transaction_id }})
+            { payment: { amount: @amount }})
         end
 
-        it "should respond with updated PaymentPlan" do
-          expect(Payment.find(@payment.id).transaction_id).to eq(@transaction_id)
+        it "should respond with updated Payment" do
+          expect(Payment.find(@payment.id).amount).to eq(@amount)
         end
 
         it "should respond with status 200" do
@@ -127,7 +118,7 @@ describe Payment, type: :request do
         before do
           patch(
             "/api/payments/#{@payment.id}.json",
-            { payment: { transaction_id: "" }})
+            { payment: { amount: nil }})
         end
 
         it "should respond with errors" do

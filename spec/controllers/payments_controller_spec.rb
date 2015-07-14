@@ -1,12 +1,6 @@
 require "spec_helper"
 
 describe Api::PaymentsController, type: :controller do
-  before do
-    coach = create(:coach)
-    @payment_plan = create(:payment_plan,
-                           user: coach)
-  end
-
   describe "GET #index" do
     it "should query 2 Payments" do
       user = create(:user)
@@ -30,7 +24,7 @@ describe Api::PaymentsController, type: :controller do
         :show,
         id: payment.id)
 
-      expect(json["customer_id"]).to eq(payment.customer_id.as_json)
+      expect(json["amount"]).to eq(payment.amount.as_json)
     end
   end
 
@@ -43,7 +37,7 @@ describe Api::PaymentsController, type: :controller do
     context "with valid attributes" do
       it "should create Payment" do
         payment_attributes =
-          attributes_for(:payment, payment_plan_id: @payment_plan.id)
+          attributes_for(:payment)
 
         expect do
           post(
@@ -56,7 +50,7 @@ describe Api::PaymentsController, type: :controller do
     context "with invalid attributes" do
       it "should not create Payment" do
         payment_attributes =
-          attributes_for(:payment, payment_plan_id: nil)
+          attributes_for(:payment, amount: nil)
 
         expect do
           post(
@@ -79,28 +73,25 @@ describe Api::PaymentsController, type: :controller do
 
     context "with valid attributes" do
       it "should update Payment" do
-        transaction_id =
-          ([*('A'..'Z'), *('0'..'9')] - %w(0 1 I O)).sample(6).join
+        amount = 120
 
         patch(
           :update,
           id: @payment.id,
-          payment: { transaction_id: transaction_id })
+          payment: { amount: amount })
 
-        expect(Payment.find(@payment.id).transaction_id).to eq(transaction_id)
+        expect(Payment.find(@payment.id).amount).to eq(amount)
       end
     end
 
     context "with invalid attributes" do
       it "should not update Payment" do
-        payment_plan_id = nil
-
         patch(
           :update,
           id: @payment.id,
-          payment: { payment_plan_id: payment_plan_id })
+          payment: { amount: nil })
 
-        expect(Payment.find(@payment.id).transaction_id).to eq(@payment.transaction_id)
+        expect(Payment.find(@payment.id).amount).to eq(@payment.amount)
       end
     end
   end

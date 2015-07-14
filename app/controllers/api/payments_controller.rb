@@ -1,7 +1,5 @@
 # Will Payment#update and Payment#delete be used?
 # Move Payment#create into service object
-# Add Product (product_id)
-# Remove PaymentPlan (payment_plan_id)
 # Add transaction data e.g. type, id (last 4 for cc or email for paypal)
 module Api
   class PaymentsController < ApplicationController
@@ -20,7 +18,7 @@ module Api
 
     # GET /payments/new.json
     def new
-      @client_token = GenerateClientTokenForPayment.new().call
+      @client_token = GeneratePaymentClientToken.new().call
       render json: { client_token: @client_token }, status: :ok
     end
 
@@ -56,13 +54,10 @@ module Api
 
     def payment_params
       params.require(:payment).
-        permit(:transaction_id,
-               :customer_id,
-               :payment_plan_id)
-      # params.require(:payment).
-      #   permit(:amount,
-      #          :payment_method_nonce,
-      #          :product_id)
+        permit(:amount,
+               :currency,
+               :payment_method_nonce,
+               :product_id)
     end
 
     def set_payment

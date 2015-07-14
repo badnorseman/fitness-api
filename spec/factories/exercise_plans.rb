@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :exercise_plan do
     user
-    sequence(:name) { |n| "My Plan#{n}" }
-    sequence(:description) { |n| "Plan desc#{n}" }
+    sequence(:name) { |n| "NAME#{n}" }
+    sequence(:description) { |n| "DESCRIPTION#{n}" }
   end
 end
