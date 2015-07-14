@@ -9,7 +9,6 @@ class Payment < ActiveRecord::Base
             :currency,
             presence: true
 
-  # Should I call CreateClientToken here instead?
   def payment_method_nonce
   end
 

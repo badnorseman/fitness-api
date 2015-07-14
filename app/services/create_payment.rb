@@ -5,6 +5,7 @@ class CreatePayment
     @amount = params.fetch(:amount)
     @currency = params.fetch(:currency)
     @payment_method_nonce = params.fetch(:payment_method_nonce)
+    @product_id = params.fetch(:product_id)
   end
 
   def call
@@ -19,7 +20,8 @@ class CreatePayment
 
   def payment_params
     { amount: @amount,
-      currency: @currency }
+      currency: @currency,
+      product_id: @product_id}
   end
 
   # def transaction
