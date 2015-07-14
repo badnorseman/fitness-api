@@ -11,7 +11,7 @@ describe Scheduler::HourlySchedule do
   it "should be available" do
     hourly_schedule = Scheduler::HourlySchedule.new(availability: @availability, time: @availability.start_at).to_hash
 
-    expect(hourly_schedule[:available]).to eq(true)
+    expect(hourly_schedule[:available]).to be_truthy
   end
 
   it "shouldn't be available" do
@@ -21,7 +21,7 @@ describe Scheduler::HourlySchedule do
            end_at: @availability.start_at + @availability.duration.minutes)
     hourly_schedule = Scheduler::HourlySchedule.new(availability: @availability, time: @availability.start_at).to_hash
 
-    expect(hourly_schedule[:available]).to eq(false)
+    expect(hourly_schedule[:available]).to be_falsey
   end
 
   it "should include duration" do

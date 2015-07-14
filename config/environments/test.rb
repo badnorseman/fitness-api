@@ -36,4 +36,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Accept online payment with Braintree.
+  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.merchant_id = Rails.application.secrets.braintree_merchant_id
+  Braintree::Configuration.private_key = Rails.application.secrets.braintree_private_key
+  Braintree::Configuration.public_key = Rails.application.secrets.braintree_public_key
 end

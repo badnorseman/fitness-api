@@ -10,8 +10,6 @@ module Api
         amount: params[:transaction][:amount],
         payment_method_nonce: params[:transaction][:payment_method_nonce])
 
-      puts transaction.inspect
-
       if transaction.success?
         render json: {}, status: :created
       else
