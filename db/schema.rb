@@ -294,8 +294,8 @@ ActiveRecord::Schema.define(version: 20150628003703) do
     t.integer  "user_id"
     t.string   "name",               null: false
     t.text     "description",        null: false
-    t.string   "currency",           null: false
-    t.integer  "price",              null: false
+    t.string   "currency"
+    t.integer  "price"
     t.datetime "ended_at"
     t.datetime "created_at"
     t.datetime "updated_at"
