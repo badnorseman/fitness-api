@@ -39,6 +39,23 @@ describe Payment, type: :request do
       end
     end
 
+    describe "GET #new" do
+      before do
+        user = create(:user)
+        login(user)
+
+        get("/api/payments/new.json")
+      end
+
+      it "should respond with new client token" do
+        expect(json.keys).to include("client_token")
+      end
+
+      it "should respond with status 200" do
+        expect(response.status).to eq 200
+      end
+    end
+
     describe "POST #create" do
       before do
         user = create(:user)

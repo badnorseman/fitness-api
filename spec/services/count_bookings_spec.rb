@@ -11,7 +11,10 @@ describe CountBookings do
   end
 
   it "should have count of bookings equal 2" do
-    count = CountBookings.new(coach_id: @coach.id, start_at: @start_at, end_at: @end_at).call
+    count = CountBookings.new(
+      coach_id: @coach.id,
+      start_at: @start_at,
+      end_at: @end_at).call
 
     expect(count).to eq(2)
   end

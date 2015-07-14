@@ -1,6 +1,7 @@
 # Will Payment#update and Payment#delete be used?
-# Move Payment#create into service object
-# Add transaction data e.g. type, id (last 4 for cc or email for paypal)
+# Post a transaction with negative amount to "delete" sale
+# What attribute(s) should be editable on Payment?
+# Move Payment#create into Sale::CreatePayment
 module Api
   class PaymentsController < ApplicationController
     skip_after_action :verify_authorized, only: :new
@@ -18,7 +19,7 @@ module Api
 
     # GET /payments/new.json
     def new
-      @client_token = GeneratePaymentClientToken.new().call
+      @client_token = Sale::GenerateClientToken.new.client_token
       render json: { client_token: @client_token }, status: :ok
     end
 
