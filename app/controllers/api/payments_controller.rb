@@ -1,5 +1,5 @@
 # Will Payment#update and Payment#delete be used?
-# Post a transaction with negative amount to "delete" sale (void)
+# Payment#delete is a Void Transaction
 # What attribute(s) should be editable on Payment?
 module Api
   class PaymentsController < ApplicationController
@@ -8,7 +8,7 @@ module Api
 
     # GET /payments.json
     def index
-      render json: policy_scope(Payment).order(:id), status: :ok
+      render json: policy_scope(Payment).order(:created_at), status: :ok
     end
 
     # GET /payments/1.json
@@ -24,7 +24,7 @@ module Api
 
     # POST /payments.json
     def create
-      @payment = CreatePayment.new(user: current_user, params: payment_params).call
+      @payment = Sale::CreatePayment.new(user: current_user, params: payment_params).call
       authorize @payment
 
       if @payment.persisted?

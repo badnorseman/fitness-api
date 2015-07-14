@@ -1,5 +1,5 @@
 module Sale
-  class CreateSaleTransaction
+  class CreateTransaction
     def initialize(amount:, payment_method_nonce:)
       @amount = amount
       @payment_method_nonce = payment_method_nonce
@@ -17,16 +17,20 @@ module Sale
     end
 
     def create_sale_transaction
-      result = Braintree::Transaction.sale(transaction_params)
+      transaction = Braintree::Transaction.sale(transaction_params)
 
-      if result.success?
-        { transaction:
-          { transaction_id: result.transaction.id }
-        }
+      if transaction.success?
+        OpenStruct.new(
+          errors: [],
+          success?: true,
+          transaction_id: transaction.transaction.id
+        )
       else
-        { transaction:
-          { errors: result.errors }
-        }
+        OpenStruct.new(
+          errors: transaction.errors,
+          success?: false,
+          transaction_id: nil
+        )
       end
     end
   end
