@@ -237,8 +237,8 @@ ActiveRecord::Schema.define(version: 20150628003703) do
   create_table "identities", force: :cascade do |t|
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "identities", ["email"], name: "index_identities_on_email", unique: true, using: :btree
@@ -253,8 +253,8 @@ ActiveRecord::Schema.define(version: 20150628003703) do
     t.string   "state_province", limit: 100
     t.string   "country",        limit: 100
     t.string   "phone_number",   limit: 20
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
@@ -263,11 +263,11 @@ ActiveRecord::Schema.define(version: 20150628003703) do
     t.integer  "user_id"
     t.string   "name",                     null: false
     t.text     "description",              null: false
-    t.decimal  "price",                    null: false
-    t.string   "currency_iso_code",        null: false
+    t.string   "currency",                 null: false
+    t.integer  "price",                    null: false
     t.string   "billing_day_of_month",     null: false
-    t.integer  "number_of_billing_cycles", null: false
     t.integer  "billing_frequency",        null: false
+    t.integer  "number_of_billing_cycles", null: false
     t.datetime "ended_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -277,20 +277,25 @@ ActiveRecord::Schema.define(version: 20150628003703) do
 
   create_table "payments", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "payment_plan_id"
-    t.string   "transaction_id",  limit: 50, null: false
-    t.integer  "customer_id",                null: false
+    t.integer  "amount",         null: false
+    t.string   "currency",       null: false
+    t.integer  "customer_id"
+    t.integer  "product_id"
+    t.string   "transaction_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "payments", ["payment_plan_id"], name: "index_payments_on_payment_plan_id", using: :btree
+  add_index "payments", ["product_id"], name: "index_payments_on_product_id", using: :btree
+  add_index "payments", ["transaction_id"], name: "index_payments_on_transaction_id", using: :btree
   add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name",               null: false
     t.text     "description",        null: false
+    t.string   "currency",           null: false
+    t.integer  "price",              null: false
     t.datetime "ended_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -337,8 +342,8 @@ ActiveRecord::Schema.define(version: 20150628003703) do
     t.date     "birth_date"
     t.integer  "height"
     t.integer  "weight"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"

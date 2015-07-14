@@ -43,6 +43,8 @@ module Api
       params.require(:product).
         permit(:name,
                :description,
+               :currency,
+               :price,
                :image)
     end
 

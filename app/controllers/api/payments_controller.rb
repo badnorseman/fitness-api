@@ -1,7 +1,5 @@
 # Will Payment#update and Payment#delete be used?
 # Move Payment#create into service object
-# Add Product (product_id)
-# Remove PaymentPlan (payment_plan_id)
 # Add transaction data e.g. type, id (last 4 for cc or email for paypal)
 module Api
   class PaymentsController < ApplicationController
@@ -20,29 +18,20 @@ module Api
 
     # GET /payments/new.json
     def new
-      @client_token = generate_client_token
+      @client_token = GeneratePaymentClientToken.new().call
       render json: { client_token: @client_token }, status: :ok
     end
 
     # POST /payments.json
     def create
-      @transaction = Braintree::Transaction.sale(
-        amount: amount,
-        payment_method_nonce: payment_method_nonce)
+      @payment = Payment.new(payment_params)
+      @payment.user = current_user
+      authorize @payment
 
-      if @transaction.success?
-        # Add transaction data to payment_params
-        @payment = Payment.new(payment_params)
-        @payment.user = current_user
-        authorize @payment
-
-        if @payment.save
-          render json: @payment, status: :created
-        else
-          render json: { errors: @payment.errors }, status: :unprocessable_entity
-        end
+      if @payment.save
+        render json: @payment, status: :created
       else
-        render json: {}, status: :unprocessable_entity, location: nil
+        render json: { errors: @payment.errors }, status: :unprocessable_entity
       end
     end
 
@@ -65,13 +54,10 @@ module Api
 
     def payment_params
       params.require(:payment).
-        permit(:transaction_id,
-               :customer_id,
-               :payment_plan_id)
-    end
-
-    def generate_client_token
-      Braintree::ClientToken.generate
+        permit(:amount,
+               :currency,
+               :payment_method_nonce,
+               :product_id)
     end
 
     def set_payment
@@ -81,14 +67,6 @@ module Api
 
     def payment_id
       params.fetch(:id)
-    end
-
-    def amount
-      params[:transaction][:amount]
-    end
-
-    def payment_method_nonce
-      params[:transaction][:payment_method_nonce]
     end
   end
 end

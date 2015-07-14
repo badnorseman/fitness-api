@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :exercise_session do
     user
     exercise_plan
-    name "A"
+    sequence(:name) { |n| "NAME#{n}" }
   end
 end

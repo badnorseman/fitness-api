@@ -1,24 +1,24 @@
 FactoryGirl.define do
   factory :administrator, class: User do
-    sequence(:uid) { |n| "admin#{n}@fitbird.com" }
+    sequence(:uid) { |n| "ADMINISTRATOR#{n}@FITBIRD.COM" }
     provider "email"
-    sequence(:email) { |n| "admin#{n}@fitbird.com" }
+    sequence(:email) { |n| "ADMINISTRATOR#{n}@FITBIRD.COM" }
     administrator true
-    name "administrator"
+    name "ADMINISTRATOR"
   end
 
   factory :coach, class: User do
-    sequence(:uid) { |n| "coach#{n}@fitbird.com" }
+    sequence(:uid) { |n| "COACH#{n}@FITBIRD.COM" }
     provider "email"
-    sequence(:email) { |n| "coach#{n}@fitbird.com" }
+    sequence(:email) { |n| "COACH#{n}@FITBIRD.COM" }
     coach true
-    name "coach"
+    name "COACH"
   end
 
   factory :user do
-    sequence(:uid) { |n| "user#{n}@fitbird.com" }
+    sequence(:uid) { |n| "USER#{n}@FITBIRD.COM" }
     provider "email"
-    sequence(:email) { |n| "user#{n}@fitbird.com" }
-    name "user"
+    sequence(:email) { |n| "USER#{n}@FITBIRD.COM" }
+    name "USER"
   end
 end

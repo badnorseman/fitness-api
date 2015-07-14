@@ -5,7 +5,7 @@ FactoryGirl.define do
     end_at                  Time.zone.now.change(usec: 0) + 4.weeks
     opening_time            Time.zone.parse("9:00AM")
     closing_time            Time.zone.parse("9:00PM")
-    permitted_weekdays      ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    permitted_weekdays      ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
     duration                60
     auto_confirmation       false
     cancellation_period     24

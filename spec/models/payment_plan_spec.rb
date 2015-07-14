@@ -18,9 +18,9 @@ describe PaymentPlan, type: :model do
     expect(payment_plan).to be_invalid
   end
 
-  it "should validate name length" do
+  it "should validate currency length" do
     payment_plan = build(:payment_plan,
-                         currency_iso_code: "ABCD")
+                         currency: "ABCD")
     expect(payment_plan).to be_invalid
   end
 end
