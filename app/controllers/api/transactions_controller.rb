@@ -6,14 +6,14 @@ module Api
 
     # POST /transactions.json
     def create
-      result = Braintree::Transaction.new(
+      result = Braintree::Transaction.sale(
         amount: params[:transaction][:amount],
-        payment_method_nonce: params[:transaction][:payment_method_nonce]).call
+        payment_method_nonce: params[:transaction][:payment_method_nonce])
 
       if result.success?
         render json: {transaction_id: result.transaction.id}, status: :created
       else
-        render json: {}, status: :unprocessable_entity, location: nil
+        render json: {errors: result.errors}, status: :unprocessable_entity, location: nil
       end
     end
 
