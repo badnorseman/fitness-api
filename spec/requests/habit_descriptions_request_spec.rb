@@ -15,7 +15,7 @@ describe HabitDescription, type: :request do
         get("/api/habit_descriptions.json")
       end
 
-      it "should respond with array of 2 Habits" do
+      it "should respond with array of 2 HabitDescriptions" do
         expect(json.count).to eq 2
       end
 
@@ -29,7 +29,7 @@ describe HabitDescription, type: :request do
         get("/api/habit_descriptions/#{@habit_description.id}.json")
       end
 
-      it "should respond with 1 Habit" do
+      it "should respond with 1 HabitDescription" do
         expect(json["name"]).to eq(@habit_description.name)
       end
 
@@ -48,11 +48,11 @@ describe HabitDescription, type: :request do
             { habit_description: @habit_description_attributes })
         end
 
-        it "should respond with created Habit" do
+        it "should respond with created HabitDescription" do
           expect(json["name"]).to eq @habit_description_attributes[:name]
         end
 
-        it "should respond with Tags for created Habit" do
+        it "should respond with Tags for created HabitDescription" do
           expect(json["tag_list"]).to eq @habit_description_attributes[:tag_list]
         end
 
@@ -88,7 +88,7 @@ describe HabitDescription, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @name = "Sleep #{rand(24)} hours daily"
+          @name = "NAME #{rand(100)}"
           @tag_list = ""
 
           patch(
@@ -96,11 +96,11 @@ describe HabitDescription, type: :request do
             { habit_description: { name: @name, tag_list: @tag_list }})
         end
 
-        it "should respond with updated Habit" do
+        it "should respond with updated HabitDescription" do
           expect(json["name"]).to eq @name
         end
 
-        it "should respond with Tags for updated Habit" do
+        it "should respond with Tags for updated HabitDescription" do
           expect(json["tag_list"]).to eq(@tag_list)
         end
 
@@ -111,7 +111,7 @@ describe HabitDescription, type: :request do
 
       context "with invalid attributes" do
         before do
-          name = "too long name" * 100
+          name = "NAME EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/habit_descriptions/#{@habit_description.id}.json",

@@ -58,7 +58,7 @@ describe Api::ProductsController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update Product" do
-        name = "Name #{rand(100)}"
+        name = "NAME #{rand(100)}"
 
         patch(
           :update,
@@ -71,7 +71,7 @@ describe Api::ProductsController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update Product" do
-        name = "too long name" * 10
+        name = "NAME EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,

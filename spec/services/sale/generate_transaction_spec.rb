@@ -12,7 +12,7 @@ describe Sale::CreateTransaction do
     end
   end
 
-  context "with invalid payment method nonce" do
+  context "with consumed payment method nonce" do
     it "shouldn't create transaction" do
       amount = 100
       payment_method_nonce = "fake-consumed-nonce"

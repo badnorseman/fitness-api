@@ -64,15 +64,26 @@ describe Payment, type: :request do
 
       context "with valid attributes" do
         before do
+          product = create(:product)
           @payment_attributes =
-            attributes_for(:payment)
+            attributes_for(:payment,
+                           amount: 10000,
+                           currency: "USD",
+                           payment_method_nonce: "fake-valid-nonce",
+                           product_id: product.id)
+          puts " "
+          puts "START ==================================================="
+          puts " "
           post(
             "/api/payments.json",
             { payment: @payment_attributes })
+          puts " "
+          puts "END ==================================================="
+          puts " "
         end
 
         it "should respond with created Payment" do
-          expect(json["created_at"].as_json).to eq @payment_attributes[:created_at].as_json
+          expect(json["amount"]).to eq(@payment.amount)
         end
 
         it "should respond with new id" do
@@ -106,7 +117,8 @@ describe Payment, type: :request do
       context "with consumed nonce" do
         before do
           payment_attributes =
-            attributes_for(:payment, :consumed_nonce)
+            attributes_for(:payment,
+                           :consumed_nonce)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -141,7 +153,7 @@ describe Payment, type: :request do
         end
 
         it "should respond with updated Payment" do
-          expect(Payment.find(@payment.id).amount).to eq(@amount)
+          expect(json["amount"]).to eq(@amount)
         end
 
         it "should respond with status 200" do

@@ -84,7 +84,7 @@ describe ExercisePlan, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @name = "Name #{rand(100)}"
+          @name = "NAME #{rand(100)}"
 
           patch(
               "/api/exercise_plans/#{@exercise_plan.id}.json",
@@ -92,7 +92,7 @@ describe ExercisePlan, type: :request do
         end
 
         it "should respond with updated ExercisePlan" do
-          expect(ExercisePlan.find(@exercise_plan.id).name).to eq(@name)
+          expect(json["name"]).to eq(@name)
         end
 
         it "should respond with status 200" do
@@ -102,7 +102,7 @@ describe ExercisePlan, type: :request do
 
       context "with invalid attributes" do
         before do
-          name = "too long name" * 100
+          name = "NAME EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/exercise_plans/#{@exercise_plan.id}.json",

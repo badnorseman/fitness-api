@@ -53,7 +53,7 @@ describe Api::ExerciseSessionsController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update ExerciseSession" do
-        name = "Name #{rand(100)}"
+        name = "NAME #{rand(100)}"
 
         patch(
           :update,
@@ -66,7 +66,7 @@ describe Api::ExerciseSessionsController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update ExerciseSession" do
-        name = "too long name" * 10
+        name = "NAME EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,
