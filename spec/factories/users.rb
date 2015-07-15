@@ -3,16 +3,18 @@ FactoryGirl.define do
     sequence(:uid) { |n| "ADMINISTRATOR#{n}@FITBIRD.COM" }
     provider "email"
     sequence(:email) { |n| "ADMINISTRATOR#{n}@FITBIRD.COM" }
-    administrator true
     name "ADMINISTRATOR"
+    administrator true
+    coach false
   end
 
   factory :coach, class: User do
     sequence(:uid) { |n| "COACH#{n}@FITBIRD.COM" }
     provider "email"
     sequence(:email) { |n| "COACH#{n}@FITBIRD.COM" }
-    coach true
     name "COACH"
+    administrator false
+    coach true
   end
 
   factory :user do
@@ -20,5 +22,7 @@ FactoryGirl.define do
     provider "email"
     sequence(:email) { |n| "USER#{n}@FITBIRD.COM" }
     name "USER"
+    administrator false
+    coach false
   end
 end
