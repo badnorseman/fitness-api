@@ -8,14 +8,10 @@ module Sale
       @payment_method_nonce = params.fetch(:payment_method_nonce)
       @product_id = params.fetch(:product_id)
       @transaction = create_sale_transaction
-
-      puts params.inspect
-      puts failure?
-      puts @transaction.inspect
     end
 
     def call
-      return @transaction.errors if failure?
+      return Payment.new(id: 0, user_id: @user.id) if failure?
 
       Payment.create(payment_params) do |payment|
         payment.user = @user

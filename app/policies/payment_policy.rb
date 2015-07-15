@@ -4,7 +4,7 @@ class PaymentPolicy < ApplicationPolicy
     def resolve
       if user.administrator?
         scope.all
-      elsif user.id
+      elsif user.id?
         scope.where(user_id: user.id)
       else
         raise Pundit::NotAuthorizedError, "You must log in."

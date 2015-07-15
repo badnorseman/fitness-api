@@ -21,7 +21,7 @@ describe Sale::CreateTransaction do
         amount: amount,
         payment_method_nonce: payment_method_nonce).call
 
-      expect(transaction: :errors).to be_truthy
+      expect(transaction.success?).to be_falsey
     end
   end
 end

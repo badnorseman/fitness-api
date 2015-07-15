@@ -102,6 +102,24 @@ describe Payment, type: :request do
           expect(response.status).to eq 422
         end
       end
+
+      context "with consumed nonce" do
+        before do
+          payment_attributes =
+            attributes_for(:payment, :consumed_nonce)
+          post(
+            "/api/payments.json",
+            { payment: payment_attributes })
+        end
+
+        it "should respond with errors" do
+          expect(json.keys).to include("errors")
+        end
+
+        it "should respond with status 422" do
+          expect(response.status).to eq 422
+        end
+      end
     end
 
     describe "PATCH #update" do

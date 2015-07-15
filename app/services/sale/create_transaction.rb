@@ -13,7 +13,8 @@ module Sale
     private
 
     def transaction_params
-      { amount: @amount, payment_method_nonce: @payment_method_nonce }
+      { amount: @amount,
+        payment_method_nonce: @payment_method_nonce }
     end
 
     def create_sale_transaction
