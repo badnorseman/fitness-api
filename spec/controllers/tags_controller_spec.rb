@@ -71,7 +71,7 @@ describe Api::TagsController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update Tag" do
-        name = "NAME EXCEEDS MAX LENGTH" * 100
+        name = "EXCEEDS MAX LENGTH" * 100
 
         patch(
           :update,

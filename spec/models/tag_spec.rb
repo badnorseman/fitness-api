@@ -8,7 +8,7 @@ describe Tag, type: :model do
 
   it "should validate length of name" do
     tag = build(:tag,
-                name: "Too long name" * 100)
+                name: "EXCEEDS MAX LENGTH" * 100)
     expect(tag).to be_invalid
   end
 

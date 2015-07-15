@@ -78,7 +78,7 @@ describe Api::PaymentPlansController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update PaymentPlan" do
-        name = "NAME EXCEEDS MAX LENGTH" * 10
+        name = "EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,

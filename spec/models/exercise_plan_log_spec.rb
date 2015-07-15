@@ -8,7 +8,7 @@ describe ExercisePlanLog, type: :model do
 
   it "should validate length of name" do
     exercise_plan_log = build(:exercise_plan_log,
-                              name: "NAME EXCEEDS MAX LENGTH" * 10)
+                              name: "EXCEEDS MAX LENGTH" * 10)
     expect(exercise_plan_log).to be_invalid
   end
 end

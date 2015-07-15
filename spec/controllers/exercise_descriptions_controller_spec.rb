@@ -72,7 +72,7 @@ describe Api::ExerciseDescriptionsController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update ExerciseDescription" do
-        name = "NAME EXCEEDS MAX LENGTH" * 10
+        name = "EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,

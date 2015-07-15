@@ -8,7 +8,7 @@ describe ExerciseSession, type: :model do
 
   it "should validate name length" do
     exercise_session = build(:exercise_session,
-                             name: "Too long name" * 10)
+                             name: "EXCEEDS MAX LENGTH" * 10)
     expect(exercise_session).to be_invalid
   end
 end

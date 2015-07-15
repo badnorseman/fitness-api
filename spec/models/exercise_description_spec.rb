@@ -14,19 +14,19 @@ describe ExerciseDescription, type: :model do
 
   it "should validate length of name" do
     exercise_description = build(:exercise_description,
-                                 name: "Too long name" * 10)
+                                 name: "EXCEEDS MAX LENGTH" * 10)
     expect(exercise_description).to be_invalid
   end
 
   it "should validate length of short name for mobile" do
     exercise_description = build(:exercise_description,
-                                 short_name_for_mobile: "Too long name" * 50)
+                                 short_name_for_mobile: "EXCEEDS MAX LENGTH" * 50)
     expect(exercise_description).to be_invalid
   end
 
   it "should validate length of video url" do
     exercise_description = build(:exercise_description,
-                                 video_url: "http://www.youtube.com" * 125)
+                                 video_url: "HTTP://WWW.YOUTUBE.COM" * 125)
     expect(exercise_description).to be_invalid
   end
 

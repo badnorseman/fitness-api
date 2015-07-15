@@ -111,7 +111,7 @@ describe HabitDescription, type: :request do
 
       context "with invalid attributes" do
         before do
-          name = "NAME EXCEEDS MAX LENGTH" * 100
+          name = "EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/habit_descriptions/#{@habit_description.id}.json",

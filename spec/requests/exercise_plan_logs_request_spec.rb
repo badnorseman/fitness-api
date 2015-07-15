@@ -103,7 +103,7 @@ describe ExercisePlanLog, type: :request do
         before do
           login(@user)
 
-          name = "NAME EXCEEDS MAX LENGTH" * 100
+          name = "EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",

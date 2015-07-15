@@ -8,13 +8,13 @@ describe Product, type: :model do
 
   it "should validate length of name" do
     product = build(:product,
-                    name: "Too long name" * 100)
+                    name: "EXCEEDS MAX LENGTH" * 100)
     expect(product).to be_invalid
   end
 
   it "should validate length of description" do
     product = build(:product,
-                    description: "Too long description" * 600)
+                    description: "EXCEEDS MAX LENGTH" * 600)
     expect(product).to be_invalid
   end
 end

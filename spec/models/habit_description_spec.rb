@@ -8,13 +8,13 @@ describe HabitDescription, type: :model do
 
   it "should validate name length" do
     habit_description = build(:habit_description,
-                              name: "Too long name" * 10)
+                              name: "EXCEEDS MAX LENGTH" * 10)
     expect(habit_description).to be_invalid
   end
 
   it "should validate summary length" do
     habit_description = build(:habit_description,
-                              summary: "Too long summary" * 125)
+                              summary: "EXCEEDS MAX LENGTH" * 125)
     expect(habit_description).to be_invalid
   end
 

@@ -114,7 +114,7 @@ describe ExerciseDescription, type: :request do
 
       context "with invalid attributes" do
         before do
-          name = "NAME EXCEEDS MAX LENGTH" * 100
+          name = "EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/exercise_descriptions/#{@exercise_description.id}.json",

@@ -46,7 +46,7 @@ describe Api::ExercisesController, type: :controller do
       it "should not create Exercise" do
         exercise_attributes =
           attributes_for(:exercise,
-                         tempo: "too long value" * 10,
+                         tempo: "EXCEEDS MAX LENGTH" * 10,
                          exercise_set_id: @exercise_set.id,
                          exercise_description_id: @exercise_description.id)
         expect do
@@ -61,7 +61,7 @@ describe Api::ExercisesController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update Exercise" do
-        tempo = "12X#{rand(100)}"
+        tempo = "TEMPO #{rand(10)}"
 
         patch(
           :update,
@@ -74,7 +74,7 @@ describe Api::ExercisesController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update Exercise" do
-        tempo = "too long value" * 10
+        tempo = "EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,
