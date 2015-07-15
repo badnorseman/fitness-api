@@ -11,7 +11,7 @@ module Sale
     end
 
     def call
-      return Payment.new(id: 0, user_id: @user.id) if failure?
+      return Payment.new(user_id: @user.id) if failure?
 
       Payment.create(payment_params) do |payment|
         payment.user = @user

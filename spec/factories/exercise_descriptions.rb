@@ -2,8 +2,8 @@ FactoryGirl.define do
   factory :exercise_description do
     user
     sequence(:name) { |n| "NAME#{n}" }
-    short_name_for_mobile "SHORT NAME FOR MOBILE"
-    description "DESCRIPTION"
+    sequence(:short_name_for_mobile) { |n| "SHORT NAME FOR MOBILE#{n}" }
+    sequence(:description) { |n| "DESCRIPTION#{n}" }
     distance false
     duration false
     load false
