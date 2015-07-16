@@ -1,12 +1,6 @@
 class FailedPaymentPolicy < ApplicationPolicy
 
-  class Scope < Scope
-    def resolve
-      scope.all
-    end
-  end
-
   def create?
-    true
+    user.id?
   end
 end

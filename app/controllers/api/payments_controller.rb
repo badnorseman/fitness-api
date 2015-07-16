@@ -3,8 +3,8 @@
 # What attribute(s) should be editable on Payment?
 module Api
   class PaymentsController < ApplicationController
-    skip_after_action :verify_authorized, only: :new
     before_action :set_payment, only: [:show, :update, :destroy]
+    skip_after_action :verify_authorized, only: :new
 
     # GET /payments.json
     def index
