@@ -352,6 +352,6 @@ ActiveRecord::Schema.define(version: 20150628003703) do
 
   add_index "users", ["coach"], name: "index_users_on_coach", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
-  add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
 
 end

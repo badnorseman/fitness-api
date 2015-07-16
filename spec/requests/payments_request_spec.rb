@@ -63,72 +63,105 @@ describe Payment, type: :request do
       end
 
       context "with valid attributes" do
-        before do
-          product = create(:product)
-          @payment_attributes =
+        it "should respond with created Payment" do
+          payment_attributes =
             attributes_for(:payment,
-                           amount: 10000,
+                           amount: rand(1..1899),
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
-                           product_id: product.id)
-          puts " "
-          puts "START ==================================================="
-          puts " "
+                           product_id: 1)
           post(
             "/api/payments.json",
-            { payment: @payment_attributes })
-          puts " "
-          puts "END ==================================================="
-          puts " "
-        end
+            { payment: payment_attributes })
 
-        it "should respond with created Payment" do
-          expect(json["amount"]).to eq(@payment.amount)
+          expect(json["amount"]).to eq(payment_attributes[:amount])
         end
 
         it "should respond with new id" do
+          payment_attributes =
+            attributes_for(:payment,
+                           amount: rand(1..1899),
+                           currency: "USD",
+                           payment_method_nonce: "fake-valid-nonce",
+                           product_id: 1)
+          post(
+            "/api/payments.json",
+            { payment: payment_attributes })
+
           expect(json.keys).to include("id")
         end
 
         it "should respond with status 201" do
+          payment_attributes =
+            attributes_for(:payment,
+                           amount: rand(1..1899),
+                           currency: "USD",
+                           payment_method_nonce: "fake-valid-nonce",
+                           product_id: 1)
+          post(
+            "/api/payments.json",
+            { payment: payment_attributes })
+
           expect(response.status).to eq 201
         end
       end
 
       context "with invalid attributes" do
-        before do
+        it "should respond with errors" do
           payment_attributes =
             attributes_for(:payment,
-                           amount: nil)
+                           amount: nil,
+                           currency: "USD",
+                           payment_method_nonce: "fake-valid-nonce",
+                           product_id: 1)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
-        end
 
-        it "should respond with errors" do
           expect(json.keys).to include("errors")
         end
 
         it "should respond with status 422" do
+          payment_attributes =
+            attributes_for(:payment,
+                           amount: nil,
+                           currency: "USD",
+                           payment_method_nonce: "fake-valid-nonce",
+                           product_id: 1)
+          post(
+            "/api/payments.json",
+            { payment: payment_attributes })
+
           expect(response.status).to eq 422
         end
       end
 
       context "with consumed nonce" do
-        before do
+        it "should respond with errors" do
           payment_attributes =
             attributes_for(:payment,
-                           :consumed_nonce)
+                           amount: rand(3001..4000),
+                           currency: "USD",
+                           payment_method_nonce: "fake-consumed-nonce",
+                           product_id: 1)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
-        end
 
-        it "should respond with errors" do
           expect(json.keys).to include("errors")
         end
 
         it "should respond with status 422" do
+          payment_attributes =
+            attributes_for(:payment,
+                           amount: rand(3001..4000),
+                           currency: "USD",
+                           payment_method_nonce: "fake-consumed-nonce",
+                           product_id: 1)
+          post(
+            "/api/payments.json",
+            { payment: payment_attributes })
+
           expect(response.status).to eq 422
         end
       end
@@ -145,7 +178,7 @@ describe Payment, type: :request do
 
       context "with valid attributes" do
         before do
-          @amount = 120
+          @amount = @payment.amount + rand(1..100)
 
           patch(
             "/api/payments/#{@payment.id}.json",

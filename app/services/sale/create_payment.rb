@@ -7,11 +7,11 @@ module Sale
       @currency = params.fetch(:currency)
       @payment_method_nonce = params.fetch(:payment_method_nonce)
       @product_id = params.fetch(:product_id)
-      @transaction = create_sale_transaction
+      @transaction = create_transaction
     end
 
     def call
-      return Payment.new(user_id: @user.id) if failure?
+      return FailedPayment.new if failure?
 
       Payment.create(payment_params) do |payment|
         payment.user = @user
@@ -31,7 +31,7 @@ module Sale
         transaction_id: @transaction.transaction_id }
     end
 
-    def create_sale_transaction
+    def create_transaction
       Sale::CreateTransaction.new(
         amount: @amount,
         payment_method_nonce: @payment_method_nonce).call

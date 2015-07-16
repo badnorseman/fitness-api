@@ -100,6 +100,7 @@ describe ExerciseDescription, type: :request do
         end
 
         it "should respond with updated ExerciseDescription" do
+          json
           expect(json["name"]).to eq(@name)
         end
 

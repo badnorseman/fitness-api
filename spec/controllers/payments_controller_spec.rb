@@ -73,7 +73,7 @@ describe Api::PaymentsController, type: :controller do
 
     context "with valid attributes" do
       it "should update Payment" do
-        amount = 120
+        amount = @payment.amount + rand(1..100)
 
         patch(
           :update,

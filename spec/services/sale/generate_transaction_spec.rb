@@ -1,7 +1,7 @@
 describe Sale::CreateTransaction do
   context "with valid payment method nonce" do
     it "should create transaction" do
-      amount = 100
+      amount = rand(1..1899)
       payment_method_nonce = "fake-valid-nonce"
 
       transaction = Sale::CreateTransaction.new(
@@ -14,7 +14,7 @@ describe Sale::CreateTransaction do
 
   context "with consumed payment method nonce" do
     it "shouldn't create transaction" do
-      amount = 100
+      amount = rand(3001..4000)
       payment_method_nonce = "fake-consumed-nonce"
 
       transaction = Sale::CreateTransaction.new(

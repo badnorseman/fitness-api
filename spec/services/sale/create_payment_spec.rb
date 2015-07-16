@@ -4,10 +4,10 @@ describe Sale::CreatePayment do
       user = create(:user)
       product = create(:product)
       params = { user: user,
-                  amount: 10000,
-                  currency: "USD",
-                  payment_method_nonce: "fake-valid-nonce",
-                  product_id: product.id }
+                 amount: rand(1..1899),
+                 currency: "USD",
+                 payment_method_nonce: "fake-valid-nonce",
+                 product_id: product.id }
 
       expect do
         Sale::CreatePayment.new(user: user, params: params).call
@@ -20,10 +20,10 @@ describe Sale::CreatePayment do
       user = create(:user)
       product = create(:product)
       params = { user: user,
-                  amount: nil,
-                  currency: "USD",
-                  payment_method_nonce: "fake-consumed-nonce",
-                  product_id: product.id }
+                 amount: nil,
+                 currency: "USD",
+                 payment_method_nonce: "fake-valid-nonce",
+                 product_id: product.id }
 
       expect do
         Sale::CreatePayment.new(user: user, params: params).call
@@ -36,10 +36,10 @@ describe Sale::CreatePayment do
       user = create(:user)
       product = create(:product)
       params = { user: user,
-                  amount: 10000,
-                  currency: "USD",
-                  payment_method_nonce: "fake-consumed-nonce",
-                  product_id: product.id }
+                 amount: rand(3001..4000),
+                 currency: "USD",
+                 payment_method_nonce: "fake-consumed-nonce",
+                 product_id: product.id }
 
       expect do
         Sale::CreatePayment.new(user: user, params: params).call
