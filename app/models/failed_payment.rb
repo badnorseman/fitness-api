@@ -1,9 +1,9 @@
 class FailedPayment
   attr_reader :errors
 
-  def initialize
+  def initialize(errors:)
     @errors = ActiveModel::Errors.new(self)
-    @errors.add(:base, "Payment failed")
+    @errors.add(:base, errors)
   end
 
   def id

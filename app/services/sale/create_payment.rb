@@ -1,4 +1,3 @@
-# Add transaction data e.g. type, id (last 4 for cc or email for paypal)
 module Sale
   class CreatePayment
     def initialize(user:, params:)
@@ -11,7 +10,7 @@ module Sale
     end
 
     def call
-      return FailedPayment.new if failure?
+      return FailedPayment.new(errors: @transaction.errors) if failure?
 
       Payment.create(payment_params) do |payment|
         payment.user = @user
