@@ -10,14 +10,14 @@ module Sale
     end
 
     def call
-      return FailedPayment.new(errors: @transaction.errors) if failure?
+      return FailedPayment.new(errors: @transaction.errors) if transaction_failure?
 
       Payment.create(payment_params) do |payment|
         payment.user = @user
       end
     end
 
-    def failure?
+    def transaction_failure?
       !@transaction.success?
     end
 
