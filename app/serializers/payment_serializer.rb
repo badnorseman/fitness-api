@@ -10,7 +10,7 @@ class PaymentSerializer < ActiveModel::Serializer
              :can_delete
 
   def amount
-    object.amount
+    helpers.number_to_currency(object.amount, unit: object.currency)
   end
 
   def transaction_date
@@ -27,5 +27,9 @@ class PaymentSerializer < ActiveModel::Serializer
 
   def pundit_user
     scope
+  end
+
+  def helpers
+    ActionController::Base.helpers
   end
 end
