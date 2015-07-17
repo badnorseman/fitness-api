@@ -19,8 +19,7 @@ module Sale
         merchant_account_id: @merchant_account_id,
         payment_method_nonce: @payment_method_nonce,
         customer: {
-          first_name: @customer.name,
-          last_name: @customer.name }}
+          email: @customer.email }}
     end
 
     def create_braintree_sale_transaction
