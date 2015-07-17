@@ -33,7 +33,13 @@ module Sale
     def create_transaction
       Sale::CreateTransaction.new(
         amount: @amount,
+        customer: @user,
+        merchant_account_id: merchant_account_id,
         payment_method_nonce: @payment_method_nonce).call
+    end
+
+    def merchant_account_id
+      return "fitbird" + @currency if %w(DKK, EUR, USD).include?(@currency)
     end
   end
 end

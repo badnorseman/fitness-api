@@ -1,7 +1,9 @@
 module Sale
   class CreateTransaction
-    def initialize(amount:, payment_method_nonce:)
+    def initialize(amount:, customer:, merchant_account_id:, payment_method_nonce:)
       @amount = amount
+      @customer = customer
+      @merchant_account_id = merchant_account_id
       @payment_method_nonce = payment_method_nonce
       @transaction = create_braintree_sale_transaction
     end
@@ -14,7 +16,11 @@ module Sale
 
     def transaction_params
       { amount: @amount,
-        payment_method_nonce: @payment_method_nonce }
+        merchant_account_id: @merchant_account_id,
+        payment_method_nonce: @payment_method_nonce,
+        customer: {
+          first_name: @customer.name,
+          last_name: @customer.name }}
     end
 
     def create_braintree_sale_transaction
