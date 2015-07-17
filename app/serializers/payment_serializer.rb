@@ -4,9 +4,18 @@ class PaymentSerializer < ActiveModel::Serializer
              :amount,
              :currency,
              :product_id,
+             :transaction_date,
              :transaction_id,
              :can_update,
              :can_delete
+
+  def amount
+    object.amount
+  end
+
+  def transaction_date
+    object.created_at.to_formatted_s(:long_ordinal)
+  end
 
   def can_update
     policy(object).update?

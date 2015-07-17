@@ -8,7 +8,7 @@ module Api
 
     # GET /payments.json
     def index
-      render json: policy_scope(Payment).order(:created_at), status: :ok
+      render json: policy_scope(Payment).order(created_at: :desc), status: :ok
     end
 
     # GET /payments/1.json
