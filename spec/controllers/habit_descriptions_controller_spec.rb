@@ -79,7 +79,7 @@ describe Api::HabitDescriptionsController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update HabitDescription" do
-        name = "too long name" * 10
+        name = "EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,

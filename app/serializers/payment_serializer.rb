@@ -3,7 +3,6 @@ class PaymentSerializer < ActiveModel::Serializer
   attributes :id,
              :amount,
              :currency,
-             :customer_id,
              :product_id,
              :transaction_id,
              :can_update,

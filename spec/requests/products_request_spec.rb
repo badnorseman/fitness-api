@@ -87,7 +87,7 @@ describe Product, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @name = "Name #{rand(100)}"
+          @name = "NAME #{rand(100)}"
 
           patch(
             "/api/products/#{@product.id}.json",
@@ -105,7 +105,7 @@ describe Product, type: :request do
 
       context "with invalid attributes" do
         before do
-          name = "too long name" * 100
+          name = "EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/products/#{@product.id}.json",

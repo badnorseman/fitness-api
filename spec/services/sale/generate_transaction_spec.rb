@@ -1,27 +1,27 @@
-describe Sale::CreateSaleTransaction do
+describe Sale::CreateTransaction do
   context "with valid payment method nonce" do
     it "should create transaction" do
-      amount = 100
+      amount = rand(1..1899)
       payment_method_nonce = "fake-valid-nonce"
 
-      transaction = Sale::CreateSaleTransaction.new(
+      transaction = Sale::CreateTransaction.new(
         amount: amount,
         payment_method_nonce: payment_method_nonce).call
 
-      expect(transaction: :transaction_id).to be_truthy
+      expect(transaction.success?).to be_truthy
     end
   end
 
-  context "with invalid payment method nonce" do
+  context "with consumed payment method nonce" do
     it "shouldn't create transaction" do
-      amount = 100
+      amount = rand(3001..4000)
       payment_method_nonce = "fake-consumed-nonce"
 
-      transaction = Sale::CreateSaleTransaction.new(
+      transaction = Sale::CreateTransaction.new(
         amount: amount,
         payment_method_nonce: payment_method_nonce).call
 
-      expect(transaction: :errors).to be_truthy
+      expect(transaction.success?).to be_falsey
     end
   end
 end

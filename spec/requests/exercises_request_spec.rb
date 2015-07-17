@@ -63,7 +63,7 @@ describe Exercise, type: :request do
         before do
           exercise_attributes =
             attributes_for(:exercise,
-                           tempo: "too long value",
+                           tempo: "EXCEEDS MAX LENGTH",
                            exercise_set_id: @exercise_set.id,
                            exercise_description_id: @exercise_description.id)
           post(
@@ -84,7 +84,7 @@ describe Exercise, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @tempo = "12X#{rand(100)}"
+          @tempo = "TEMPO #{rand(10)}"
 
           patch(
             "/api/exercises/#{@exercise.id}.json",
@@ -102,7 +102,7 @@ describe Exercise, type: :request do
 
       context "with invalid attributes" do
         before do
-          tempo = "too long value" * 10
+          tempo = "EXCEEDS MAX LENGTH" * 10
 
           patch(
             "/api/exercises/#{@exercise.id}.json",

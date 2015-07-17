@@ -65,19 +65,21 @@ describe Api::ExercisePlansController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update ExercisePlan" do
-        name = "Name #{rand(100)}"
+        name = "NAME #{rand(100)}"
 
         patch(
-          :update, id: @exercise_plan.id,
+          :update,
+          id: @exercise_plan.id,
           exercise_plan: { name: name })
 
-        expect(ExercisePlan.find(@exercise_plan.id).name).to eq(name)
+        @exercise_plan = ExercisePlan.find(@exercise_plan.id)
+        expect(@exercise_plan.name).to eq(name)
       end
     end
 
     context "with invalid attributes" do
       it "should not update ExercisePlan" do
-        name = "too long name" * 10
+        name = "EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,

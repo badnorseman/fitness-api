@@ -8,13 +8,13 @@ describe PaymentPlan, type: :model do
 
   it "should validate name length" do
     payment_plan = build(:payment_plan,
-                         name: "Too long name" * 10)
+                         name: "EXCEEDS MAX LENGTH" * 10)
     expect(payment_plan).to be_invalid
   end
 
   it "should validate description length" do
     payment_plan = build(:payment_plan,
-                         description: "Too long name" * 525)
+                         description: "EXCEEDS MAX LENGTH" * 525)
     expect(payment_plan).to be_invalid
   end
 

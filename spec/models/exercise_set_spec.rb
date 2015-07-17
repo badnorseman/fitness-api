@@ -8,7 +8,7 @@ describe ExerciseSet, type: :model do
 
   it "should validate name length" do
     exercise_set = build(:exercise_set,
-                         name: "Too long name" * 10)
+                         name: "EXCEEDS MAX LENGTH" * 10)
     expect(exercise_set).to be_invalid
   end
 end

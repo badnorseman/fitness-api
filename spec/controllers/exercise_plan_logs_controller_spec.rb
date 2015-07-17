@@ -69,7 +69,7 @@ describe Api::ExercisePlanLogsController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update ExercisePlanLog" do
-        name = "Name #{rand(100)}"
+        name = "NAME #{rand(100)}"
 
         patch(
           :update, id: @exercise_plan_log.id,
@@ -81,7 +81,7 @@ describe Api::ExercisePlanLogsController, type: :controller do
 
     context "with invalid attributes" do
       it "should not update ExercisePlanLog" do
-        name = "too long name" * 10
+        name = "EXCEEDS MAX LENGTH" * 10
 
         patch(
           :update,

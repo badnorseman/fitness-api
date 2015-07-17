@@ -5,7 +5,7 @@ class BookingPolicy < ApplicationPolicy
       if user.administrator?
         scope.all
       elsif user.id?
-        scope.where("user_id = :id OR coach_id = :id", id: user.id)
+        scope.where("coach_id = :id OR user_id = :id", id: user.id)
       else
         raise Pundit::NotAuthorizedError, "You must log in."
       end
@@ -13,7 +13,7 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def show?
-    user.administrator? || (user.id == record.user_id || user.id == record.coach_id)
+    user.administrator? || user.id == record.coach_id || user.id == record.user_id
   end
 
   def create?

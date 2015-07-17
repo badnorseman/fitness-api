@@ -80,7 +80,7 @@ describe ExerciseSet, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @name = "Name #{rand(100)}"
+          @name = "NAME #{rand(100)}"
 
           patch(
             "/api/exercise_sets/#{@exercise_set.id}.json",

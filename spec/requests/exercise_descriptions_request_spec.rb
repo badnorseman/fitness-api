@@ -91,7 +91,7 @@ describe ExerciseDescription, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @name = "Name #{rand(100)}"
+          @name = "NAME #{rand(100)}"
           @tag_list = "Beginner, Strength"
 
           patch(
@@ -100,7 +100,8 @@ describe ExerciseDescription, type: :request do
         end
 
         it "should respond with updated ExerciseDescription" do
-          expect(ExerciseDescription.find(@exercise_description.id).name).to eq(@name)
+          json
+          expect(json["name"]).to eq(@name)
         end
 
         it "should respond with Tags for updated ExerciseDescription" do
@@ -114,7 +115,7 @@ describe ExerciseDescription, type: :request do
 
       context "with invalid attributes" do
         before do
-          name = "too long name" * 100
+          name = "EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/exercise_descriptions/#{@exercise_description.id}.json",

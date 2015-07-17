@@ -41,7 +41,7 @@ describe ExercisePlanLog, type: :request do
             { exercise_plan_log: @exercise_plan_attributes })
         end
 
-        it "should respond with created ExercisePlan" do
+        it "should respond with created ExercisePlanLog" do
           expect(json["name"]).to eq @exercise_plan_attributes[:name]
         end
 
@@ -83,15 +83,15 @@ describe ExercisePlanLog, type: :request do
         before do
           login(@user)
 
-          @name = "Name #{rand(100)}"
+          @name = "NAME #{rand(100)}"
 
           patch(
             "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",
             { exercise_plan_log: { name: @name }})
         end
 
-        it "should respond with updated ExercisePlan" do
-          expect(ExercisePlanLog.find(@exercise_plan_log.id).name).to eq(@name)
+        it "should respond with updated ExercisePlanLog" do
+          expect(json["name"]).to eq(@name)
         end
 
         it "should respond with status 200" do
@@ -103,7 +103,7 @@ describe ExercisePlanLog, type: :request do
         before do
           login(@user)
 
-          name = "too long name" * 100
+          name = "EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",

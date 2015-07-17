@@ -8,4 +8,10 @@ class Payment < ActiveRecord::Base
   validates :amount,
             :currency,
             presence: true
+
+  def payment_method_nonce
+  end
+
+  def payment_method_nonce=(value)
+  end
 end

@@ -59,7 +59,8 @@ describe ExerciseLog, type: :request do
           login(@coach)
 
           exercise_log_attributes =
-            attributes_for(:exercise_log, tempo: "too long value")
+            attributes_for(:exercise_log,
+                           tempo: "EXCEEDS MAX LENGTH")
 
           post(
             "/api/exercise_logs.json",
@@ -82,7 +83,7 @@ describe ExerciseLog, type: :request do
         before do
           login(@user)
 
-          @tempo = "12X#{rand(100)}"
+          @tempo = "TEMPO #{rand(10)}"
 
           patch(
             "/api/exercise_logs/#{@exercise_log.id}.json",
@@ -102,7 +103,7 @@ describe ExerciseLog, type: :request do
         before do
           login(@user)
 
-          tempo = "too long value" * 100
+          tempo = "EXCEEDS MAX LENGTH" * 100
 
           patch(
             "/api/exercise_logs/#{@exercise_log.id}.json",

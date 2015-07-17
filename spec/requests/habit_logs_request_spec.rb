@@ -18,7 +18,7 @@ describe HabitLog, type: :request do
         get("/api/habit_logs.json")
       end
 
-      it "should respond with an array of 2 Habits" do
+      it "should respond with an array of 2 HabitLogs" do
         expect(json.count).to eq 2
       end
 
