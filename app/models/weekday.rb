@@ -1,5 +1,5 @@
 class Weekday
-  WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  WEEKDAYS = %w(monday tuesday wednesday thursday friday saturday sunday)
 
   def initialize(permitted: [], unpermitted: [])
     if permitted.present?

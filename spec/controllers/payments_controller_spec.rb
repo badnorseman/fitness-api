@@ -24,7 +24,7 @@ describe Api::PaymentsController, type: :controller do
         :show,
         id: payment.id)
 
-      expect(json["amount"]).to eq(payment.amount.as_json)
+      expect(json.keys).to include("transaction_id")
     end
   end
 

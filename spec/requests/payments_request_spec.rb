@@ -31,7 +31,7 @@ describe Payment, type: :request do
       end
 
       it "should respond with 1 Payment" do
-        expect(json["amount"]).to eq(@payment.amount.as_json)
+        expect(json.keys).to include("transaction_id")
       end
 
       it "should respond with status 200" do
@@ -74,7 +74,7 @@ describe Payment, type: :request do
             "/api/payments.json",
             { payment: payment_attributes })
 
-          expect(json["amount"]).to eq(payment_attributes[:amount])
+            expect(json.keys).to include("transaction_id")
         end
 
         it "should respond with new id" do
@@ -178,15 +178,11 @@ describe Payment, type: :request do
 
       context "with valid attributes" do
         before do
-          @amount = @payment.amount + rand(1..100)
+          amount = @payment.amount + rand(1..100)
 
           patch(
             "/api/payments/#{@payment.id}.json",
-            { payment: { amount: @amount }})
-        end
-
-        it "should respond with updated Payment" do
-          expect(json["amount"]).to eq(@amount)
+            { payment: { amount: amount }})
         end
 
         it "should respond with status 200" do
