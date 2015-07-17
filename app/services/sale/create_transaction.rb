@@ -18,6 +18,7 @@ module Sale
       { amount: @amount,
         merchant_account_id: @merchant_account_id,
         payment_method_nonce: @payment_method_nonce,
+        custom_fields: { customer_name: @customer.name },
         customer: {
           email: @customer.email }}
     end
