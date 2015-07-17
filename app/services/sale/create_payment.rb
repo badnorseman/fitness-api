@@ -39,7 +39,7 @@ module Sale
     end
 
     def merchant_account_id
-      return "fitbird" + @currency if %w(DKK, EUR, USD).include?(@currency)
+      return "fitbird" + @currency if %w(DKK EUR USD).include?(@currency)
     end
   end
 end

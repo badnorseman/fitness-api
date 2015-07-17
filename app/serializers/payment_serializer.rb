@@ -1,3 +1,6 @@
+# Replace delimiter and separator with :locale and I18n configuration.
+# See http://guides.rubyonrails.org/i18n.html for details.
+# Rails Casts video http://railscasts.com/episodes/138-i18n.
 class PaymentSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
@@ -10,7 +13,7 @@ class PaymentSerializer < ActiveModel::Serializer
              :can_delete
 
   def amount
-    helpers.number_to_currency(object.amount, unit: object.currency)
+    helpers.number_with_delimiter(object.amount, delimiter: delimiter, separator: separator)
   end
 
   def transaction_date
@@ -27,6 +30,14 @@ class PaymentSerializer < ActiveModel::Serializer
 
   def pundit_user
     scope
+  end
+
+  def delimiter
+    object.currency == "USD" ? "." : ","
+  end
+
+  def separator
+    object.currency == "USD" ? "," : "."
   end
 
   def helpers
