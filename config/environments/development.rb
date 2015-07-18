@@ -38,18 +38,6 @@ Rails.application.configure do
   # Raise error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
-  # Store images on AWS S3 with Paperclip
-  config.paperclip_defaults = {
-    :path => ":attachment/:class/:id/:style/:basename.:extension",
-    :url => ":s3_domain_url",
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => Rails.application.secrets.s3_bucket,
-      :access_key_id => Rails.application.secrets.s3_key,
-      :secret_access_key => Rails.application.secrets.s3_secret
-    }
-  }
-
   # Accept online payment with Braintree.
   Braintree::Configuration.environment = :sandbox
   Braintree::Configuration.merchant_id = Rails.application.secrets.braintree_merchant_id
