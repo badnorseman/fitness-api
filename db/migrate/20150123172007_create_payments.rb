@@ -7,6 +7,7 @@ class CreatePayments < ActiveRecord::Migration
       t.integer    :customer_id
       t.integer    :product_id
       t.string     :transaction_id
+      t.string     :transaction_type
       t.timestamps
     end
 
