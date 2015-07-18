@@ -277,11 +277,12 @@ ActiveRecord::Schema.define(version: 20150628003703) do
 
   create_table "payments", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "amount",         null: false
-    t.string   "currency",       null: false
+    t.integer  "amount",           null: false
+    t.string   "currency",         null: false
     t.integer  "customer_id"
     t.integer  "product_id"
     t.string   "transaction_id"
+    t.string   "transaction_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

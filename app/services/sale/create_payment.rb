@@ -27,7 +27,8 @@ module Sale
       { amount: @amount,
         currency: @currency,
         product_id: @product_id,
-        transaction_id: @transaction.transaction_id }
+        transaction_id: @transaction.transaction_id,
+        transaction_type: "SALE" }
     end
 
     def create_transaction
