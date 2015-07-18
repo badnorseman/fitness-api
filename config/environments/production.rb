@@ -92,4 +92,10 @@ Rails.application.configure do
       :secret_access_key => Rails.application.secrets.s3_secret
     }
   }
+
+  # Accept online payment with Braintree.
+  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.merchant_id = Rails.application.secrets.braintree_merchant_id
+  Braintree::Configuration.private_key = Rails.application.secrets.braintree_private_key
+  Braintree::Configuration.public_key = Rails.application.secrets.braintree_public_key
 end
