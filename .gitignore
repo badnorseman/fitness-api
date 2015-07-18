@@ -7,9 +7,6 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore images files.
-/public/images
-
 # Ignore lib files.
 /lib
 
