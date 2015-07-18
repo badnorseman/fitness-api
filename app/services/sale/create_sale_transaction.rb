@@ -1,5 +1,5 @@
 module Sale
-  class CreateTransaction
+  class CreateSaleTransaction
     def initialize(amount:, customer:, merchant_account_id:, payment_method_nonce:)
       @amount = amount
       @customer = customer

@@ -31,7 +31,7 @@ module Sale
     end
 
     def create_transaction
-      Sale::CreateTransaction.new(
+      Sale::CreateSaleTransaction.new(
         amount: @amount,
         customer: @user,
         merchant_account_id: merchant_account_id,

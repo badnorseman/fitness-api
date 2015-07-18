@@ -1,4 +1,4 @@
-describe Sale::CreateTransaction do
+describe Sale::CreateSaleTransaction do
   context "with valid payment method nonce" do
     it "should create transaction" do
       amount = rand(1..1899)
@@ -6,7 +6,7 @@ describe Sale::CreateTransaction do
       merchant_account_id = "fitbirdUSD"
       payment_method_nonce = "fake-valid-nonce"
 
-      transaction = Sale::CreateTransaction.new(
+      transaction = Sale::CreateSaleTransaction.new(
         amount: amount,
         customer: customer,
         merchant_account_id: merchant_account_id,
@@ -23,7 +23,7 @@ describe Sale::CreateTransaction do
       merchant_account_id = "fitbirdUSD"
       payment_method_nonce = "fake-consumed-nonce"
 
-      transaction = Sale::CreateTransaction.new(
+      transaction = Sale::CreateSaleTransaction.new(
         amount: amount,
         customer: customer,
         merchant_account_id: merchant_account_id,
