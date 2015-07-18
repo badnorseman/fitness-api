@@ -1,5 +1,6 @@
-# Will Payment#update and Payment#delete be used?
-# Payment#delete is a Void Transaction
+# Remove Payment#update. Update is done by #delete and another #create.
+# Change Payment#delete to be a void transaction.
+# Add type to Payment e.g. sale, void
 # What attribute(s) should be editable on Payment?
 module Api
   class PaymentsController < ApplicationController
@@ -8,7 +9,7 @@ module Api
 
     # GET /payments.json
     def index
-      render json: policy_scope(Payment).order(:created_at), status: :ok
+      render json: policy_scope(Payment).order(created_at: :desc), status: :ok
     end
 
     # GET /payments/1.json
