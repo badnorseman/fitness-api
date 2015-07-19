@@ -9,3 +9,7 @@ Paperclip::Attachment.default_options.merge!(
     :secret_access_key => Rails.application.secrets.s3_secret
   }
 )
+
+Paperclip.interpolates(:s3_domain) do |attachement, style|
+  "www.fitbird.com.s3.amazonaws.com"
+end

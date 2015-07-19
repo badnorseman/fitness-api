@@ -2,7 +2,7 @@ class Product < ActiveRecord::Base
   default_scope { where(ended_at: nil) }
 
   has_attached_file :image,
-    :default_url => "http://:s3_bucket.s3.amazonaws.com/:rails_env/:attachment/:class/defaults/:style.png",
+    :default_url => "http://:s3_domain/:rails_env/:attachment/:class/defaults/:style.png",
     :styles => { :small => "100x100>" }
 
   belongs_to :user
