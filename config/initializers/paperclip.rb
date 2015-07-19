@@ -10,6 +10,6 @@ Paperclip::Attachment.default_options.merge!(
   }
 )
 
-Paperclip.interpolates(:s3_domain) do |attachement, style|
+Paperclip.interpolates(:s3_domain) do |attachment, style|
   "www.fitbird.com.s3.amazonaws.com"
 end
