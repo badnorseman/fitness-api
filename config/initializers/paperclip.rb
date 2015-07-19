@@ -12,5 +12,5 @@ Paperclip::Attachment.default_options.merge!(
 )
 
 Paperclip.interpolates(:s3_domain) do |attachment, style|
-  [Paperclip::Attachment.default_options[:s3_credentials][:bucket], "s3.amazonaws.com"].join(".")
+  [Paperclip::Attachment.default_options[:s3_credentials][:bucket], ".s3.amazonaws.com"].join
 end
