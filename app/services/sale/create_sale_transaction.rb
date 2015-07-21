@@ -3,8 +3,8 @@ module Sale
     def initialize(amount:, customer:, merchant_account_id:, merchant_name:, payment_method_nonce:, product_name:)
       @amount = amount
       @customer = customer
-      @merchant_name = merchant_name
       @merchant_account_id = merchant_account_id
+      @merchant_name = merchant_name
       @payment_method_nonce = payment_method_nonce
       @product_name = product_name
       @transaction = create_braintree_sale_transaction
