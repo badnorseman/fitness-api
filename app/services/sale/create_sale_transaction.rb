@@ -1,10 +1,12 @@
 module Sale
   class CreateSaleTransaction
-    def initialize(amount:, customer:, merchant_account_id:, payment_method_nonce:)
+    def initialize(amount:, customer:, merchant_account_id:, merchant_name:, payment_method_nonce:, product_name:)
       @amount = amount
       @customer = customer
       @merchant_account_id = merchant_account_id
+      @merchant_name = merchant_name
       @payment_method_nonce = payment_method_nonce
+      @product_name = product_name
       @transaction = create_braintree_sale_transaction
     end
 
@@ -18,7 +20,10 @@ module Sale
       { amount: @amount,
         merchant_account_id: @merchant_account_id,
         payment_method_nonce: @payment_method_nonce,
-        custom_fields: { customer_name: @customer.name },
+        custom_fields:
+        { customer_name: @customer.name,
+          merchant_name: @merchant_name,
+          product_name: @product_name },
         customer: {
           email: @customer.email }}
     end
