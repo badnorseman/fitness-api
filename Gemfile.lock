@@ -143,8 +143,6 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-rails (0.3.4)
-      pry (>= 0.9.10)
     puma (2.11.3)
       rack (>= 1.1, < 2.0)
     pundit (1.0.1)
@@ -256,7 +254,7 @@ DEPENDENCIES
   omniauth-identity
   paperclip
   pg
-  pry-rails
+  pry
   puma
   pundit
   quiet_assets
