@@ -293,8 +293,9 @@ ActiveRecord::Schema.define(version: 20150628003703) do
 
   create_table "products", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name",               null: false
-    t.text     "description",        null: false
+    t.string   "name",               limit: 50, null: false
+    t.string   "uniquable_name",     limit: 50, null: false
+    t.text     "description",                   null: false
     t.string   "currency"
     t.integer  "price"
     t.datetime "ended_at"
@@ -306,6 +307,7 @@ ActiveRecord::Schema.define(version: 20150628003703) do
     t.datetime "image_updated_at"
   end
 
+  add_index "products", ["user_id", "uniquable_name"], name: "index_products_on_user_id_and_uniquable_name", unique: true, using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|
