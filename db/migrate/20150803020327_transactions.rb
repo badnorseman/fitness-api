@@ -7,12 +7,12 @@ class Transactions < ActiveRecord::Migration
       t.string     :customer
       t.string     :merchant
       t.string     :product
-      t.string     :braintree_transaction_id
-      t.string     :braintree_transaction_type
+      t.string     :transaction_id
+      t.string     :transaction_type
       t.timestamps
     end
 
-    add_index :transactions, :braintree_transaction_id
-    add_index :transactions, :braintree_transaction_type
+    add_index :transactions, :transaction_id
+    add_index :transactions, :transaction_type
   end
 end

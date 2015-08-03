@@ -7,8 +7,8 @@ class TransactionSerializer < ActiveModel::Serializer
              :amount,
              :currency,
              :date,
-             :braintree_transaction_id,
-             :braintree_transaction_type,
+             :transaction_id,
+             :transaction_type,
              :can_update,
              :can_delete
 
