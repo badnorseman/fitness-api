@@ -61,7 +61,7 @@ describe Api::ExercisesController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update Exercise" do
-        tempo = "TEMPO #{rand(10)}"
+        tempo = "TEMPO#{rand(100)}"
 
         patch(
           :update,

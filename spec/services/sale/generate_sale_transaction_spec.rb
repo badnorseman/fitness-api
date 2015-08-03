@@ -4,9 +4,9 @@ describe Sale::CreateSaleTransaction do
       amount = rand(1..1899)
       customer = create(:user)
       merchant_account_id = "fitbirdUSD"
-      merchant_name = "MERCHANT_NAME #{rand(100)}"
+      merchant_name = "MERCHANT_NAME#{rand(1000)}"
       payment_method_nonce = "fake-valid-nonce"
-      product_name = "PRODUCT_NAME #{rand(100)}"
+      product_name = "PRODUCT_NAME#{rand(1000)}"
 
       transaction = Sale::CreateSaleTransaction.new(
         amount: amount,
@@ -25,9 +25,9 @@ describe Sale::CreateSaleTransaction do
       amount = rand(3001..4000)
       customer = create(:user)
       merchant_account_id = "fitbirdUSD"
-      merchant_name = "MERCHANT_NAME #{rand(100)}"
+      merchant_name = "MERCHANT_NAME#{rand(1000)}"
       payment_method_nonce = "fake-consumed-nonce"
-      product_name = "PRODUCT_NAME #{rand(100)}"
+      product_name = "PRODUCT_NAME#{rand(1000)}"
 
       transaction = Sale::CreateSaleTransaction.new(
         amount: amount,

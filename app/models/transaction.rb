@@ -9,6 +9,12 @@ class Transaction < ActiveRecord::Base
             :currency,
             presence: true
 
+  def product_id
+  end
+
+  def product_id=(value)
+  end
+
   def payment_method_nonce
   end
 

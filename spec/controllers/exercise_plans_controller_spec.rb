@@ -65,7 +65,7 @@ describe Api::ExercisePlansController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update ExercisePlan" do
-        name = "NAME #{rand(100)}"
+        name = "NAME#{rand(1000)}"
 
         patch(
           :update,
