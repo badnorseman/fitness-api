@@ -64,12 +64,13 @@ describe Payment, type: :request do
 
       context "with valid attributes" do
         it "should respond with created Payment" do
+          product = create(:product)
           payment_attributes =
             attributes_for(:payment,
                            amount: rand(1..1899),
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
-                           product_id: 1)
+                           product_id: product.id)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -78,12 +79,13 @@ describe Payment, type: :request do
         end
 
         it "should respond with new id" do
+          product = create(:product)
           payment_attributes =
             attributes_for(:payment,
                            amount: rand(1..1899),
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
-                           product_id: 1)
+                           product_id: product.id)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -92,12 +94,13 @@ describe Payment, type: :request do
         end
 
         it "should respond with status 201" do
+          product = create(:product)
           payment_attributes =
             attributes_for(:payment,
                            amount: rand(1..1899),
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
-                           product_id: 1)
+                           product_id: product.id)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -108,12 +111,13 @@ describe Payment, type: :request do
 
       context "with invalid attributes" do
         it "should respond with errors" do
+          product = create(:product)
           payment_attributes =
             attributes_for(:payment,
                            amount: nil,
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
-                           product_id: 1)
+                           product_id: product.id)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -122,12 +126,13 @@ describe Payment, type: :request do
         end
 
         it "should respond with status 422" do
+          product = create(:product)
           payment_attributes =
             attributes_for(:payment,
                            amount: nil,
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
-                           product_id: 1)
+                           product_id: product.id)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -138,12 +143,13 @@ describe Payment, type: :request do
 
       context "with consumed nonce" do
         it "should respond with errors" do
+          product = create(:product)
           payment_attributes =
             attributes_for(:payment,
                            amount: rand(3001..4000),
                            currency: "USD",
                            payment_method_nonce: "fake-consumed-nonce",
-                           product_id: 1)
+                           product_id: product.id)
           post(
             "/api/payments.json",
             { payment: payment_attributes })
@@ -152,12 +158,13 @@ describe Payment, type: :request do
         end
 
         it "should respond with status 422" do
+          product = create(:product)
           payment_attributes =
             attributes_for(:payment,
                            amount: rand(3001..4000),
                            currency: "USD",
                            payment_method_nonce: "fake-consumed-nonce",
-                           product_id: 1)
+                           product_id: product.id)
           post(
             "/api/payments.json",
             { payment: payment_attributes })

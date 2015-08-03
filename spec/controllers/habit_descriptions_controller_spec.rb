@@ -65,7 +65,7 @@ describe Api::HabitDescriptionsController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update HabitDescription" do
-        name = "Sleep #{rand(24)} hours daily"
+        name = "NAME #{rand(100)}"
         tag_list = ""
 
         patch(
