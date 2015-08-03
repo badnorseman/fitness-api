@@ -36,8 +36,10 @@ describe Api::PaymentsController, type: :controller do
 
     context "with valid attributes" do
       it "should create Payment" do
+        product = create(:product)
         payment_attributes =
-          attributes_for(:payment)
+          attributes_for(:payment,
+                         product_id: product.id)
 
         expect do
           post(
@@ -49,8 +51,11 @@ describe Api::PaymentsController, type: :controller do
 
     context "with invalid attributes" do
       it "should not create Payment" do
+        product = create(:product)
         payment_attributes =
-          attributes_for(:payment, amount: nil)
+          attributes_for(:payment,
+                         amount: nil,
+                         product_id: product.id)
 
         expect do
           post(
