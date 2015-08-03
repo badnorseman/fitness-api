@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628003703) do
+ActiveRecord::Schema.define(version: 20150803020327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -332,6 +332,23 @@ ActiveRecord::Schema.define(version: 20150628003703) do
 
   add_index "tags", ["uniquable_name"], name: "index_tags_on_uniquable_name", unique: true, using: :btree
   add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "amount",                     null: false
+    t.string   "currency",                   null: false
+    t.string   "customer"
+    t.string   "merchant"
+    t.string   "product"
+    t.string   "braintree_transaction_id"
+    t.string   "braintree_transaction_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["braintree_transaction_id"], name: "index_transactions_on_braintree_transaction_id", using: :btree
+  add_index "transactions", ["braintree_transaction_type"], name: "index_transactions_on_braintree_transaction_type", using: :btree
+  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "uid"
