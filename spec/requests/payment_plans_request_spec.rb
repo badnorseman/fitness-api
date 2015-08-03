@@ -84,7 +84,7 @@ describe PaymentPlan, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @name = "NAME #{rand(100)}"
+          @name = "NAME#{rand(1000)}"
 
           patch(
             "/api/payment_plans/#{@payment_plan.id}.json",

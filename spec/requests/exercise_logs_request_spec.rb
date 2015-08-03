@@ -83,7 +83,7 @@ describe ExerciseLog, type: :request do
         before do
           login(@user)
 
-          @tempo = "TEMPO #{rand(10)}"
+          @tempo = "TEMPO#{rand(100)}"
 
           patch(
             "/api/exercise_logs/#{@exercise_log.id}.json",

@@ -69,7 +69,7 @@ describe Api::ExercisePlanLogsController, type: :controller do
   describe "PATCH #update" do
     context "with valid attributes" do
       it "should update ExercisePlanLog" do
-        name = "NAME #{rand(100)}"
+        name = "NAME#{rand(1000)}"
 
         patch(
           :update, id: @exercise_plan_log.id,

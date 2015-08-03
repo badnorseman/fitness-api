@@ -84,7 +84,7 @@ describe Exercise, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @tempo = "TEMPO #{rand(10)}"
+          @tempo = "TEMPO#{rand(100)}"
 
           patch(
             "/api/exercises/#{@exercise.id}.json",

@@ -91,7 +91,7 @@ describe ExerciseDescription, type: :request do
     describe "PATCH #update" do
       context "with valid attributes" do
         before do
-          @name = "NAME #{rand(100)}"
+          @name = "NAME#{rand(1000)}"
           @tag_list = "Beginner, Strength"
 
           patch(

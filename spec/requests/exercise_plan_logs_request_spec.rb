@@ -83,7 +83,7 @@ describe ExercisePlanLog, type: :request do
         before do
           login(@user)
 
-          @name = "NAME #{rand(100)}"
+          @name = "NAME#{rand(1000)}"
 
           patch(
             "/api/exercise_plan_logs/#{@exercise_plan_log.id}.json",
