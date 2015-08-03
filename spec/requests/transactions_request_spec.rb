@@ -1,18 +1,18 @@
 require "spec_helper"
 
-describe Payment, type: :request do
+describe Transaction, type: :request do
   context "when authenticated" do
     describe "GET #index" do
       before do
         user = create(:user)
         login(user)
-        create_list(:payment,
+        create_list(:transaction,
                     2,
                     user: user).first
-        get("/api/payments.json")
+        get("/api/transactions.json")
       end
 
-      it "should respond with an array of 2 Payments" do
+      it "should respond with an array of 2 Transactions" do
         expect(json.count).to eq 2
       end
 
@@ -25,12 +25,12 @@ describe Payment, type: :request do
       before do
         user = create(:user)
         login(user)
-        @payment = create(:payment,
-                          user: user)
-        get("/api/payments/#{@payment.id}.json")
+        @transaction = create(:transaction,
+                              user: user)
+        get("/api/transactions/#{@transaction.id}.json")
       end
 
-      it "should respond with 1 Payment" do
+      it "should respond with 1 Transaction" do
         expect(json.keys).to include("transaction_id")
       end
 
@@ -44,7 +44,7 @@ describe Payment, type: :request do
         user = create(:user)
         login(user)
 
-        get("/api/payments/new.json")
+        get("/api/transactions/new.json")
       end
 
       it "should respond with new client token" do
@@ -63,47 +63,47 @@ describe Payment, type: :request do
       end
 
       context "with valid attributes" do
-        it "should respond with created Payment" do
+        it "should respond with created Transaction" do
           product = create(:product)
-          payment_attributes =
-            attributes_for(:payment,
+          transaction_attributes =
+            attributes_for(:transaction,
                            amount: rand(1..1899),
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
                            product_id: product.id)
           post(
-            "/api/payments.json",
-            { payment: payment_attributes })
+            "/api/transactions.json",
+            { transaction: transaction_attributes })
 
             expect(json.keys).to include("transaction_id")
         end
 
         it "should respond with new id" do
           product = create(:product)
-          payment_attributes =
-            attributes_for(:payment,
+          transaction_attributes =
+            attributes_for(:transaction,
                            amount: rand(1..1899),
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
                            product_id: product.id)
           post(
-            "/api/payments.json",
-            { payment: payment_attributes })
+            "/api/transactions.json",
+            { transaction: transaction_attributes })
 
           expect(json.keys).to include("id")
         end
 
         it "should respond with status 201" do
           product = create(:product)
-          payment_attributes =
-            attributes_for(:payment,
+          transaction_attributes =
+            attributes_for(:transaction,
                            amount: rand(1..1899),
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
                            product_id: product.id)
           post(
-            "/api/payments.json",
-            { payment: payment_attributes })
+            "/api/transactions.json",
+            { transaction: transaction_attributes })
 
           expect(response.status).to eq 201
         end
@@ -112,30 +112,30 @@ describe Payment, type: :request do
       context "with invalid attributes" do
         it "should respond with errors" do
           product = create(:product)
-          payment_attributes =
-            attributes_for(:payment,
+          transaction_attributes =
+            attributes_for(:transaction,
                            amount: nil,
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
                            product_id: product.id)
           post(
-            "/api/payments.json",
-            { payment: payment_attributes })
+            "/api/transactions.json",
+            { transaction: transaction_attributes })
 
           expect(json.keys).to include("errors")
         end
 
         it "should respond with status 422" do
           product = create(:product)
-          payment_attributes =
-            attributes_for(:payment,
+          transaction_attributes =
+            attributes_for(:transaction,
                            amount: nil,
                            currency: "USD",
                            payment_method_nonce: "fake-valid-nonce",
                            product_id: product.id)
           post(
-            "/api/payments.json",
-            { payment: payment_attributes })
+            "/api/transactions.json",
+            { transaction: transaction_attributes })
 
           expect(response.status).to eq 422
         end
@@ -144,30 +144,30 @@ describe Payment, type: :request do
       context "with consumed nonce" do
         it "should respond with errors" do
           product = create(:product)
-          payment_attributes =
-            attributes_for(:payment,
+          transaction_attributes =
+            attributes_for(:transaction,
                            amount: rand(3001..4000),
                            currency: "USD",
                            payment_method_nonce: "fake-consumed-nonce",
                            product_id: product.id)
           post(
-            "/api/payments.json",
-            { payment: payment_attributes })
+            "/api/transactions.json",
+            { transaction: transaction_attributes })
 
           expect(json.keys).to include("errors")
         end
 
         it "should respond with status 422" do
           product = create(:product)
-          payment_attributes =
-            attributes_for(:payment,
+          transaction_attributes =
+            attributes_for(:transaction,
                            amount: rand(3001..4000),
                            currency: "USD",
                            payment_method_nonce: "fake-consumed-nonce",
                            product_id: product.id)
           post(
-            "/api/payments.json",
-            { payment: payment_attributes })
+            "/api/transactions.json",
+            { transaction: transaction_attributes })
 
           expect(response.status).to eq 422
         end
@@ -177,19 +177,19 @@ describe Payment, type: :request do
     describe "PATCH #update" do
       before do
         user = create(:user)
-        @payment = create(:payment,
-                          user: user)
+        @transaction = create(:transaction,
+                              user: user)
         admin = create(:administrator)
         login(admin)
       end
 
       context "with valid attributes" do
         before do
-          amount = @payment.amount + rand(1..100)
+          amount = @transaction.amount + rand(1..100)
 
           patch(
-            "/api/payments/#{@payment.id}.json",
-            { payment: { amount: amount }})
+            "/api/transactions/#{@transaction.id}.json",
+            { transaction: { amount: amount }})
         end
 
         it "should respond with status 200" do
@@ -200,8 +200,8 @@ describe Payment, type: :request do
       context "with invalid attributes" do
         before do
           patch(
-            "/api/payments/#{@payment.id}.json",
-            { payment: { amount: nil }})
+            "/api/transactions/#{@transaction.id}.json",
+            { transaction: { amount: nil }})
         end
 
         it "should respond with errors" do
@@ -217,12 +217,12 @@ describe Payment, type: :request do
     describe "DELETE #destroy" do
       before do
         user = create(:user)
-        @payment = create(:payment,
-                          user: user)
+        @transaction = create(:transaction,
+                              user: user)
         admin = create(:administrator)
         login(admin)
 
-        delete("/api/payments/#{@payment.id}.json")
+        delete("/api/transactions/#{@transaction.id}.json")
       end
 
       it "should respond with status 204" do
@@ -233,7 +233,7 @@ describe Payment, type: :request do
 
   context "when unauthenticated" do
     before do
-      get "/api/payments.json"
+      get "/api/transactions.json"
     end
 
     it "should respond with status 401" do
