@@ -1,4 +1,4 @@
-describe Sale::CreatePayment do
+describe Sale::CreateTransaction do
   context "with valid attributes" do
     it "should be created" do
       user = create(:user)
@@ -10,8 +10,8 @@ describe Sale::CreatePayment do
                  product_id: product.id }
 
       expect do
-        Sale::CreatePayment.new(user: user, params: params).call
-      end.to change(Payment, :count).by(1)
+        Sale::CreateTransaction.new(user: user, params: params).call
+      end.to change(Transaction, :count).by(1)
     end
   end
 
@@ -26,8 +26,8 @@ describe Sale::CreatePayment do
                  product_id: product.id }
 
       expect do
-        Sale::CreatePayment.new(user: user, params: params).call
-      end.to change(Payment, :count).by(0)
+        Sale::CreateTransaction.new(user: user, params: params).call
+      end.to change(Transaction, :count).by(0)
     end
   end
 
@@ -42,8 +42,8 @@ describe Sale::CreatePayment do
                  product_id: product.id }
 
       expect do
-        Sale::CreatePayment.new(user: user, params: params).call
-      end.to change(Payment, :count).by(0)
+        Sale::CreateTransaction.new(user: user, params: params).call
+      end.to change(Transaction, :count).by(0)
     end
   end
 
@@ -58,8 +58,8 @@ describe Sale::CreatePayment do
                  product_id: product.id }
 
       expect do
-        Sale::CreatePayment.new(user: user, params: params).call
-      end.to change(Payment, :count).by(0)
+        Sale::CreateTransaction.new(user: user, params: params).call
+      end.to change(Transaction, :count).by(0)
     end
   end
 end

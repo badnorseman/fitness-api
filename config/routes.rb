@@ -29,7 +29,6 @@ Rails.application.routes.draw do
     resources :habits, only: [:index, :show, :create, :update, :destroy]
     resources :identities, only: [:new]
     resources :payment_plans, only: [:index, :show, :create, :update, :destroy]
-    resources :payments, only: [:index, :show, :new, :create, :update, :destroy]
     resources :products, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index, :show, :create, :update, :destroy]
     resources :transactions, only: [:index, :show, :new, :create, :update, :destroy]
