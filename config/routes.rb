@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     resources :products, only: [:index, :show, :create, :update, :destroy]
     resources :tags, only: [:index, :show, :create, :update, :destroy]
     resources :transactions, only: [:index, :show, :new, :create, :update, :destroy]
-    resources :users, only: [:index, :show]
+    resources :users, only: [:index, :show, :update]
 
     get "users/:id/location", to: "locations#show", as: "user_location"
     post "users/:id/location", to: "locations#create", as: "create_user_location"

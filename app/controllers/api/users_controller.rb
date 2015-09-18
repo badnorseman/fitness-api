@@ -1,6 +1,6 @@
 module Api
   class UsersController < ApplicationController
-    before_action :set_user, only: :show
+    before_action :set_user, only: [:show, :update]
     skip_after_action :verify_authorized, only: :index
 
     # GET /users.json
