@@ -13,8 +13,11 @@ Dir.chdir APP_ROOT do
   system "bundle check || bundle install"
 
   # puts "\n== Copying sample files =="
-  unless File.exist?("config/database.yml")
-    system "cp config/database.yml.sample config/database.yml"
+  files = %w(config/database.yml .env)
+  files.each do |file|
+    unless File.exists?(file)
+      system "cp #{file}.sample #{file}"
+    end
   end
 
   puts "\n== Preparing database =="
