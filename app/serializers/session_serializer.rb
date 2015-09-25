@@ -1,8 +1,12 @@
 class SessionSerializer < ActiveModel::Serializer
   attributes :id,
              :email,
-             :name,
              :avatar,
+             :gender,
+             :birth_date,
+             :height,
+             :name,
+             :weight,
              :administrator,
              :coach,
              :token
