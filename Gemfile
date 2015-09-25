@@ -55,7 +55,7 @@ group :development, :test do
   gem "rspec-rails"
   # Debug source code
   gem "byebug"
-  gem "pry"
+  gem "pry-rails"
   gem "quiet_assets"
 end
 
