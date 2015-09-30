@@ -2,12 +2,12 @@ class UserSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
              :email,
-             :avatar,
-             :gender,
-             :birth_date,
-             :name,
              :administrator,
              :coach,
+             :name,
+             :gender,
+             :birth_date,
+             :avatar,
              :can_update,
              :can_delete
 
