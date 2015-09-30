@@ -1,4 +1,4 @@
-class Transactions < ActiveRecord::Migration
+class CreateTransactions < ActiveRecord::Migration
   def change
     create_table :transactions do |t|
       t.references :user,           index: true
