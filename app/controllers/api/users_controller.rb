@@ -32,8 +32,6 @@ module Api
                :name,
                :gender,
                :birth_date,
-               :height,
-               :weight,
                :avatar)
     end
 

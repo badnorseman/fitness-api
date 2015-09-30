@@ -4,9 +4,7 @@ class SessionSerializer < ActiveModel::Serializer
              :avatar,
              :gender,
              :birth_date,
-             :height,
              :name,
-             :weight,
              :administrator,
              :coach,
              :token

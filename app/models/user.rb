@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  scope :data_for_listing, -> { select(:id, :email, :name, :gender, :birth_date, :height, :weight) }
+  scope :data_for_listing, -> { select(:id, :email, :name, :gender, :birth_date) }
 
   has_secure_token
   has_attached_file :avatar, :styles => { :small => "100x100>" }

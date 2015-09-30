@@ -5,9 +5,7 @@ class UserSerializer < ActiveModel::Serializer
              :avatar,
              :gender,
              :birth_date,
-             :height,
              :name,
-             :weight,
              :can_update,
              :can_delete
 
