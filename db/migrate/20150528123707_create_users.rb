@@ -10,8 +10,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string     :name
       t.string     :gender,       limit: 1
       t.date       :birth_date
-      t.integer    :height
-      t.integer    :weight
       t.timestamps
     end
 
