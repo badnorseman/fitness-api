@@ -6,6 +6,8 @@ class UserSerializer < ActiveModel::Serializer
              :gender,
              :birth_date,
              :name,
+             :administrator,
+             :coach,
              :can_update,
              :can_delete
 
