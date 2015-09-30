@@ -360,8 +360,6 @@ ActiveRecord::Schema.define(version: 20150803020327) do
     t.string   "name"
     t.string   "gender",              limit: 1
     t.date     "birth_date"
-    t.integer  "height"
-    t.integer  "weight"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"
