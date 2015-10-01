@@ -1,13 +1,13 @@
 class SessionSerializer < ActiveModel::Serializer
   attributes :id,
+             :token,
              :email,
-             :avatar,
-             :gender,
-             :birth_date,
-             :name,
              :administrator,
              :coach,
-             :token
+             :name,
+             :gender,
+             :birth_date,
+             :avatar
 
   def avatar
     object.avatar.url(:small)
