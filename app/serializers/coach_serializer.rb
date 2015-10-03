@@ -2,10 +2,10 @@ class CoachSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
              :email,
-             :name,
-             :gender,
              :administrator,
              :coach,
+             :name,
+             :gender,
              :avatar
 
   def avatar
