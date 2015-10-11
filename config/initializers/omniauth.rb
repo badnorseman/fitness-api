@@ -10,14 +10,13 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :facebook,
     Rails.application.secrets.facebook_key,
     Rails.application.secrets.facebook_secret, {
-      :scope => "email, user_birthday",
+      :scope => "email,public_profile,user_birthday",
       provider_ignores_state: true
     }
   provider :google_oauth2,
     Rails.application.secrets.google_key,
     Rails.application.secrets.google_secret, {
-      :scope => "email, profile",
-      provider_ignores_state: true
+      :scope => "email,profile"
     }
   provider :identity,
     fields: [:email],
