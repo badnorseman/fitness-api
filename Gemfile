@@ -54,7 +54,6 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "rspec-rails"
   # Debug source code
-  gem "byebug"
   gem "pry-rails"
   gem "quiet_assets"
 end
