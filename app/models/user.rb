@@ -1,3 +1,10 @@
+# Rename uid attribute to uuid
+# Remove has_secure_token and token attribute incl table and gem
+# Remove from_omniauth and create_with_omniauth methods
+# Clean up routes
+# Remove omniauth gems
+# Remove omniauth config
+
 class User < ActiveRecord::Base
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :gender, :birth_date) }
 
