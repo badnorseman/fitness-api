@@ -1,6 +1,6 @@
 module Api
   class IdentitiesController < ApplicationController
-    skip_before_action :restrict_access
+    # skip_before_action :restrict_access_with_omniauth
     skip_after_action :verify_authorized
 
     def new

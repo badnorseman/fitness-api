@@ -1,18 +1,15 @@
 module Api
   class SessionsController < ApplicationController
-    skip_before_action :restrict_access
+    # skip_before_action :restrict_access_with_omniauth
     skip_after_action :verify_authorized
 
-    def create_from_token
-      # token = token_params.split(" ").last
-      # decoded_token ||= Token.decode(token)
-      # user = User.from_token(decoded_token.provider, decoded_token.user_id_from_provider)
+    def create
       user = @current_user
       session[:user_id] = user.id
       render json: user, serializer: SessionSerializer, status: :ok
     end
 
-    def create
+    def create_from_omniauth
       user = User.from_omniauth(auth_params)
       session[:user_id] = user.id
       render json: user, serializer: SessionSerializer, status: :ok

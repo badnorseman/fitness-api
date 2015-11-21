@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  # before_action :restrict_access_with_omniauth
   skip_before_action :verify_authenticity_token
-  before_action :restrict_access_with_token
-  # before_action :restrict_access
+  before_action :restrict_access
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   # Allows access to current_user in serializators.
   serialization_scope :current_user
 
-  def restrict_access_with_token
+  def restrict_access
     begin
       authorization = request.headers["Authorization"]
       raise InvalidTokenError if authorization.nil?
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def restrict_access
+  def restrict_access_with_omniauth
     authenticate_or_request_with_http_token do |token, options|
       @current_user = User.find_by(token: token)
     end
