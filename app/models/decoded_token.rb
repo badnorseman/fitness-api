@@ -1,10 +1,10 @@
 class DecodedToken < HashWithIndifferentAccess
   def client_id_valid?
-    self[:aud] = Rails.application.secrets.auth0_client_id
+    self[:aud] == Rails.application.secrets.auth0_client_id
   end
 
   def issuer_valid?
-    self[:iss] = Rails.application.secrets.auth0_domain
+    self[:iss] == Rails.application.secrets.auth0_domain
   end
 
   def expired?
