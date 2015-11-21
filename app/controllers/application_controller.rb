@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       raise InvalidTokenError if authorization.nil?
       http_token = authorization.split(" ").last
       new_token = NewToken.new(http_token)
-      puts "new_token #{new_token.inspect} aud #{new_token.audience_valid?}"
+      puts "new_token is valid #{new_token.is_valid?}"
       decoded_token ||= Token.decode(http_token)
       @current_user = User.find_by(
         provider: decoded_token.provider,
