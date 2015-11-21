@@ -1,3 +1,12 @@
+# Rename uid to uuid
+# Remove has_secure_token and token attribute incl table and gem
+# Remove from_omniauth
+# Remove create_with_omniauth
+# Remove create_with_token once Auth is configured to precreate users
+# Clean up routes
+# Remove omniauth gems
+# Remove omniauth config
+
 class User < ActiveRecord::Base
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :gender, :birth_date) }
 
@@ -36,6 +45,17 @@ class User < ActiveRecord::Base
 
   def coach?
     self.coach
+  end
+
+  def self.from_token(provider, uid)
+    find_by_provider_and_uid(provider, uid) || create_with_token(provider, uid)
+  end
+
+  def self.create_with_token(provider, uid)
+    create! do |user|
+      user.provider = provider
+      user.uid = uid
+    end
   end
 
   def self.from_omniauth(auth)

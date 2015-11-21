@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
   skip_before_action :verify_authenticity_token
-  before_action :validate_token
+  before_action :restrict_access_with_token
   # before_action :restrict_access
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -15,24 +15,15 @@ class ApplicationController < ActionController::Base
   # Allows access to current_user in serializators.
   serialization_scope :current_user
 
-  def validate_token
+  def restrict_access_with_token
     begin
-      auth0_client_id = Rails.application.secrets.auth0_client_id
-      auth0_client_secret = Rails.application.secrets.auth0_client_secret
       authorization = request.headers["Authorization"]
       raise InvalidTokenError if authorization.nil?
-
-      token = request.headers["Authorization"].split(" ").last
-      decoded_token = JWT.decode(token,
-        JWT.base64url_decode(auth0_client_secret))
-
-      raise InvalidTokenError if auth0_client_id != decoded_token[0]["aud"]
-
-      puts ""
-      puts ">>>>>"
-      puts decoded_token.inspect
-      puts "<<<<<"
-      puts ""
+      http_token = authorization.split(" ").last
+      decoded_token ||= Token.decode(http_token)
+      @current_user = User.find_by(
+        provider: decoded_token.provider,
+        uid: decoded_token.user_id_from_provider)
     rescue JWT::DecodeError
       raise InvalidTokenError
     end
