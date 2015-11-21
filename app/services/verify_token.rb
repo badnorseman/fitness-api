@@ -17,6 +17,7 @@ class VerifyToken
   private
 
   # How can I access request.headers["Authorization"]?
+  # request.env.fetch("HTTP_AUTHORIZATION")
   def get_token_from_http_header(authorization)
     begin
       raise InvalidTokenError if authorization.nil?
