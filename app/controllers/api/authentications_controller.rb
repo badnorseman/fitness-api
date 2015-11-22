@@ -7,7 +7,7 @@ module Api
     # Possible solution is to precreate users through Auth0.
     def create
       if @current_user
-        render json: user, serializer: UserSerializer, status: :ok
+        render json: @current_user, serializer: UserSerializer, status: :ok
       else
         render json: {}, status: :unauthorized
       end
