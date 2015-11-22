@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  # before_action :restrict_access_with_omniauth
   skip_before_action :verify_authenticity_token
   before_action :restrict_access
   after_action :verify_authorized, except: :index
@@ -19,19 +18,14 @@ class ApplicationController < ActionController::Base
     begin
       authorization = request.headers["Authorization"]
       raise InvalidTokenError if authorization.nil?
-      http_token = authorization.split(" ").last
-      decoded_token ||= Token.decode(http_token)
+      token = authorization.split(" ").last
+      decoded_token ||= Token.decode(token)
+      raise InvalidTokenError if decoded_token.invalid?
       @current_user = User.find_by(
         provider: decoded_token.provider,
         uid: decoded_token.user_id_from_provider)
     rescue JWT::DecodeError
       raise InvalidTokenError
-    end
-  end
-
-  def restrict_access_with_omniauth
-    authenticate_or_request_with_http_token do |token, options|
-      @current_user = User.find_by(token: token)
     end
   end
 end
