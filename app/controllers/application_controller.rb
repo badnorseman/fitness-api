@@ -19,11 +19,11 @@ class ApplicationController < ActionController::Base
       authorization = request.headers["Authorization"]
       raise InvalidTokenError if authorization.nil?
       token = authorization.split(" ").last
-      decoded_token ||= Token.decode(token)
-      raise InvalidTokenError if decoded_token.invalid?
+      decoded_auth_token ||= AuthToken.decode(token)
+      raise InvalidTokenError if decoded_auth_token.invalid?
       @current_user = User.find_by(
-        provider: decoded_token.provider,
-        uid: decoded_token.user_id_from_provider)
+        provider: decoded_auth_token.provider,
+        uid: decoded_auth_token.user_id_at_provider)
     rescue JWT::DecodeError
       raise InvalidTokenError
     end

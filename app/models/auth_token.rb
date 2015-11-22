@@ -1,6 +1,6 @@
-class Token
+class AuthToken
   def self.decode(token)
-    DecodedToken.new(
+    DecodedAuthToken.new(
       JWT.decode(
         token,
         JWT.base64url_decode(
