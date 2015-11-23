@@ -1,6 +1,6 @@
 module Api
   class AuthenticationsController < ApplicationController
-    skip_before_action :restrict_access
+    skip_before_action :restrict_access, only: :create
     skip_after_action :verify_authorized
 
     def show

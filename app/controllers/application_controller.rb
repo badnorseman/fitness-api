@@ -16,10 +16,7 @@ class ApplicationController < ActionController::Base
 
   def restrict_access
     begin
-      authorization = request.headers["Authorization"]
-      raise InvalidTokenError if authorization.nil?
-      token = authorization.split(" ").last
-      decoded_auth_token ||= AuthToken.decode(token)
+      raise InvalidTokenError if authorization_header.nil?
       raise InvalidTokenError if decoded_auth_token.invalid?
       @current_user = User.find_by(
         provider: decoded_auth_token.provider,
@@ -27,5 +24,19 @@ class ApplicationController < ActionController::Base
     rescue JWT::DecodeError
       raise InvalidTokenError
     end
+  end
+
+  private
+
+  def decoded_auth_token
+    decoded_auth_token ||= AuthToken.decode(token)
+  end
+
+  def token
+    authorization_header.split(" ").last
+  end
+
+  def authorization_header
+    request.env.fetch("HTTP_AUTHORIZATION")
   end
 end
