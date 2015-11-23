@@ -1,32 +1,36 @@
 module Api
   class AuthenticationsController < ApplicationController
+    skip_before_action :restrict_access
     skip_after_action :verify_authorized
 
-    # We need to be able to handle user that is authenticated,
-    # but not yet created in api.
-    # Possible solution is to precreate users through Auth0.
+    def show
+      render json: @current_user, serializer: UserSerializer, status: :ok
+    end
+
     def create
-      if @current_user
+      @current_user = User.create_with_auth_token(
+        decoded_auth_token.provider,
+        decoded_auth_token.user_id_with_provider,
+        email)
         render json: @current_user, serializer: UserSerializer, status: :ok
-      else
-        render json: {}, status: :unauthorized
-      end
-    end
-
-    # User is created if not found. See user model
-    def create_from_omniauth
-      user = User.from_omniauth(auth_params)
-      session[:user_id] = user.id
-      render json: user, serializer: UserSerializer, status: :ok
-    end
-
-    def failure
     end
 
     private
 
-    def auth_params
+    def decoded_auth_token
+      decoded_auth_token ||= AuthToken.decode(token)
+    end
+
+    def token
+      authorization_header.split(" ").last if authorization_header.present?
+    end
+
+    def authorization_header
       request.env.fetch("HTTP_AUTHORIZATION")
+    end
+
+    def email
+      params.fetch(:email)
     end
   end
 end

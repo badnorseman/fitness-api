@@ -1,14 +1,14 @@
 class DecodedAuthToken < HashWithIndifferentAccess
-  def invalid?
-    !valid?
-  end
-
   def provider
     self[:sub].split("|").first
   end
 
-  def user_id_at_provider
+  def user_id_with_provider
     self[:sub].split("|").last
+  end
+
+  def invalid?
+    !valid?
   end
 
   def valid?

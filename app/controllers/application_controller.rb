@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       raise InvalidTokenError if decoded_auth_token.invalid?
       @current_user = User.find_by(
         provider: decoded_auth_token.provider,
-        uid: decoded_auth_token.user_id_at_provider)
+        uid: decoded_auth_token.user_id_with_provider)
     rescue JWT::DecodeError
       raise InvalidTokenError
     end

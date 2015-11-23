@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
   namespace :api do
-    match "/login", to: "authentications#create", via: [:get, :post]
+    get "/login", to: "authentications#show"
+    post "/signup", to: "authentications#create"
 
     resources :availabilities, only: [:index, :show, :create, :update, :destroy]
     resources :bookings, only: [:index, :show, :create, :update, :destroy] do

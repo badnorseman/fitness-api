@@ -1,6 +1,5 @@
-# Rename uid attribute to uuid
+# Rename uid attribute to uuid or user_id_with_provider
 # Remove has_secure_token and token attribute incl table and gem
-# Remove from_omniauth and create_with_omniauth methods
 # Clean up routes
 # Remove omniauth gems
 # Remove omniauth config
@@ -45,14 +44,15 @@ class User < ActiveRecord::Base
     self.coach
   end
 
-  def self.from_omniauth(auth)
-    find_by_provider_and_uid(auth.fetch("provider"), auth.fetch("uid")) || create_with_omniauth(auth)
+  def self.from_auth_token(provider, uid)
+    find_by_provider_and_uid(provider, uid) || create_with_auth_token(provider, uid)
   end
 
-  def self.create_with_omniauth(auth)
+  def self.create_with_auth_token(provider, uid, email)
     create! do |user|
-      user.provider = auth.fetch("provider")
-      user.uid = auth.fetch("uid")
+      user.provider = provider
+      user.uid = uid
+      user.email = email
     end
   end
 end
