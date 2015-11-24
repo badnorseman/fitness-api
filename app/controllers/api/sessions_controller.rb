@@ -1,7 +1,7 @@
 module Api
   class SessionsController < ApplicationController
-    skip_before_action :restrict_access,
-      only: [:create, :omniauth_create, :omniauth_destroy, :omniauth_failure]
+    skip_before_action :omniauth_restrict_access
+    skip_before_action :restrict_access, except: :show
     skip_after_action :verify_authorized
 
     def show
