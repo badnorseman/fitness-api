@@ -1,7 +1,7 @@
 module Api
   class ProductsController < ApplicationController
-    skip_before_action :omniauth_restrict_access, only: [:index, :show]
     skip_before_action :restrict_access, only: [:index, :show]
+    skip_before_action :restrict_access_with_token, only: [:index, :show]
     before_action :set_product, except: :index
 
     # GET /products.json

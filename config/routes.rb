@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   # See how all your routes lay out with rake routes. Read more: http://guides.rubyonrails.org/routing.html
 
   namespace :api do
-    match "/auth/:provider/callback", to: "sessions#omniauth_create", via: [:get, :post]
-    get "/auth/failure", to: "sessions#omniauth_failure"
-    get "/logout", to: "sessions#omniauth_destroy"
+    get "/login", to: "sessions#login"
+    post "/signup", to: "sessions#signup"
 
-    get "/login", to: "sessions#show"
-    post "/signup", to: "sessions#create"
+    match "/auth/:provider/callback", to: "sessions#create", via: [:get, :post]
+    get "/auth/failure", to: "sessions#failure"
+    get "/logout", to: "sessions#destroy"
 
     resources :availabilities, only: [:index, :show, :create, :update, :destroy]
     resources :bookings, only: [:index, :show, :create, :update, :destroy] do
