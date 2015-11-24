@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
   # Allows access to current_user in serializators.
   serialization_scope :current_user
 
+  # def restrict_access
+  #   authenticate_or_request_with_http_token do |token, options|
+  #     @current_user = User.find_by(token: token)
+  #   end
+  # end
+
   def restrict_access
     begin
       raise InvalidTokenError if authorization_header.nil?

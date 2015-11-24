@@ -44,6 +44,17 @@ class User < ActiveRecord::Base
     self.coach
   end
 
+  def self.from_omniauth(auth)
+    find_by_provider_and_uid(auth.fetch("provider"), auth.fetch("uid")) || create_with_omniauth(auth)
+  end
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.provider = auth.fetch("provider")
+      user.uid = auth.fetch("uid")
+    end
+  end
+
   def self.create_with_auth_token(provider, uid, email)
     create! do |user|
       user.provider = provider

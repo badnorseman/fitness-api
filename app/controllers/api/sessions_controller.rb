@@ -1,6 +1,7 @@
 module Api
-  class AuthenticationsController < ApplicationController
-    skip_before_action :restrict_access, only: :create
+  class SessionsController < ApplicationController
+    skip_before_action :restrict_access,
+      only: [:create, :omniauth_create, :omniauth_destroy, :omniauth_failure]
     skip_after_action :verify_authorized
 
     def show
@@ -13,6 +14,21 @@ module Api
         decoded_auth_token.user_id_with_provider,
         email)
         render json: @current_user, serializer: UserSerializer, status: :ok
+    end
+
+    def omniauth_create
+      user = User.from_omniauth(omniauth_params)
+      session[:user_id] = user.id
+      render json: user, serializer: SessionSerializer, status: :ok
+    end
+
+    def omniauth_destroy
+      session[:user_id] = nil
+      render json: {}, status: :ok
+    end
+
+    def omniauth_failure
+      render json: { errors: params[:message] }, status: :unauthorized
     end
 
     private
@@ -31,6 +47,10 @@ module Api
 
     def email
       params.fetch(:email)
+    end
+
+    def omniauth_params
+      request.env.fetch("omniauth.auth")
     end
   end
 end
