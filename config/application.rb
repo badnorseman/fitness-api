@@ -31,7 +31,7 @@ module Fitbird
         origins "*"
         resource "*",
           :headers => :any,
-          :methods => [:get, :post, :patch, :put, :delete, :options]
+          :methods => [:get, :post, :patch, :put, :delete]
       end
     end
   end
