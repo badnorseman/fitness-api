@@ -12,8 +12,10 @@ gem 'responders', '~> 2.0'
 gem "pg"
 # Encapsulate the JSON serialization of objects. Read more: https://github.com/rails-api/active_model_serializers
 gem "active_model_serializers"
-# Memcached store cashe on server
+# Use Dalli to access memcached servers
 gem "dalli"
+# Remit thread contention with Puma web server
+gem "connection_pool"
 # Authenticate with Email
 gem "omniauth-identity"
 # Authenticate with Facebook
