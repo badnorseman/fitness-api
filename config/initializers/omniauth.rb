@@ -10,7 +10,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :facebook,
     Rails.application.secrets.facebook_key,
     Rails.application.secrets.facebook_secret, {
-      :scope => "email,public_profile,user_birthday",
+      # scope: "email, public_profile, user_birthday",
+      # info_fields: "email, name, user_birthday",
       provider_ignores_state: true,
       client_options: { :ssl => { :ca_file => "/usr/lib/ssl/certs/ca-certificates.crt" }}
     }
