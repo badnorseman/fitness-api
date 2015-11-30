@@ -14,12 +14,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       provider_ignores_state: true,
       client_options: { :ssl => { :ca_file => "/usr/lib/ssl/certs/ca-certificates.crt" }}
     }
-  provider :google_oauth2,
-    Rails.application.secrets.google_key,
-    Rails.application.secrets.google_secret, {
-      :scope => "email,profile",
-      client_options: { :ssl => { :ca_file => "/usr/lib/ssl/certs/ca-certificates.crt" }}
-    }
   provider :identity,
     fields: [:email],
     on_failed_registration: lambda { |env|

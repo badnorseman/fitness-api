@@ -18,8 +18,6 @@ gem "dalli"
 gem "omniauth-identity"
 # Authenticate with Facebook
 gem "omniauth-facebook"
-# Authenticate with Google
-gem "omniauth-google-oauth2"
 # Authorize what ressources a given user is allowed to access within your application
 gem "pundit"
 # Track user activity. Read more: https://mixpanel.com/help/reference/ruby
