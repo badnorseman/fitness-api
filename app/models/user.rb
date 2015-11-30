@@ -1,3 +1,9 @@
+# Rename uid attribute to uuid or user_id_with_provider
+# Remove has_secure_token and token attribute incl table and gem
+# Clean up routes
+# Remove omniauth gems
+# Remove omniauth config
+
 class User < ActiveRecord::Base
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :gender, :birth_date) }
 
@@ -46,6 +52,14 @@ class User < ActiveRecord::Base
     create! do |user|
       user.provider = auth.fetch("provider")
       user.uid = auth.fetch("uid")
+    end
+  end
+
+  def self.create_with_auth_token(provider, uid, email)
+    create! do |user|
+      user.provider = provider
+      user.uid = uid
+      user.email = email
     end
   end
 end
