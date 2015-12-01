@@ -7,10 +7,9 @@ class ApplicationController < ActionController::Base
 
   respond_to :json
 
-  puts "-----\n Request\n -----"
-  puts request.inspect
-  puts "-----\n Response\n -----"
+  puts " -----\n Response\n -----"
   puts response.inspect
+  puts " -----\n -----"
 
   protected
 
