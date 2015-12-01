@@ -12,7 +12,7 @@ module Fitbird
     # -- all .rb files in that directory are automatically loaded.
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+    # Run rake -D time for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = "Central Time (US & Canada)"
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
@@ -26,10 +26,10 @@ module Fitbird
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
     config.action_dispatch.default_headers = {
-      "Access-Control-Allow-Headers" => "Accept, Authorization, Content-Type, Origin, X-Requested-With",
-      "Access-Control-Allow-Methods" => "GET, DELETE, OPTIONS, PATCH, POST, PUT",
-      "Access-Control-Allow-Origin" => "http://localhost:8000",
-      "Access-Control-Request-Method" => "*"
+      'Access-Control-Allow-Headers' => 'Accept, Authorization, Content-Type, Origin, X-Requested-With',
+      'Access-Control-Allow-Methods' => 'GET, DELETE, OPTIONS, PATCH, POST, PUT',
+      'Access-Control-Allow-Origin' => 'http://localhost:8000',
+      'Access-Control-Request-Method' => '*'
     }
   end
 end
