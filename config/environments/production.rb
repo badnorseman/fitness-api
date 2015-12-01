@@ -51,8 +51,13 @@ Rails.application.configure do
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
-  # Use a cache store.
-  config.cache_store = :dalli_store, nil, { expires_in: 1.day, compress: true, pool_size: 5 }
+  # Use Memcached Cloud as cache store.
+  if ENV["MEMCACHEDCLOUD_SERVERS"]
+      config.cache_store = :dalli_store, ENV["MEMCACHEDCLOUD_SERVERS"].split(","),
+      { username: ENV["MEMCACHEDCLOUD_USERNAME"],
+        password: ENV["MEMCACHEDCLOUD_PASSWORD"],
+        expires_in: 1.day, compress: true, pool_size: 5 }
+  end
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"
