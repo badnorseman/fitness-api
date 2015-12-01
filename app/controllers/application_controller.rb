@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   skip_before_action :verify_authenticity_token
   before_action :restrict_access
-  after_action :access_control_headers
+  before_action :preflight_check
+  after_action :set_access_control_headers
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
@@ -21,12 +22,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
-
-  def access_control_headers
+  def set_access_control_headers
     response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "GET, DELETE, OPTIONS, PATCH, POST, PUT"
-    response.headers["Access-Control-Allow-Headers"] = "Accept, Authorization, Auth-Token, Content-Type, Email, Origin, Token"
+    response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS, POST"
+    response.headers["Access-Control-Allow-Headers"] = "Accept, Authorization, Auth-Token, auth_token, Content-Type, Email, Origin, Token, X-CSRF-Token, X-Requested-With"
     response.headers["Access-Control-Max-Age"] = "1728000"
+  end
+
+  def preflight_check
+    if request.method == "OPTIONS"
+      response.headers["Access-Control-Allow-Origin"] = "http://localhost"
+      response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS, POST"
+      response.headers["Access-Control-Allow-Headers"] = "Accept, Authorization, Auth-Token, auth_token, Content-Type, Email, Origin, Token, X-CSRF-Token, X-Requested-With"
+      response.headers["Access-Control-Max-Age"] = "1728000"
+    end
   end
 end
