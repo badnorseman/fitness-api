@@ -28,7 +28,7 @@ module Fitbird
     config.action_dispatch.default_headers = {
       "Access-Control-Allow-Headers" => "Accept, Authorization, Content-Type, Origin, X-Requested-With",
       "Access-Control-Allow-Methods" => "GET, DELETE, OPTIONS, PATCH, POST, PUT",
-      "Access-Control-Allow-Origin" => "http://localhost",
+      "Access-Control-Allow-Origin" => "http://localhost:8000",
       "Access-Control-Request-Method" => "*"
     }
   end

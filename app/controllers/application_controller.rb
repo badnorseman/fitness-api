@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   serialization_scope :current_user
 
   def preflight_check
+    puts request.headers.inspect
     headers["Access-Control-Max-Age"] = "1728000"
     render json: {}
   end
