@@ -4,12 +4,12 @@ require ::File.expand_path("../config/environment",  __FILE__)
 run Rails.application
 
 # Allow Cross-Origin Resource Sharing requests.
-require "rack/cors"
-use Rack::Cors do
-  allow do
-    origins "*"
-    resource "*",
-      :headers => :any,
-      :methods => [:get, :delete, :options, :patch, :post, :put]
-  end
-end
+# require "rack/cors"
+# use Rack::Cors do
+#   allow do
+#     origins "*"
+#     resource "*",
+#       :headers => :any,
+#       :methods => [:get, :delete, :options, :patch, :post, :put]
+#   end
+# end

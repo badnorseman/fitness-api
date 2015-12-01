@@ -24,5 +24,12 @@ module Fitbird
 
     # Compile images in assets.
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+    config.action_dispatch.default_headers = {
+      "Access-Control-Allow-Headers" => "Accept, Authorization, Content-Type, Origin, X-Requested-With",
+      "Access-Control-Allow-Methods" => "GET, DELETE, OPTIONS, PATCH, POST, PUT",
+      "Access-Control-Allow-Origin" => "*",
+      "Access-Control-Request-Method" => "*"
+    }
   end
 end

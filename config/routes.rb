@@ -37,5 +37,7 @@ Rails.application.routes.draw do
     get "users/:id/location", to: "locations#show", as: "user_location"
     post "users/:id/location", to: "locations#create", as: "create_user_location"
     put "users/:id/location", to: "locations#update", as: "update_user_location"
+
+    match "*path", to: "application#preflight_check", via: [:options]
   end
 end
