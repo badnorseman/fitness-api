@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
 
   respond_to :json
 
+  puts "-----\n Request\n -----"
+  puts request.inspect
+  puts "-----\n Response\n -----"
+  puts response.inspect
+
   protected
 
   attr_reader :current_user
