@@ -26,16 +26,16 @@ module Fitbird
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
     # Allow Cross-Origin Resource Sharing requests.
-    # config.middleware.insert_before 0, "Rack::Cors" do
-    #   allow do
-    #     origins "*", "http://localhost:8000"
-    #     resource "*",
-    #       :headers => :any,
-    #       :methods => [:get, :post, :delete, :put, :patch, :options, :head],
-    #       :credentials => true,
-    #       :max_age => 1728000,
-    #       :vary => "Origin"
-    #   end
-    # end
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins "*", "http://localhost:8000"
+        resource "*",
+          :headers => :any,
+          :methods => [:get, :post, :delete, :put, :patch, :options, :head],
+          :credentials => true,
+          :max_age => 1728000,
+          :vary => "Origin"
+      end
+    end
   end
 end
