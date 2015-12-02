@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pundit
   skip_before_action :verify_authenticity_token
+  before_action :set_origin
+  before_action :set_headers
   before_action :display_request
   after_action :display_response
   before_action :restrict_access
@@ -32,5 +34,24 @@ class ApplicationController < ActionController::Base
     puts " -----\n Response\n -----"
     puts response.headers.inspect
     puts " -----\n -----"
+  end
+
+  def set_origin
+    @origin = request.headers["HTTP_ORIGIN"]
+  end
+
+  def set_headers
+    if @origin
+      allowed = ["*", "localhost"]
+      allowed.each do |host|
+        if @origin.match /^https?:\/\/#{Regexp.escape(host)}/i
+          headers["Access-Control-Allow-Origin"] = @origin
+          break
+        end
+      end
+      headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+      headers["Access-Control-Request-Method"] = "*"
+      headers["Access-Control-Allow-Headers"] = "Content-Type"
+    end
   end
 end
