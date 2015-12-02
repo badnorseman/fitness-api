@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
   skip_before_action :verify_authenticity_token
-  before_action :display_request
-  after_action :display_response
   before_action :restrict_access
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -20,17 +18,5 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_token do |token, options|
       @current_user = User.find_by(token: token)
     end
-  end
-
-  def display_request
-    puts " -----\n Request\n -----"
-    puts request.headers.inspect
-    puts " -----\n -----"
-  end
-
-  def display_response
-    puts " -----\n Response\n -----"
-    puts response.headers.inspect
-    puts " -----\n -----"
   end
 end
