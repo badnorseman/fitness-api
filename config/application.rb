@@ -30,9 +30,9 @@ module Fitbird
       allow do
         origins "*", "localhost:8080"
         resource "*",
+          :credentials => true,
           :headers => :any,
           :methods => [:get, :post, :delete, :put, :patch, :options],
-          :credentials => true,
           :max_age => 1728000,
           :vary => "Origin"
       end
