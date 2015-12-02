@@ -42,16 +42,16 @@ class ApplicationController < ActionController::Base
 
   def set_headers
     if @origin
-      allowed = ["*", "localhost"]
+      allowed = ["*", "localhost", "localhost:8080"]
       allowed.each do |host|
         if @origin.match /^https?:\/\/#{Regexp.escape(host)}/i
           headers["Access-Control-Allow-Origin"] = @origin
           break
         end
       end
-      headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+      headers["Access-Control-Allow-Methods"] = "GET, POST, DELETE, PUT, PATCH, OPTIONS"
       headers["Access-Control-Request-Method"] = "*"
-      headers["Access-Control-Allow-Headers"] = "Content-Type"
+      headers["Access-Control-Allow-Headers"] = "Accept, Authorization, Content-Type, Origin, X-Requested-With"
     end
   end
 end
