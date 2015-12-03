@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :gender, :birth_date) }
 
   has_secure_token
-  has_attached_file :avatar, :styles => { :small => "100x100>" }
+  has_attached_file :avatar, styles: { small: "100x100>" }
 
   has_one  :location, dependent: :destroy
   has_many :availabilities, class_name: :Availability, foreign_key: :coach_id, dependent: :destroy
@@ -22,9 +22,9 @@ class User < ActiveRecord::Base
             :provider,
             presence: true
 
-  validates_attachment :avatar, # presence: true,
-    :content_type => { :content_type => [/image\/jpeg/, /image\/png/] },
-    :file_name => { :matches => [/jpeg/, /jpg/, /png/] }
+  validates_attachment :avatar,
+    content_type: { content_type: [/image\/jpeg/, /image\/png/] },
+    file_name: { matches: [/jpeg/, /jpg/, /png/] }
 
   def as_json(options={})
     UserSerializer.new(self).as_json(options)

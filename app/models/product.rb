@@ -1,8 +1,7 @@
 class Product < ActiveRecord::Base
   default_scope { where(ended_at: nil) }
 
-  has_attached_file :image,
-    :styles => { :small => "320x160!" }
+  has_attached_file :image, styles: { small: "320x160!" }
 
   belongs_to :user
   has_many :habits, inverse_of: :product, dependent: :destroy
@@ -17,8 +16,8 @@ class Product < ActiveRecord::Base
   validates :uniquable_name, uniqueness: { scope: :user }
   validates :description, presence: true, length: { maximum: 500 }
   validates_attachment :image,
-    :content_type => { :content_type => [/image\/jpeg/, /image\/png/] },
-    :file_name => { :matches => [/jpeg/, /jpg/, /png/] }
+    content_type: { content_type: [/image\/jpeg/, /image\/png/] },
+    file_name: { matches: [/jpeg/, /jpg/, /png/] }
 
   private
 
