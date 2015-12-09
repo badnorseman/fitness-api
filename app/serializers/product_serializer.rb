@@ -10,7 +10,7 @@ class ProductSerializer < ActiveModel::Serializer
              :can_delete
 
   def image
-    object.image.url(:small)
+    object.image.url(:small) if object.image.exists?
   end
 
   def can_update
