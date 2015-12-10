@@ -10,6 +10,6 @@ class SessionSerializer < ActiveModel::Serializer
              :avatar
 
   def avatar
-    object.avatar.url(:small) if object.avatar.exists?
+    object.avatar.url(:small)
   end
 end

@@ -12,7 +12,7 @@ class UserSerializer < ActiveModel::Serializer
              :can_delete
 
   def avatar
-    object.avatar.url(:small) if object.avatar.exists?
+    object.avatar.url(:small)
   end
 
   def can_update
