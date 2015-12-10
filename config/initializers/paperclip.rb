@@ -1,6 +1,6 @@
 # Store images on AWS S3.
 Paperclip::Attachment.default_options.merge!(
-  :default_url => "http://:s3_domain/:rails_env/:class/default/:attachment/:style.:extension",
+  :default_url => "http://:s3_domain/:rails_env/:class/default/:attachment/:style.jpeg",
   :path => ":rails_env/:class/:id/:attachment/:style/:basename.:extension",
   :url => ":s3_domain_url",
   :storage => :s3,
