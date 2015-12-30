@@ -1,5 +1,6 @@
 module Api
   class CoachesController < ApplicationController
+    skip_before_action :restrict_access, only: [:index]
     before_action :set_coach, only: :schedule
     skip_after_action :verify_policy_scoped
 
