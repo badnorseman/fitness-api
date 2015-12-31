@@ -6,7 +6,12 @@ class CoachSerializer < ActiveModel::Serializer
              :coach,
              :name,
              :gender,
-             :avatar
+             :avatar,
+             :product_ids
+
+  def product_ids
+    object.products.map(&:id)
+  end
 
   def avatar
     object.avatar.url(:small)
