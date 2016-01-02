@@ -7,10 +7,10 @@ class CoachSerializer < ActiveModel::Serializer
              :name,
              :gender,
              :avatar,
-             :product_ids
+             :products
 
-  def product_ids
-    object.products.map(&:id)
+  def products
+    object.products.select(:id)
   end
 
   def avatar
