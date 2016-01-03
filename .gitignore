@@ -8,7 +8,7 @@
 /.bundle
 
 # Ignore lib files.
-#/lib
+/lib
 
 # Ignore temporary files.
 /tmp
