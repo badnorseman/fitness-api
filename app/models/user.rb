@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :gender, :birth_date) }
 
   has_secure_token
+  has_secure_token :password_reset_token
   has_attached_file :avatar, styles: { small: "100x100>" }
 
   has_one  :location, dependent: :destroy
@@ -47,5 +48,10 @@ class User < ActiveRecord::Base
       user.provider = auth.fetch("provider")
       user.uid = auth.fetch("uid")
     end
+  end
+
+  def send_password_reset
+    password_reset_token
+    self.password_reset_sent_at = Time.zone.now
   end
 end
