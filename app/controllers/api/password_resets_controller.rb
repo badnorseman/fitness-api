@@ -9,10 +9,16 @@ module Api
     def edit
     end
 
+    # POST /password_resets.json
     def create
       user = User.find_by_email(password_reset_parms)
-      user.send_password_reset if user
-      render json: {}, status: :ok
+      user.create_password_reset_token if user
+      user.send_password_reset_email if user
+      render json: { message: "PASSWORD RESET INSTRUCTIONS SENT."}, status: :ok
+    end
+
+    # PUT /password_resets/token.json
+    def update
     end
 
     private
