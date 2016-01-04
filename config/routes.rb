@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :identities, only: [:new]
     resources :payment_plans, only: [:index, :show, :create, :update, :destroy]
     resources :products, only: [:index, :show, :create, :update, :destroy]
-    resources :password_resets, only: [:create, :update]
+    resources :password_resets, only: [:edit, :create, :update]
     resources :tags, only: [:index, :show, :create, :update, :destroy]
     resources :transactions, only: [:index, :show, :new, :create, :update, :destroy]
     resources :users, only: [:index, :show, :update]

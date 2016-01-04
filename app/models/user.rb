@@ -51,12 +51,13 @@ class User < ActiveRecord::Base
   end
 
   def create_password_reset_token
-    password_reset_token
+    self.regenerate_password_reset_token
     self.password_reset_sent_at = Time.zone.now
     save!
   end
 
   def send_password_reset_email
-    UserMailer.password_reset(self).deliver.now
+    UserMailer.password_reset(self).deliver_now
+    # SendTestMail.new(text: "Test").call
   end
 end
