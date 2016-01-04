@@ -1,4 +1,4 @@
 namespace :db do
-  desc 'Build database'
+  desc "build database"
   task :build => ["db:drop", "db:create", "db:migrate"]
 end
