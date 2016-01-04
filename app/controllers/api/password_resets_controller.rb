@@ -11,10 +11,11 @@ module Api
 
     # POST /password_resets.json
     def create
-      user = User.find_by_email(password_reset_parms)
+      user_password_reset_parms = password_reset_parms
+      user = User.find_by_email(email)
       user.create_password_reset_token if user
       user.send_password_reset_email if user
-      render json: { message: "PASSWORD RESET INSTRUCTIONS SENT."}, status: :ok
+      render json: { message: "Sent instructions to reset password." }, status: :ok
     end
 
     # PUT /password_resets/token.json
@@ -24,7 +25,12 @@ module Api
     private
 
     def password_reset_parms
-      params.fetch(:email)
+      params.require(:password_reset).
+        permit(:email)
+    end
+
+    def email
+      password_reset_parms.fetch(:email)
     end
   end
 end
