@@ -56,6 +56,10 @@ class User < ActiveRecord::Base
     save!
   end
 
+  def password_reset_valid
+    self.password_reset_sent_at < 2.hours.ago
+  end
+
   def send_password_reset_email
     UserMailer.password_reset(self).deliver_now
     # SendTestMail.new(text: "Test").call
