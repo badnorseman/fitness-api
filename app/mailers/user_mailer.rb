@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
   def password_reset(user)
-    @user = user
-    mail to: user.email, subject: "PASSWORD RESET"
+    @url = "https://api.fitbird.us/api/password_resets/"+user.password_reset_token
+    mail to: user.email, subject: "Password Reset"
   end
 end

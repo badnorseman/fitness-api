@@ -9,8 +9,8 @@ module Api
 
     # POST /password_resets.json
     def create
-      @user = User.find_by_email(email)
-      if @user
+      user = User.find_by_email(email)
+      if user
         user.create_password_reset_token
         user.send_password_reset_email
       end
@@ -19,7 +19,8 @@ module Api
 
     # PUT /password_resets/token.json
     def update
-      if @user.password_reset_valid && @user.update(user_params)
+      user = User.find_by_password_reset_token(password_reset_token)
+      if user.password_reset_valid && user.update(user_params)
         render json: {}, status: :ok
       else
         render json: { errors: "Unable to reset password." }, status: :unprocessable_entity, location: nil
