@@ -1,6 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
+             :uid,
              :email,
              :administrator,
              :coach,
