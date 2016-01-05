@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
-  scope :data_for_listing, -> { select(:id, :email, :administrator, :coach, :name, :gender, :birth_date) }
+  scope :data_for_listing, -> { select(:id, :uid, :email, :administrator, :coach, :name, :gender, :birth_date) }
 
   has_secure_token
-  has_secure_token :password_reset_token
   has_attached_file :avatar, styles: { small: "100x100>" }
 
   has_one  :location, dependent: :destroy
@@ -48,20 +47,5 @@ class User < ActiveRecord::Base
       user.provider = auth.fetch("provider")
       user.uid = auth.fetch("uid")
     end
-  end
-
-  def create_password_reset_token
-    self.regenerate_password_reset_token
-    self.password_reset_sent_at = Time.zone.now
-    save!
-  end
-
-  def password_reset_valid
-    self.password_reset_sent_at < 2.hours.ago
-  end
-
-  def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
-    # SendTestMail.new(text: "Test").call
   end
 end
