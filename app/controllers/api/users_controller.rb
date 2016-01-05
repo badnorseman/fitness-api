@@ -26,10 +26,7 @@ module Api
 
     def user_params
       params.require(:user).
-        permit(:password,
-               :password_confirmation,
-               :email,
-               :name,
+        permit(:name,
                :gender,
                :birth_date,
                :avatar)
