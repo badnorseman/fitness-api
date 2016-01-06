@@ -13,7 +13,10 @@ class IdentityPolicy < ApplicationPolicy
   end
 
   def show?
-    user.administrator? || user.id == record.id
+    puts ">>>>> POLICY"
+    puts user.inspect
+    puts record.inspect
+    user.administrator? || user.uid == record.id
   end
 
   def create?
