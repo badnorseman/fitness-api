@@ -13,6 +13,6 @@ class IdentityPolicy < ApplicationPolicy
   end
 
   def update?
-    user.administrator? || user.uid
+    user.administrator? || user.uid = record.id
   end
 end
