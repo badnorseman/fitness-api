@@ -28,7 +28,7 @@ module Fitbird
     # Allow Cross-Origin Resource Sharing requests.
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        origins "localhost:8080", "fitbird.us"
+        origins "localhost:8090", "fitbird.us"
         resource "*",
           :headers => :any,
           :methods => [:get, :post, :delete, :put, :patch, :options],
