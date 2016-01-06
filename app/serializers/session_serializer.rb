@@ -1,5 +1,6 @@
 class SessionSerializer < ActiveModel::Serializer
   attributes :id,
+             :uid,
              :token,
              :email,
              :administrator,

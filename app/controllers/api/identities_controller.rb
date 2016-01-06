@@ -27,7 +27,7 @@ module Api
 
     # PUT /identities/update.json
     def update
-      identity = Identity.find_by_id(@current_user.uid)
+      identity = Identity.find_by_id(identity_params.fetch(:id))
       authorize identity
 
       if identity.update(
