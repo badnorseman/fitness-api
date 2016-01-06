@@ -5,7 +5,12 @@ class IdentityPolicy < ApplicationPolicy
       if user.administrator?
         scope.all
       elsif user.present?
+        puts ">>>>> SCOPE"
+        puts user.inspect
+        puts record.inspect
+        puts scope.where(id: user.uid)
         scope.where(id: user.uid)
+        puts "<<<<< SCOPE"
       else
         raise Pundit::NotAuthorizedError, "You must log in."
       end
@@ -17,6 +22,7 @@ class IdentityPolicy < ApplicationPolicy
     puts user.inspect
     puts record.inspect
     user.administrator? || user.uid == record.id
+    puts "<<<<< POLICY"
   end
 
   def create?
