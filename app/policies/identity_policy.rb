@@ -13,11 +13,6 @@ class IdentityPolicy < ApplicationPolicy
   end
 
   def update?
-    puts ">>>>> POLICY"
-    puts record.inspect
-    puts user.uid
-    puts record.id
-    puts "<<<<< POLICY"
-    user.administrator? || (user.uid == record.id) || user.uid
+    user.administrator? || (user.uid == record.id)
   end
 end
