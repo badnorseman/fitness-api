@@ -30,10 +30,7 @@ module Api
       @identity = Identity.find_by_id(identity_params.fetch(:id))
       authorize @identity
 
-      if @identity.update(
-        password: identity_params.fetch(:password),
-        password_confirmation: identity_params.fetch(:password_confirmation)
-      )
+      if @identity.update(identity_params)
         render json: @identity, status: :ok
       else
         render json: { errors: @identity.errors.full_messages }, status: :unprocessable_entity, location: nil
