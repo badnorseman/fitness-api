@@ -1,11 +1,15 @@
 class CoachSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
-             :email,
              :name,
              :gender,
              :avatar,
+             :email,
              :products
+
+  def avatar
+    object.avatar.url(:small)
+  end
 
   def email
     Identity.where(id: object.uid).pluck(:email).first
@@ -13,10 +17,6 @@ class CoachSerializer < ActiveModel::Serializer
 
   def products
     object.products.select(:id)
-  end
-
-  def avatar
-    object.avatar.url(:small)
   end
 
   def pundit_user

@@ -1,20 +1,24 @@
 class SessionSerializer < ActiveModel::Serializer
   attributes :id,
-             :uid,
              :token,
-             :email,
              :administrator,
              :coach,
              :name,
              :gender,
              :birth_date,
-             :avatar
+             :avatar,
+             :email,
+             :identity_id
+
+  def avatar
+    object.avatar.url(:small)
+  end
 
   def email
     Identity.where(id: object.uid).pluck(:email).first
   end
 
-  def avatar
-    object.avatar.url(:small)
+  def identity_id
+    Identity.where(id: object.uid).pluck(:id).first
   end
 end
