@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
     create! do |user|
       user.provider = auth.fetch("provider")
       user.uid = auth.fetch("uid")
+      user.name = auth.fetch("name")
     end
   end
 end
