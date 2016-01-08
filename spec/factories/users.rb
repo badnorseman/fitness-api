@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :administrator, class: User do
     sequence(:uid) { |n| "ADMINISTRATOR#{n}@FITBIRD.COM" }
-    provider "email"
-    sequence(:email) { |n| "ADMINISTRATOR#{n}@FITBIRD.COM" }
+    provider "identity"
     name "ADMINISTRATOR"
     administrator true
     coach false
@@ -10,8 +9,7 @@ FactoryGirl.define do
 
   factory :coach, class: User do
     sequence(:uid) { |n| "COACH#{n}@FITBIRD.COM" }
-    provider "email"
-    sequence(:email) { |n| "COACH#{n}@FITBIRD.COM" }
+    provider "identity"
     name "COACH"
     administrator false
     coach true
@@ -19,8 +17,7 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:uid) { |n| "USER#{n}@FITBIRD.COM" }
-    provider "email"
-    sequence(:email) { |n| "USER#{n}@FITBIRD.COM" }
+    provider "identity"
     name "USER"
     administrator false
     coach false

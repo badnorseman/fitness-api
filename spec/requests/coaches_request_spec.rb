@@ -40,14 +40,4 @@ describe "Coach", type: :request do
       end
     end
   end
-
-  context "when unauthenticated" do
-    before do
-      get "/api/coaches.json"
-    end
-
-    it "should respond with status 401" do
-      expect(response.status).to eq 401
-    end
-  end
 end
