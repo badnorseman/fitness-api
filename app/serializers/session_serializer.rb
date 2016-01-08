@@ -10,6 +10,10 @@ class SessionSerializer < ActiveModel::Serializer
              :birth_date,
              :avatar
 
+  def email
+    Identity.where(id: object.uid).pluck(:email).first
+  end
+
   def avatar
     object.avatar.url(:small)
   end

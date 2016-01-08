@@ -7,7 +7,6 @@ identity = Identity.create(
 user = User.create(
     uid: identity.id,
     provider: "identity",
-    email: "agent.smith@matrix.com",
     administrator: true,
     coach: true,
     name: "Agent Smith"

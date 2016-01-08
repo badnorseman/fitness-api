@@ -2,7 +2,7 @@ describe Sale::CreateSaleTransaction do
   context "with valid payment method nonce" do
     it "should create transaction" do
       amount = rand(1..1899)
-      customer = create(:user)
+      customer_name = "CUSTOMER_NAME#{rand(1000)}"
       merchant_account_id = "fitbirdUSD"
       merchant_name = "MERCHANT_NAME#{rand(1000)}"
       payment_method_nonce = "fake-valid-nonce"
@@ -10,7 +10,7 @@ describe Sale::CreateSaleTransaction do
 
       transaction = Sale::CreateSaleTransaction.new(
         amount: amount,
-        customer: customer,
+        customer_name: customer_name,
         merchant_account_id: merchant_account_id,
         merchant_name: merchant_name,
         payment_method_nonce: payment_method_nonce,
@@ -23,7 +23,7 @@ describe Sale::CreateSaleTransaction do
   context "with consumed payment method nonce" do
     it "shouldn't create transaction" do
       amount = rand(3001..4000)
-      customer = create(:user)
+      customer_name = "CUSTOMER_NAME#{rand(1000)}"
       merchant_account_id = "fitbirdUSD"
       merchant_name = "MERCHANT_NAME#{rand(1000)}"
       payment_method_nonce = "fake-consumed-nonce"
@@ -31,7 +31,7 @@ describe Sale::CreateSaleTransaction do
 
       transaction = Sale::CreateSaleTransaction.new(
         amount: amount,
-        customer: customer,
+        customer_name: customer_name,
         merchant_account_id: merchant_account_id,
         merchant_name: merchant_name,
         payment_method_nonce: payment_method_nonce,
