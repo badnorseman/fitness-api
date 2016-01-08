@@ -1,16 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
-             :uid,
-             :email,
-             :administrator,
-             :coach,
              :name,
              :gender,
              :birth_date,
-             :avatar,
-             :can_update,
-             :can_delete
+             :avatar
 
   def avatar
     object.avatar.url(:small)
