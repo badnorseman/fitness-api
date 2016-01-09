@@ -9,5 +9,6 @@ user = User.create(
     provider: "identity",
     administrator: true,
     coach: true,
-    name: "Agent Smith"
+    name: "Agent Smith",
+    email: "agent.smith@matrix.com"
   )
