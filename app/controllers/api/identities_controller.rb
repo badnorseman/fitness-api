@@ -13,24 +13,23 @@ module Api
     # POST /identities/create.json
     # Send email with new password
     def create
-      @identity = Identity.find_by_email(identity_params.fetch(:email))
+      @identity = Identity.find_by_email(email)
       generated_password = SecureRandom.hex
 
-      if @identity.update(
+      if @identity && @identity.update(
         password: generated_password,
         password_confirmation: generated_password
       )
         UserMailer.new_password(@identity, generated_password).deliver_now
-        render json: @identity, status: :ok
-      else
-        render json: { errors: @identity.errors.full_messages }, status: :unprocessable_entity, location: nil
       end
+
+      head :no_content
     end
 
     # PUT /identities/update.json
     # Update email authentication
     def update
-      @identity = Identity.find(params.fetch(:id))
+      @identity = Identity.find(identity_id)
       authorize @identity
 
       if @identity.update(identity_params)
@@ -47,6 +46,14 @@ module Api
         permit(:email,
                :password,
                :password_confirmation)
+    end
+
+    def email
+      identity_params.fetch(:email)
+    end
+
+    def identity_id
+      params.fetch(:id)
     end
   end
 end
