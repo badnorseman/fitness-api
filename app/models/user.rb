@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  scope :data_for_listing, -> { select(:id, :uid, :administrator, :coach, :name, :gender, :birth_date) }
+  scope :data_for_listing, -> { select(:id, :uid, :administrator, :coach, :name, :email, :gender, :birth_date) }
 
   has_secure_token
   has_attached_file :avatar, styles: { small: "100x100>" }
@@ -46,7 +46,8 @@ class User < ActiveRecord::Base
     create! do |user|
       user.provider = auth.fetch("provider")
       user.uid = auth.fetch("uid")
-      user.name = auth.fetch("name")
+      user.email = auth.info.fetch("email")
+      user.name = auth.info.fetch("name")
     end
   end
 end

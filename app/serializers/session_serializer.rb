@@ -4,21 +4,22 @@ class SessionSerializer < ActiveModel::Serializer
              :administrator,
              :coach,
              :name,
+             :email,
              :gender,
              :birth_date,
              :avatar,
-             :email,
-             :identity_id
+             :identity_id,
+             :identity_email
 
   def avatar
     object.avatar.url(:small)
   end
 
-  def email
-    Identity.where(id: object.uid).pluck(:email).first
+  def identity_id
+    Identity.where(id: object.uid).pluck(:id).first rescue nil
   end
 
-  def identity_id
-    Identity.where(id: object.uid).pluck(:id).first
+  def identity_email
+    Identity.where(id: object.uid).pluck(:email).first rescue nil
   end
 end
