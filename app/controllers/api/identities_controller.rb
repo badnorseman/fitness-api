@@ -4,21 +4,23 @@ module Api
     skip_after_action :verify_authorized, only: [:new, :create]
 
     # POST /auth/identity/register.json
+    # Sign up with email authentication
     def new
       @identity = request.env.fetch("omniauth.identity") || Identity.new
       render json: @identity, location: nil
     end
 
-    # POST /identities/update.json
+    # POST /identities/create.json
+    # Send email with new password
     def create
       @identity = Identity.find_by_email(identity_params.fetch(:email))
-      auto_password = SecureRandom.hex
+      generated_password = SecureRandom.hex
 
       if @identity.update(
-        password: auto_password,
-        password_confirmation: auto_password
+        password: generated_password,
+        password_confirmation: generated_password
       )
-        UserMailer.new_password(@identity, auto_password).deliver_now
+        UserMailer.new_password(@identity, generated_password).deliver_now
         render json: @identity, status: :ok
       else
         render json: { errors: @identity.errors.full_messages }, status: :unprocessable_entity, location: nil
@@ -26,8 +28,9 @@ module Api
     end
 
     # PUT /identities/update.json
+    # Update email authentication
     def update
-      @identity = Identity.find_by_id(identity_params.fetch(:id))
+      @identity = Identity.find(params.fetch(:id))
       authorize @identity
 
       if @identity.update(identity_params)
@@ -41,8 +44,7 @@ module Api
 
     def identity_params
       params.require(:identity).
-        permit(:id,
-               :email,
+        permit(:email,
                :password,
                :password_confirmation)
     end

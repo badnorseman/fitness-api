@@ -22,7 +22,7 @@ module Api
 
     def auth_params
       auth_params = request.env.fetch("omniauth.auth")
-      auth_params["name"] = params.has_key?(:name) ? params.fetch(:name) : ""
+      auth_params.info["name"] = params.fetch(:name) if params.has_key?(:name)
       auth_params
     end
   end
