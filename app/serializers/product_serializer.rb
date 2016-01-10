@@ -6,11 +6,16 @@ class ProductSerializer < ActiveModel::Serializer
              :currency,
              :price,
              :image,
+             :coach_id,
              :can_update,
              :can_delete
 
   def image
     object.image.url(:small)
+  end
+
+  def coach_id
+    object.user_id
   end
 
   def can_update
