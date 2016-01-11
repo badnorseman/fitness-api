@@ -1,4 +1,4 @@
-class ClientSerializer < ActiveModel::Serializer
+class CustomerSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
              :name,

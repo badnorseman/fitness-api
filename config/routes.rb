@@ -12,10 +12,10 @@ Rails.application.routes.draw do
       post "confirm", to: "bookings#confirm", as: "confirm"
     end
     resources :bookings, only: [:index, :show, :create, :update, :destroy]
-    resources :clients, only: [:index]
     resources :coaches, only: [:index] do
       get "schedule", to: "coaches#schedule", as: "schedule"
     end
+    resources :customers, only: [:index]
     resources :exercise_plans, only: [:index, :show, :create, :update, :destroy]
     resources :exercise_plan_logs, only: [:index, :show, :create, :update, :destroy]
     resources :exercise_sessions, only: [:show, :create, :update, :destroy]
