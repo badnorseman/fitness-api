@@ -6,7 +6,10 @@ class TransactionSerializer < ActiveModel::Serializer
   attributes :id,
              :amount,
              :currency,
-             :date,
+             :customer,
+             :merchant,
+             :product,
+             :transaction_date,
              :transaction_id,
              :transaction_type,
              :can_update,
@@ -16,7 +19,19 @@ class TransactionSerializer < ActiveModel::Serializer
     helpers.number_with_delimiter(object.amount, delimiter: delimiter, separator: separator)
   end
 
-  def date
+  def customer
+    object.customer_name
+  end
+
+  def merchant
+    object.merchant_name
+  end
+
+  def product
+    object.product_name
+  end
+
+  def transaction_date
     object.created_at.to_formatted_s(:long_ordinal)
   end
 

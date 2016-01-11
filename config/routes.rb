@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :coaches, only: [:index] do
       get "schedule", to: "coaches#schedule", as: "schedule"
     end
+    resources :customers, only: [:index]
     resources :exercise_plans, only: [:index, :show, :create, :update, :destroy]
     resources :exercise_plan_logs, only: [:index, :show, :create, :update, :destroy]
     resources :exercise_sessions, only: [:show, :create, :update, :destroy]
