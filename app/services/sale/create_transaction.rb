@@ -26,7 +26,10 @@ module Sale
     def transaction_params
       { amount: @amount,
         currency: @currency,
+        customer_name: @user.name,
+        merchant_name: @product.user.name,
         product_id: @product.id,
+        product_name: @product.name,
         transaction_id: @sale_transaction.transaction_id,
         transaction_type: "SALE" }
     end
