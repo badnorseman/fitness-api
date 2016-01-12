@@ -8,7 +8,8 @@ describe "Session", type: :request do
       get(
         "/api/auth/identity/callback",
         { auth_key: identity.email,
-          password: identity.password })
+          password: identity.password,
+          name: "NAME#{rand(1000)}" })
     end
 
     it "should respond with status 200" do
@@ -31,7 +32,10 @@ describe "Session", type: :request do
   describe "log in with facebook" do
     before do
       OmniAuth.config.test_mode = true
-      OmniAuth.config.add_mock(:facebook, { uid: "1234" })
+      OmniAuth.config.add_mock(
+        :facebook, {
+          uid: "1234",
+            info: { email: "USER#{rand(1000)}@FITBIRD.COM" }})
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
 
       get("/api/auth/facebook/callback")

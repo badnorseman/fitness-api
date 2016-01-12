@@ -27,6 +27,7 @@ module Sale
       { amount: @amount,
         currency: @currency,
         customer_name: @user.name,
+        merchant_id: @product.user.id,
         merchant_name: @product.user.name,
         product_id: @product.id,
         product_name: @product.name,

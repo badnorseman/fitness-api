@@ -5,6 +5,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.integer    :amount,         null: false
       t.string     :currency,       null: false
       t.string     :customer_name
+      t.integer    :merchant_id
       t.string     :merchant_name
       t.integer    :product_id
       t.string     :product_name
@@ -13,6 +14,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :transactions, :merchant_id
     add_index :transactions, :product_id
     add_index :transactions, :transaction_id
     add_index :transactions, :transaction_type

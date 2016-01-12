@@ -8,7 +8,7 @@ describe Api::TransactionsController, type: :controller do
       product = create(:product)
       create_list(:transaction,
                   2,
-                  product: product.id,
+                  product_id: product.id,
                   user: user).first
       get(:index)
 

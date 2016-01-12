@@ -4,6 +4,8 @@ class UserPolicy < ApplicationPolicy
     def resolve
       if user.administrator?
         scope.all
+      elsif user.coach?
+        scope.joins(:transactions).where(transactions: {merchant_id: user.id})
       elsif user.present?
         scope.where(id: user.id)
       else
