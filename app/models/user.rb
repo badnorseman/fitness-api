@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   has_many :habit_descriptions, dependent: :destroy
   has_many :habit_descriptions, through: :habit_logs
   has_many :habit_logs, dependent: :destroy
-  has_many :payments
   has_many :payment_plans
   has_many :products, dependent: :destroy
   has_many :tags

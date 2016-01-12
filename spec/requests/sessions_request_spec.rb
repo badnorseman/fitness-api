@@ -31,7 +31,8 @@ describe "Session", type: :request do
   describe "log in with facebook" do
     before do
       OmniAuth.config.test_mode = true
-      OmniAuth.config.add_mock(:facebook, { uid: "1234" })
+      OmniAuth.config.add_mock(:facebook, {
+        uid: "1234", info: { email: "user@example.com" }})
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
 
       get("/api/auth/facebook/callback")
