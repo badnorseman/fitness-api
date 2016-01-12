@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20150930210305) do
     t.integer  "amount",           null: false
     t.string   "currency",         null: false
     t.string   "customer_name"
+    t.integer  "merchant_id"
     t.string   "merchant_name"
     t.integer  "product_id"
     t.string   "product_name"
@@ -347,6 +348,7 @@ ActiveRecord::Schema.define(version: 20150930210305) do
     t.datetime "updated_at"
   end
 
+  add_index "transactions", ["merchant_id"], name: "index_transactions_on_merchant_id", using: :btree
   add_index "transactions", ["product_id"], name: "index_transactions_on_product_id", using: :btree
   add_index "transactions", ["transaction_id"], name: "index_transactions_on_transaction_id", using: :btree
   add_index "transactions", ["transaction_type"], name: "index_transactions_on_transaction_type", using: :btree

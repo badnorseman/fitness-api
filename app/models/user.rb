@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :payment_plans
   has_many :products, dependent: :destroy
   has_many :tags
+  has_many :transactions
 
   # Validate attributes
   validates :uid,
