@@ -16,7 +16,11 @@ module Api
     # PUT /users/1.json
     def update
       if @user.update(user_params)
-        render json: @user, status: :ok
+        if @user.id = @current_user.id
+          render json: @user, serializer: SessionSerializer, status: :ok
+        else
+          render json: @user, status: :ok
+        end
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity, location: nil
       end
