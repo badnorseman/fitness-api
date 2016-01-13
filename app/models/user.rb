@@ -26,10 +26,6 @@ class User < ActiveRecord::Base
     content_type: { content_type: [/image\/jpeg/, /image\/png/] },
     file_name: { matches: [/jpeg/, /jpg/, /png/] }
 
-  def as_json(options={})
-    UserSerializer.new(self).as_json(options)
-  end
-
   def administrator?
     self.administrator
   end
