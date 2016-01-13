@@ -8,11 +8,21 @@ class UserSerializer < ActiveModel::Serializer
              :gender,
              :birth_date,
              :avatar,
+             :identity,
+             :products,
              :identity_id,
              :identity_email
 
   def avatar
     object.avatar.url(:small)
+  end
+
+  def identity
+    Identity.where(id: object.uid).select(:id, :email)
+  end
+
+  def products
+    object.transactions.select(:product_id)
   end
 
   def identity_id
