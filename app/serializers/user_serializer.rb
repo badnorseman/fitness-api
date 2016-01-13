@@ -8,8 +8,7 @@ class UserSerializer < ActiveModel::Serializer
              :gender,
              :birth_date,
              :avatar,
-             :products,
-             :identity_email
+             :products
 
   def avatar
     object.avatar.url(:small)
