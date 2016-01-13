@@ -8,29 +8,14 @@ class UserSerializer < ActiveModel::Serializer
              :gender,
              :birth_date,
              :avatar,
-             :identity,
-             :products,
-             :identity_id,
-             :identity_email
+             :products
 
   def avatar
     object.avatar.url(:small)
   end
 
-  def identity
-    Identity.where(id: object.uid).select(:id, :email)
-  end
-
   def products
     object.transactions.select(:product_id)
-  end
-
-  def identity_id
-    Identity.where(id: object.uid).pluck(:id).first rescue nil
-  end
-
-  def identity_email
-    Identity.where(id: object.uid).pluck(:email).first rescue nil
   end
 
   def can_update
