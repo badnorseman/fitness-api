@@ -9,7 +9,6 @@ class UserSerializer < ActiveModel::Serializer
              :birth_date,
              :avatar,
              :products,
-             :identity_id,
              :identity_email
 
   def avatar
