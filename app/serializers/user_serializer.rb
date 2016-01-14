@@ -8,14 +8,16 @@ class UserSerializer < ActiveModel::Serializer
              :gender,
              :birth_date,
              :avatar,
-             :products
+             :products,
+             :can_update,
+             :can_delete
 
   def avatar
     object.avatar.url(:small)
   end
 
   def products
-    object.transactions.select(:product_id)
+    object.transactions.select(:product_name)
   end
 
   def can_update

@@ -13,7 +13,9 @@ class ExerciseSerializer < ActiveModel::Serializer
              :tempo,
              :unilateral_loading,
              :unilateral_execution,
-             :exercise_description_id
+             :exercise_description_id,
+             :can_update,
+             :can_delete
 
   def load
    object.load

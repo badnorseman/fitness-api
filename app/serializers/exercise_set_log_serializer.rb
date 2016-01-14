@@ -4,7 +4,9 @@ class ExerciseSetLogSerializer < ActiveModel::Serializer
              :duration,
              :repetition,
              :rest,
-             :exercise_logs
+             :exercise_logs,
+             :can_update,
+             :can_delete
 
   def exercise_logs
     object.exercise_logs.map do |set_log|

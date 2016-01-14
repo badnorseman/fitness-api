@@ -3,9 +3,9 @@ class ExercisePlanSerializer < ActiveModel::Serializer
   attributes :id,
              :name,
              :description,
+             :exercise_sessions,
              :can_update,
-             :can_delete,
-             :exercise_sessions
+             :can_delete
 
   def exercise_sessions
     object.exercise_sessions.map do |session|

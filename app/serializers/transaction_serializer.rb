@@ -20,7 +20,7 @@ class TransactionSerializer < ActiveModel::Serializer
   end
 
   def customer
-    object.customer_name
+    User.exists?(object.user_id) ? object.user_id : object.customer_name
   end
 
   def merchant
@@ -28,7 +28,7 @@ class TransactionSerializer < ActiveModel::Serializer
   end
 
   def product
-    object.product_name
+    Product.exists?(object.product_id) ? object.product_id : object.product_name
   end
 
   def transaction_date
