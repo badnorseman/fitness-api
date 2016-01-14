@@ -2,7 +2,9 @@ class ExerciseSessionSerializer < ActiveModel::Serializer
   include Pundit
   attributes :id,
              :name,
-             :exercise_sets
+             :exercise_sets,
+             :can_update,
+             :can_delete
 
   def exercise_sets
     object.exercise_sets.map do |set|

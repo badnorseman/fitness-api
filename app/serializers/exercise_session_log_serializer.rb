@@ -3,7 +3,9 @@ class ExerciseSessionLogSerializer < ActiveModel::Serializer
   attributes :id,
              :started_at,
              :exercise_plan_log_id,
-             :exercise_set_logs
+             :exercise_set_logs,
+             :can_update,
+             :can_delete
 
   def exercise_set_logs
     object.exercise_set_logs.map do |set_log|

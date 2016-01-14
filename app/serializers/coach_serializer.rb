@@ -5,7 +5,9 @@ class CoachSerializer < ActiveModel::Serializer
              :email,
              :gender,
              :avatar,
-             :products
+             :products,
+             :can_update,
+             :can_delete
 
   def avatar
     object.avatar.url(:small)
@@ -13,6 +15,14 @@ class CoachSerializer < ActiveModel::Serializer
 
   def products
     object.products.select(:id)
+  end
+
+  def can_update
+    policy(object).update?
+  end
+
+  def can_delete
+    policy(object).destroy?
   end
 
   def pundit_user

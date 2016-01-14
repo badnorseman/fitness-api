@@ -3,7 +3,9 @@ class ExerciseSetSerializer < ActiveModel::Serializer
   attributes :id,
              :name,
              :duration,
-             :exercises
+             :exercises,
+             :can_update,
+             :can_delete
 
   def exercises
     object.exercises.map do |set|
