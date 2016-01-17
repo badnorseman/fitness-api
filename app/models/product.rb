@@ -1,7 +1,7 @@
 class Product < ActiveRecord::Base
   default_scope { where(ended_at: nil) }
 
-  has_attached_file :image, styles: { small: "320x160!" }
+  has_attached_file :image, styles: { thumb: "620x620>", normal: "1860x620!" }
 
   belongs_to :user
   has_many :habits, inverse_of: :product, dependent: :destroy

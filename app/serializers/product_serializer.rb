@@ -11,7 +11,7 @@ class ProductSerializer < ActiveModel::Serializer
              :can_delete
 
   def image
-    object.image.url(:small)
+    object.image.url(:normal)
   end
 
   def coach_id
