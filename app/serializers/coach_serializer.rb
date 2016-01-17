@@ -10,7 +10,7 @@ class CoachSerializer < ActiveModel::Serializer
              :can_delete
 
   def avatar
-    object.avatar.url(:small)
+    object.avatar.url(:thumb)
   end
 
   def products
