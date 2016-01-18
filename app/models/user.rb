@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   scope :data_for_listing, -> { select(:id, :uid, :administrator, :coach, :name, :email, :gender, :birth_date) }
 
   has_secure_token
-  has_attached_file :avatar, styles: { thumb: ["620x620>", :png], normal: ["1860x620!", :png] }
+  has_attached_file :avatar, styles: { thumb: "620x620>", normal: "1860x620!" }
 
   has_one  :location, dependent: :destroy
   has_many :availabilities, class_name: :Availability, foreign_key: :coach_id, dependent: :destroy
