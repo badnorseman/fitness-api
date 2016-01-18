@@ -13,7 +13,7 @@ class UserSerializer < ActiveModel::Serializer
              :can_delete
 
   def avatar
-    object.avatar.url(:thumb)
+    object.avatar.url(:normal)
   end
 
   def products

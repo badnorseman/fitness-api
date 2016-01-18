@@ -11,7 +11,7 @@ class SessionSerializer < ActiveModel::Serializer
              :login
 
   def avatar
-    object.avatar.url(:thumb)
+    object.avatar.url(:normal)
   end
 
   def login
